@@ -24,7 +24,7 @@ jobs:
           - targetos: darwin
             arch: arm64
     runs-on: ubuntu-latest
-    name: build quicksilver
+    name: build blackfury
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v4
@@ -44,21 +44,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-golang-
 
-      - name: Compile quicksilver
+      - name: Compile blackfury
         run: |
           make install
 
-      - name: Archive quicksilver binaries
+      - name: Archive blackfury binaries
         if: github.ref == 'refs/heads/develop'
         uses: actions/upload-artifact@v3
         with:
-          name: quicksilverd-${{ matrix.targetos }}-${{ matrix.arch }}
+          name: blackfuryd-${{ matrix.targetos }}-${{ matrix.arch }}
           path: |
-            ~/go/bin/quicksilverd*
+            ~/go/bin/blackfuryd*
 
   test:
     runs-on: ubuntu-latest
-    name: test quicksilver
+    name: test blackfury
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v4
@@ -78,7 +78,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-golang-test-
 
-      - name: test quicksilver
+      - name: test blackfury
         run: |
           make test-unit-cover
 
@@ -90,7 +90,7 @@ jobs:
           excludelist+=" $(find ./ -type f -path './test/*.go')"
           excludelist+=" $(find ./ -type f -path './osmosis-types/*.go')"
           for filename in ${excludelist}; do
-            filename=$(echo $filename | sed 's/^./github.com\/ingenuity-build\/quicksilver/g')
+            filename=$(echo $filename | sed 's/^./github.com\/ingenuity-build\/blackfury/g')
             echo "Excluding ${filename} from coverage report..."
             sed -i.bak "/$(echo $filename | sed 's/\//\\\//g')/d" coverage.txt
           done
@@ -111,7 +111,7 @@ jobs:
   simulate:
     if: contains(github.event.pull_request.labels.*.name, 'run-sim')
     runs-on: ubuntu-latest
-    name: simulate quicksilver
+    name: simulate blackfury
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3

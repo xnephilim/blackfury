@@ -128,7 +128,7 @@ service QuerySrvr {
   // Params returns the total set of minting parameters.
   rpc Queries(QueryRequestsRequest) returns (QueryRequestsResponse) {
     option (google.api.http).get =
-        "/quicksilver/interchainquery/v1/queries/{chain_id}";
+        "/blackfury/interchainquery/v1/queries/{chain_id}";
   }
 }
 ```
@@ -152,7 +152,7 @@ type QueryRequestsResponse struct {
 
 ## Keepers
 
-<https://pkg.go.dev/github.com/ingenuity-build/quicksilver/x/interchainquery/keeper>
+<https://pkg.go.dev/github.com/ingenuity-build/blackfury/x/interchainquery/keeper>
 
 ## Parameters
 

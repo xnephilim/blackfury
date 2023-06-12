@@ -5,7 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 
-	"github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
+	"github.com/ingenuity-build/blackfury/x/claimsmanager/types"
 )
 
 // GetTxCmd returns a root CLI command handler for all x/bank transaction commands.

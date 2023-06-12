@@ -8,10 +8,10 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	icqtypes "github.com/ingenuity-build/quicksilver/x/interchainquery/types"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/keeper"
-	icstypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	icqtypes "github.com/ingenuity-build/blackfury/x/interchainquery/types"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/keeper"
+	icstypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 type FuzzingTestSuite struct {
@@ -29,7 +29,7 @@ func FuzzZones(f *testing.F) {
 	suite.SetupTest()
 
 	suite.setupTestZones()
-	app := suite.GetQuicksilverApp(suite.chainA)
+	app := suite.GetBlackfuryApp(suite.chainA)
 	app.InterchainstakingKeeper.CallbackHandler().RegisterCallbacks()
 
 	seeds := []*icstypes.QueryZonesRequest{
@@ -57,14 +57,14 @@ func FuzzZones(f *testing.F) {
 	}
 
 	// 2. Now fuzz the code.
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	f.Fuzz(func(t *testing.T, reqBz []byte) {
 		switch str := string(reqBz); str {
 		// Manually skipping over known and reported vectors
 		// as we know they cause crashes.
-		case "\n\t\n\x01000 0(0", "\n\t\n\x03000 0(0": // https://github.com/ingenuity-build/quicksilver-incognito/issues/88
+		case "\n\t\n\x01000 0(0", "\n\t\n\x03000 0(0": // https://github.com/ingenuity-build/blackfury-incognito/issues/88
 			return
 		case "\n\t\n\x01K\x10\x0000(0", "\n\t\n\x030D0 0(0", "\n\t\n\x0301000(0":
 			return
@@ -74,7 +74,7 @@ func FuzzZones(f *testing.F) {
 		suite.SetT(new(testing.T))
 		suite.SetupTest()
 		suite.setupTestZones()
-		app := suite.GetQuicksilverApp(suite.chainA)
+		app := suite.GetBlackfuryApp(suite.chainA)
 		app.InterchainstakingKeeper.CallbackHandler().RegisterCallbacks()
 
 		req := new(icstypes.QueryZonesRequest)
@@ -141,9 +141,9 @@ func FuzzValsetCallback(f *testing.F) {
 
 	for _, valFunc := range valSetFuncs {
 		// 1.5. Set up a fresh test suite given that valFunc can mutate inputs.
-		chainBVals := suite.GetQuicksilverApp(suite.chainB).StakingKeeper.GetValidators(suite.chainB.GetContext(), 300)
+		chainBVals := suite.GetBlackfuryApp(suite.chainB).StakingKeeper.GetValidators(suite.chainB.GetContext(), 300)
 		queryRes := valFunc(chainBVals)
-		app := suite.GetQuicksilverApp(suite.chainA)
+		app := suite.GetBlackfuryApp(suite.chainA)
 		bz, err := app.AppCodec().Marshal(&queryRes)
 		suite.Require().NoError(err)
 		f.Add(bz)
@@ -157,7 +157,7 @@ func FuzzValsetCallback(f *testing.F) {
 }
 
 func (suite *FuzzingTestSuite) FuzzValsetCallback(args []byte) {
-	app := suite.GetQuicksilverApp(suite.chainA)
+	app := suite.GetBlackfuryApp(suite.chainA)
 	app.InterchainstakingKeeper.CallbackHandler().RegisterCallbacks()
 	ctx := suite.chainA.GetContext()
 

@@ -2,7 +2,7 @@
 
 ## Abstract
 
-The purpose of this module is to distribute QCK airdrops to users for engaging in activities related to newly onboarded zones.
+The purpose of this module is to distribute FURY airdrops to users for engaging in activities related to newly onboarded zones.
 
 **Objectives:**
 
@@ -85,8 +85,8 @@ const (
 	ActionDepositT4 Action = 4
 	// Deposit tier 5 (e.g. > 30% of base_value)
 	ActionDepositT5 Action = 5
-	// Active QCK delegation
-	ActionStakeQCK Action = 6
+	// Active FURY delegation
+	ActionStakeFURY Action = 6
 	// Intent is set
 	ActionSignalIntent Action = 7
 	// Cast governance vote on QS
@@ -104,7 +104,7 @@ var Action_name = map[int32]string{
 	3:  "ActionDepositT3",
 	4:  "ActionDepositT4",
 	5:  "ActionDepositT5",
-	6:  "ActionStakeQCK",
+	6:  "ActionStakeFURY",
 	7:  "ActionSignalIntent",
 	8:  "ActionQSGov",
 	9:  "ActionGbP",
@@ -118,7 +118,7 @@ var Action_value = map[string]int32{
 	"ActionDepositT3":    3,
 	"ActionDepositT4":    4,
 	"ActionDepositT5":    5,
-	"ActionStakeQCK":     6,
+	"ActionStakeFURY":     6,
 	"ActionSignalIntent": 7,
 	"ActionQSGov":        8,
 	"ActionGbP":          9,
@@ -220,7 +220,7 @@ Description of message types that trigger state transitions;
 service Msg {
   rpc Claim(MsgClaim) returns (MsgClaimResponse) {
     option (google.api.http) = {
-      post : "/quicksilver/tx/v1/airdrop/claim"
+      post : "/blackfury/tx/v1/airdrop/claim"
       body : "*"
     };
   }
@@ -256,7 +256,7 @@ Claim airdrop for the given action in the given zone.
 
 Example:
 
-`$ quicksilverd tx airdrop claim cosmoshub-4 ActionDelegateStake`
+`$ blackfuryd tx airdrop claim cosmoshub-4 ActionDelegateStake`
 
 ## Events
 
@@ -290,34 +290,34 @@ Description of available information request queries;
 service Query {
   // Params returns the total set of airdrop parameters.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/quicksilver/airdrop/v1/params";
+    option (google.api.http).get = "/blackfury/airdrop/v1/params";
   }
   // ZoneDrop returns the details of the specified zone airdrop.
   rpc ZoneDrop(QueryZoneDropRequest) returns (QueryZoneDropResponse) {
     option (google.api.http).get =
-        "/quicksilver/airdrop/v1/zonedrop/{chain_id}";
+        "/blackfury/airdrop/v1/zonedrop/{chain_id}";
   }
   // AccountBalance returns the module account balance of the specified zone.
   rpc AccountBalance(QueryAccountBalanceRequest)
       returns (QueryAccountBalanceResponse) {
     option (google.api.http).get =
-        "/quicksilver/airdrop/v1/accountbalance/{chain_id}";
+        "/blackfury/airdrop/v1/accountbalance/{chain_id}";
   }
   // ZoneDrops returns all zone airdrops of the specified status.
   rpc ZoneDrops(QueryZoneDropsRequest) returns (QueryZoneDropsResponse) {
-    option (google.api.http).get = "/quicksilver/airdrop/v1/zonedrops/{status}";
+    option (google.api.http).get = "/blackfury/airdrop/v1/zonedrops/{status}";
   }
   // ClaimRecord returns the claim record that corresponds to the given zone and
   // address.
   rpc ClaimRecord(QueryClaimRecordRequest) returns (QueryClaimRecordResponse) {
     option (google.api.http).get =
-        "/quicksilver/airdrop/v1/claimrecord/{chain_id}/{address}";
+        "/blackfury/airdrop/v1/claimrecord/{chain_id}/{address}";
   }
   // ClaimRecords returns all the claim records of the given zone.
   rpc ClaimRecords(QueryClaimRecordsRequest)
       returns (QueryClaimRecordsResponse) {
     option (google.api.http).get =
-        "/quicksilver/airdrop/v1/claimrecords/{chain_id}";
+        "/blackfury/airdrop/v1/claimrecords/{chain_id}";
   }
 }
 ```
@@ -393,7 +393,7 @@ type QueryZoneDropsRequest struct {
 	//  - Active
 	//  - Future
 	//  - Expired
-	Status     Status             `protobuf:"varint,1,opt,name=status,proto3,enum=quicksilver.airdrop.v1.Status" json:"status,omitempty"`
+	Status     Status             `protobuf:"varint,1,opt,name=status,proto3,enum=blackfury.airdrop.v1.Status" json:"status,omitempty"`
 	Pagination *query.PageRequest `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
@@ -426,7 +426,7 @@ type QueryClaimRecordResponse struct {
 
 ## Keepers
 
-<https://pkg.go.dev/github.com/ingenuity-build/quicksilver/x/airdrop/keeper>
+<https://pkg.go.dev/github.com/ingenuity-build/blackfury/x/airdrop/keeper>
 
 ## Parameters
 

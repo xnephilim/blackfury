@@ -1,7 +1,7 @@
 package keeper_test
 
 import (
-	"github.com/ingenuity-build/quicksilver/utils/randomutils"
+	"github.com/ingenuity-build/blackfury/utils/randomutils"
 )
 
 const (
@@ -12,7 +12,7 @@ func (suite *KeeperTestSuite) TestKeeper_RemoteAddressStore() {
 	suite.SetupTest()
 	suite.setupTestZones()
 
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	localAddress := randomutils.GenerateRandomBytes(28)
@@ -38,7 +38,7 @@ func (suite *KeeperTestSuite) TestKeeper_LocalAddressStore() {
 	suite.SetupTest()
 	suite.setupTestZones()
 
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	localAddress := randomutils.GenerateRandomBytes(28)
@@ -64,7 +64,7 @@ func (suite *KeeperTestSuite) TestKeeper_AddressMapPair() {
 	suite.SetupTest()
 	suite.setupTestZones()
 
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	localAddress := randomutils.GenerateRandomBytes(28)

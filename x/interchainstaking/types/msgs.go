@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/bech32"
 	"github.com/cosmos/cosmos-sdk/x/auth/migrations/legacytx"
 
-	"github.com/ingenuity-build/quicksilver/internal/multierror"
+	"github.com/ingenuity-build/blackfury/internal/multierror"
 )
 
 // interchainstaking message types.
@@ -231,7 +231,7 @@ func (msg MsgGovReopenChannel) GetSigners() []sdk.AccAddress {
 
 // check channel id is correct format. validate port name?
 func (msg MsgGovReopenChannel) ValidateBasic() error {
-	// validate the zone exists, and the format is valid (e.g. quickgaia-1.delegate)
+	// validate the zone exists, and the format is valid (e.g. blackgaia-1.delegate)
 	parts := strings.Split(msg.PortId, ".")
 	if len(parts) != 2 {
 		return errors.New("invalid port format")

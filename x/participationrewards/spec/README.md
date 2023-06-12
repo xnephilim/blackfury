@@ -27,7 +27,7 @@ The purpose of the participation rewards module is to reward users for protocol 
 
 Specifically, we want to reward users for:
 
-1. Staking and locking of QCK on the Quicksilver chain;
+1. Staking and locking of FURY on the Blackfury chain;
 2. Positive validator selection, validators are ranked equally on performance and decentralization;
 3. Holdings of off-chain assets (qAssets);
 
@@ -202,7 +202,7 @@ Description of message types that trigger state transitions;
 service Msg {
   rpc SubmitClaim(MsgSubmitClaim) returns (MsgSubmitClaimResponse) {
     option (google.api.http) = {
-      post : "/quicksilver/tx/v1/participationrewards/claim"
+      post : "/blackfury/tx/v1/participationrewards/claim"
       body : "*"
     };
   };
@@ -220,7 +220,7 @@ type MsgSubmitClaim struct {
 	UserAddress string          `protobuf:"bytes,1,opt,name=user_address,proto3" json:"user_address,omitempty"`
 	Zone        string          `protobuf:"bytes,2,opt,name=zone,proto3" json:"zone,omitempty"`
 	SrcZone     string          `protobuf:"bytes,3,opt,name=src_zone,proto3" json:"src_zone,omitempty"`
-	ClaimType   types.ClaimType `protobuf:"varint,4,opt,name=claim_type,proto3,enum=quicksilver.claimsmanager.v1.ClaimType" json:"claim_type,omitempty"`
+	ClaimType   types.ClaimType `protobuf:"varint,4,opt,name=claim_type,proto3,enum=blackfury.claimsmanager.v1.ClaimType" json:"claim_type,omitempty"`
 	Proofs      []*types.Proof  `protobuf:"bytes,5,rep,name=proofs,proto3" json:"proofs,omitempty"`
 }
 ```
@@ -254,7 +254,7 @@ The proposal details must be supplied via a JSON file.
 
 Example:
 
-`quicksilverd tx gov submit-proposal add-protocol-data <path/to/proposal.json> --from=<key_or_address>`
+`blackfuryd tx gov submit-proposal add-protocol-data <path/to/proposal.json> --from=<key_or_address>`
 
 Where proposal.json contains:
 
@@ -270,7 +270,7 @@ Where proposal.json contains:
 	"ibcToken": "27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2",
 	"localDenom": "uqatom"
   },
-  "deposit": "512000000uqck"
+  "deposit": "512000000ufury"
 }
 ```
 
@@ -294,13 +294,13 @@ service Query {
   // Params returns the total set of participation rewards parameters.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get =
-        "/quicksilver/participationrewards/v1/params";
+        "/blackfury/participationrewards/v1/params";
   }
 
   rpc ProtocolData(QueryProtocolDataRequest)
       returns (QueryProtocolDataResponse) {
     option (google.api.http).get =
-        "/quicksilver/participationrewards/v1/protocoldata/{type}/{key}";
+        "/blackfury/participationrewards/v1/protocoldata/{type}/{key}";
   }
 }
 ```
@@ -341,7 +341,7 @@ type QueryProtocolDataResponse struct {
 
 ## Keepers
 
-<https://pkg.go.dev/github.com/ingenuity-build/quicksilver/x/participationrewards/keeper>
+<https://pkg.go.dev/github.com/ingenuity-build/blackfury/x/participationrewards/keeper>
 
 ## Parameters
 
@@ -357,7 +357,7 @@ Description of parameters:
 
 * `validator_selection_allocation` - the percentage of inflation rewards allocated to validator selection rewards;
 * `holdings_allocation` - the percentage of inflation rewards allocated to qAssets hoildings rewards;
-* `lockup_allocation` - the percentage of inflation rewards allocated to staking and locking of QCK;
+* `lockup_allocation` - the percentage of inflation rewards allocated to staking and locking of FURY;
 
 ## Begin Block
 

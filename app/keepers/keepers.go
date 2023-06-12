@@ -58,27 +58,27 @@ import (
 	packetforwardtypes "github.com/strangelove-ventures/packet-forward-middleware/v5/router/types"
 	tmos "github.com/tendermint/tendermint/libs/os"
 
-	appconfig "github.com/ingenuity-build/quicksilver/cmd/config"
-	"github.com/ingenuity-build/quicksilver/utils"
-	"github.com/ingenuity-build/quicksilver/wasmbinding"
-	airdropkeeper "github.com/ingenuity-build/quicksilver/x/airdrop/keeper"
-	airdroptypes "github.com/ingenuity-build/quicksilver/x/airdrop/types"
-	claimsmanagerkeeper "github.com/ingenuity-build/quicksilver/x/claimsmanager/keeper"
-	claimsmanagertypes "github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
-	epochskeeper "github.com/ingenuity-build/quicksilver/x/epochs/keeper"
-	epochstypes "github.com/ingenuity-build/quicksilver/x/epochs/types"
-	interchainquerykeeper "github.com/ingenuity-build/quicksilver/x/interchainquery/keeper"
-	interchainquerytypes "github.com/ingenuity-build/quicksilver/x/interchainquery/types"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking"
-	interchainstakingkeeper "github.com/ingenuity-build/quicksilver/x/interchainstaking/keeper"
-	interchainstakingtypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
-	mintkeeper "github.com/ingenuity-build/quicksilver/x/mint/keeper"
-	minttypes "github.com/ingenuity-build/quicksilver/x/mint/types"
-	"github.com/ingenuity-build/quicksilver/x/participationrewards"
-	participationrewardskeeper "github.com/ingenuity-build/quicksilver/x/participationrewards/keeper"
-	participationrewardstypes "github.com/ingenuity-build/quicksilver/x/participationrewards/types"
-	tokenfactorykeeper "github.com/ingenuity-build/quicksilver/x/tokenfactory/keeper"
-	tokenfactorytypes "github.com/ingenuity-build/quicksilver/x/tokenfactory/types"
+	appconfig "github.com/ingenuity-build/blackfury/cmd/config"
+	"github.com/ingenuity-build/blackfury/utils"
+	"github.com/ingenuity-build/blackfury/wasmbinding"
+	airdropkeeper "github.com/ingenuity-build/blackfury/x/airdrop/keeper"
+	airdroptypes "github.com/ingenuity-build/blackfury/x/airdrop/types"
+	claimsmanagerkeeper "github.com/ingenuity-build/blackfury/x/claimsmanager/keeper"
+	claimsmanagertypes "github.com/ingenuity-build/blackfury/x/claimsmanager/types"
+	epochskeeper "github.com/ingenuity-build/blackfury/x/epochs/keeper"
+	epochstypes "github.com/ingenuity-build/blackfury/x/epochs/types"
+	interchainquerykeeper "github.com/ingenuity-build/blackfury/x/interchainquery/keeper"
+	interchainquerytypes "github.com/ingenuity-build/blackfury/x/interchainquery/types"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking"
+	interchainstakingkeeper "github.com/ingenuity-build/blackfury/x/interchainstaking/keeper"
+	interchainstakingtypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
+	mintkeeper "github.com/ingenuity-build/blackfury/x/mint/keeper"
+	minttypes "github.com/ingenuity-build/blackfury/x/mint/types"
+	"github.com/ingenuity-build/blackfury/x/participationrewards"
+	participationrewardskeeper "github.com/ingenuity-build/blackfury/x/participationrewards/keeper"
+	participationrewardstypes "github.com/ingenuity-build/blackfury/x/participationrewards/types"
+	tokenfactorykeeper "github.com/ingenuity-build/blackfury/x/tokenfactory/keeper"
+	tokenfactorytypes "github.com/ingenuity-build/blackfury/x/tokenfactory/types"
 )
 
 type AppKeepers struct {
@@ -107,7 +107,7 @@ type AppKeepers struct {
 	CrisisKeeper     crisiskeeper.Keeper
 	UpgradeKeeper    upgradekeeper.Keeper
 
-	// 		Quicksilver keepers
+	// 		Blackfury keepers
 	EpochsKeeper               epochskeeper.Keeper
 	MintKeeper                 mintkeeper.Keeper
 	ClaimsManagerKeeper        claimsmanagerkeeper.Keeper
@@ -433,7 +433,7 @@ func (appKeepers *AppKeepers) InitKeepers(
 		appKeepers.DistrKeeper,
 	)
 
-	// Quicksilver Keepers
+	// Blackfury Keepers
 	appKeepers.EpochsKeeper = epochskeeper.NewKeeper(appCodec, appKeepers.keys[epochstypes.StoreKey])
 	appKeepers.ParticipationRewardsKeeper.SetEpochsKeeper(appKeepers.EpochsKeeper)
 
@@ -567,7 +567,7 @@ func (appKeepers *AppKeepers) initParamsKeeper(appCodec codec.BinaryCodec, legac
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(packetforwardtypes.ModuleName).WithKeyTable(packetforwardtypes.ParamKeyTable())
-	// quicksilver subspaces
+	// blackfury subspaces
 	paramsKeeper.Subspace(claimsmanagertypes.ModuleName)
 	paramsKeeper.Subspace(minttypes.ModuleName)
 	paramsKeeper.Subspace(interchainstakingtypes.ModuleName)

@@ -47,7 +47,7 @@ source ${SCRIPT_DIR}/wallets.sh
 
 #############################################################################################################################
 
-docker-compose up --force-recreate -d quicksilver quicksilver2 quicksilver3 testzone1-1 testzone1-2 testzone1-3 testzone1-4
+docker-compose up --force-recreate -d blackfury blackfury2 blackfury3 testzone1-1 testzone1-2 testzone1-3 testzone1-4
 echo "Chains created"
 sleep 3
 echo "Restoring keys"
@@ -63,7 +63,7 @@ echo "Tranfer channel created"
 docker-compose up --force-recreate -d hermes
 RLY_ADDRESS_3=$($RLY_RUN keys show qstest-1 testkey)
 RLY_ADDRESS_4=$($RLY_RUN keys show lstest-1 testkey)
-$QS1_EXEC tx bank send val1 $RLY_ADDRESS_3 1000uqck --chain-id $CHAINID_0 -y --keyring-backend=test
+$QS1_EXEC tx bank send val1 $RLY_ADDRESS_3 1000ufury --chain-id $CHAINID_0 -y --keyring-backend=test
 $TZ1_1_EXEC tx bank send val2 $RLY_ADDRESS_4 1000uatom --chain-id $CHAINID_1 -y --keyring-backend=test
 
 docker-compose up --force-recreate -d relayer
@@ -76,12 +76,12 @@ ICQ_ADDRESS_2=$($ICQ_RUN keys add test --chain lstest-1 | jq .address -r)
 
 sleep 3
 
-$QS1_EXEC tx bank send val1 $ICQ_ADDRESS_1 1000uqck --chain-id $CHAINID_0 -y --keyring-backend=test
+$QS1_EXEC tx bank send val1 $ICQ_ADDRESS_1 1000ufury --chain-id $CHAINID_0 -y --keyring-backend=test
 $TZ1_1_EXEC tx bank send val2 $ICQ_ADDRESS_2 1000uatom --chain-id $CHAINID_1 -y --keyring-backend=test
 
 docker-compose up --force-recreate -d icq
 
-#echo "Register $CHAINID_1 on quicksilver..."
+#echo "Register $CHAINID_1 on blackfury..."
 cat $SCRIPT_DIR/registerzone.json | jq . -c | $QS1_EXEC tx gov submit-proposal /dev/fd/0 --from demowallet1 --chain-id $CHAINID_0 --gas 2000000 -y --keyring-backend=test
 sleep 3
 $QS1_EXEC tx gov vote 1 yes --from val1 --chain-id $CHAINID_0 -y --keyring-backend=test

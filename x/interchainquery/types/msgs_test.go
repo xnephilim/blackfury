@@ -9,10 +9,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/interchainquery/keeper"
-	"github.com/ingenuity-build/quicksilver/x/interchainquery/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/interchainquery/keeper"
+	"github.com/ingenuity-build/blackfury/x/interchainquery/types"
 )
 
 var (
@@ -28,13 +28,13 @@ func init() {
 	ibctesting.DefaultTestingAppInit = app.SetupTestingApp
 }
 
-func GetSimApp(chain *ibctesting.TestChain) *app.Quicksilver {
-	quicksilver, ok := chain.App.(*app.Quicksilver)
+func GetSimApp(chain *ibctesting.TestChain) *app.Blackfury {
+	blackfury, ok := chain.App.(*app.Blackfury)
 	if !ok {
-		panic("not quicksilver app")
+		panic("not blackfury app")
 	}
 
-	return quicksilver
+	return blackfury
 }
 
 func newSimAppPath(chainA, chainB *ibctesting.TestChain) *ibctesting.Path {

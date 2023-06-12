@@ -11,10 +11,10 @@ import (
 	"github.com/tendermint/tendermint/crypto/ed25519"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	cmdcfg "github.com/ingenuity-build/quicksilver/cmd/config"
-	"github.com/ingenuity-build/quicksilver/x/tokenfactory/keeper"
-	"github.com/ingenuity-build/quicksilver/x/tokenfactory/types"
+	"github.com/ingenuity-build/blackfury/app"
+	cmdcfg "github.com/ingenuity-build/blackfury/cmd/config"
+	"github.com/ingenuity-build/blackfury/x/tokenfactory/keeper"
+	"github.com/ingenuity-build/blackfury/x/tokenfactory/types"
 )
 
 var (
@@ -25,7 +25,7 @@ var (
 type KeeperTestSuite struct {
 	suite.Suite
 
-	App *app.Quicksilver
+	App *app.Blackfury
 	Ctx sdk.Context
 
 	queryClient types.QueryClient
@@ -40,7 +40,7 @@ type KeeperTestSuite struct {
 func (s *KeeperTestSuite) Setup() {
 	cmdcfg.SetBech32Prefixes(sdk.GetConfig())
 	s.App = app.Setup(s.T(), false)
-	s.Ctx = s.App.BaseApp.NewContext(false, tmproto.Header{Height: 1, ChainID: "quick-1", Time: time.Now().UTC()})
+	s.Ctx = s.App.BaseApp.NewContext(false, tmproto.Header{Height: 1, ChainID: "black-1", Time: time.Now().UTC()})
 	s.QueryHelper = &baseapp.QueryServiceTestHelper{
 		GRPCQueryRouter: s.App.GRPCQueryRouter(),
 		Ctx:             s.Ctx,
@@ -113,21 +113,21 @@ func (s *KeeperTestSuite) CreateDefaultDenom() {
 }
 
 func (s *KeeperTestSuite) TestCreateModuleAccount() {
-	quicksilver := s.App
+	blackfury := s.App
 
 	// remove module account
-	tokenfactoryModuleAccount := quicksilver.AccountKeeper.GetAccount(s.Ctx, quicksilver.AccountKeeper.GetModuleAddress(types.ModuleName))
-	quicksilver.AccountKeeper.RemoveAccount(s.Ctx, tokenfactoryModuleAccount)
+	tokenfactoryModuleAccount := blackfury.AccountKeeper.GetAccount(s.Ctx, blackfury.AccountKeeper.GetModuleAddress(types.ModuleName))
+	blackfury.AccountKeeper.RemoveAccount(s.Ctx, tokenfactoryModuleAccount)
 
 	// ensure module account was removed
-	s.Ctx = quicksilver.BaseApp.NewContext(false, tmproto.Header{})
-	tokenfactoryModuleAccount = quicksilver.AccountKeeper.GetAccount(s.Ctx, quicksilver.AccountKeeper.GetModuleAddress(types.ModuleName))
+	s.Ctx = blackfury.BaseApp.NewContext(false, tmproto.Header{})
+	tokenfactoryModuleAccount = blackfury.AccountKeeper.GetAccount(s.Ctx, blackfury.AccountKeeper.GetModuleAddress(types.ModuleName))
 	s.Require().Nil(tokenfactoryModuleAccount)
 
 	// create module account
-	quicksilver.TokenFactoryKeeper.CreateModuleAccount(s.Ctx)
+	blackfury.TokenFactoryKeeper.CreateModuleAccount(s.Ctx)
 
 	// check that the module account is now initialized
-	tokenfactoryModuleAccount = quicksilver.AccountKeeper.GetAccount(s.Ctx, quicksilver.AccountKeeper.GetModuleAddress(types.ModuleName))
+	tokenfactoryModuleAccount = blackfury.AccountKeeper.GetAccount(s.Ctx, blackfury.AccountKeeper.GetModuleAddress(types.ModuleName))
 	s.Require().NotNil(tokenfactoryModuleAccount)
 }

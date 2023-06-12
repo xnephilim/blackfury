@@ -7,14 +7,14 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/utils/randomutils"
-	icskeeper "github.com/ingenuity-build/quicksilver/x/interchainstaking/keeper"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/utils/randomutils"
+	icskeeper "github.com/ingenuity-build/blackfury/x/interchainstaking/keeper"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 func (suite *KeeperTestSuite) TestKeeper_Zones() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -76,7 +76,7 @@ func (suite *KeeperTestSuite) TestKeeper_Zones() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_ZoneValidators() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -138,7 +138,7 @@ func (suite *KeeperTestSuite) TestKeeper_ZoneValidators() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_DepositAccount() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -205,7 +205,7 @@ func (suite *KeeperTestSuite) TestKeeper_DepositAccount() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_DelegatorIntent() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -314,7 +314,7 @@ func (suite *KeeperTestSuite) TestKeeper_DelegatorIntent() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_Delegations() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -401,7 +401,7 @@ func (suite *KeeperTestSuite) TestKeeper_Delegations() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_Receipts() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -491,7 +491,7 @@ func (suite *KeeperTestSuite) TestKeeper_Receipts() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_ZoneWithdrawalRecords() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -525,7 +525,7 @@ func (suite *KeeperTestSuite) TestKeeper_ZoneWithdrawalRecords() {
 			func() {},
 			&types.QueryWithdrawalRecordsRequest{
 				ChainId:          suite.chainB.ChainID,
-				DelegatorAddress: "quick16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
+				DelegatorAddress: "black16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
 			},
 			false,
 			0,
@@ -551,7 +551,7 @@ func (suite *KeeperTestSuite) TestKeeper_ZoneWithdrawalRecords() {
 				icsKeeper.AddWithdrawalRecord(
 					ctx,
 					zone.ChainId,
-					"quick16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
+					"black16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
 					distribution,
 					testAddress,
 					sdk.NewCoins(sdk.NewCoin(zone.BaseDenom, math.NewInt(15000000))),
@@ -563,7 +563,7 @@ func (suite *KeeperTestSuite) TestKeeper_ZoneWithdrawalRecords() {
 			},
 			&types.QueryWithdrawalRecordsRequest{
 				ChainId:          suite.chainB.ChainID,
-				DelegatorAddress: "quick16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
+				DelegatorAddress: "black16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
 			},
 			false,
 			1,
@@ -596,7 +596,7 @@ func (suite *KeeperTestSuite) TestKeeper_ZoneWithdrawalRecords() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_WithdrawalRecords() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -644,7 +644,7 @@ func (suite *KeeperTestSuite) TestKeeper_WithdrawalRecords() {
 				icsKeeper.AddWithdrawalRecord(
 					ctx,
 					zone.ChainId,
-					"quick16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
+					"black16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
 					distribution,
 					testAddress,
 					sdk.NewCoins(sdk.NewCoin(zone.BaseDenom, math.NewInt(15000000))),
@@ -686,7 +686,7 @@ func (suite *KeeperTestSuite) TestKeeper_WithdrawalRecords() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_UnbondingRecords() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -761,7 +761,7 @@ func (suite *KeeperTestSuite) TestKeeper_UnbondingRecords() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_RedelegationRecords() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	tests := []struct {
@@ -836,7 +836,7 @@ func (suite *KeeperTestSuite) TestKeeper_RedelegationRecords() {
 }
 
 func (suite *KeeperTestSuite) TestKeeper_MappedAccounts() {
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	usrAddress1, _ := addressutils.AccAddressFromBech32("cosmos1vwh8mkgefn73vpsv7td68l3tynayck07engahn", "cosmos")
 	ctx := suite.chainA.GetContext()
 

@@ -39,10 +39,10 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/ingenuity-build/quicksilver/app/keepers"
-	"github.com/ingenuity-build/quicksilver/docs"
-	airdroptypes "github.com/ingenuity-build/quicksilver/x/airdrop/types"
-	interchainstakingtypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/app/keepers"
+	"github.com/ingenuity-build/blackfury/docs"
+	airdroptypes "github.com/ingenuity-build/blackfury/x/airdrop/types"
+	interchainstakingtypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 func Init() {
@@ -50,12 +50,12 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
-	DefaultNodeHome = filepath.Join(userHomeDir, ".quicksilverd")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".blackfuryd")
 }
 
 const (
 	// Name defines the application binary name.
-	Name = "quicksilverd"
+	Name = "blackfuryd"
 )
 
 var (
@@ -71,12 +71,12 @@ var (
 )
 
 var (
-	_ servertypes.Application = (*Quicksilver)(nil)
-	_ simapp.App              = (*Quicksilver)(nil)
+	_ servertypes.Application = (*Blackfury)(nil)
+	_ simapp.App              = (*Blackfury)(nil)
 )
 
-// Quicksilver implements an extended ABCI application.
-type Quicksilver struct {
+// Blackfury implements an extended ABCI application.
+type Blackfury struct {
 	*baseapp.BaseApp
 	keepers.AppKeepers
 
@@ -99,8 +99,8 @@ type Quicksilver struct {
 	tpsCounter *tpsCounter
 }
 
-// NewQuicksilver returns a reference to a new initialized Quicksilver application.
-func NewQuicksilver(
+// NewBlackfury returns a reference to a new initialized Blackfury application.
+func NewBlackfury(
 	logger log.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
@@ -114,7 +114,7 @@ func NewQuicksilver(
 	wasmOpts []wasm.Option,
 	mock bool,
 	baseAppOptions ...func(*baseapp.BaseApp),
-) *Quicksilver {
+) *Blackfury {
 	appCodec := encodingConfig.Marshaler
 	cdc := encodingConfig.Amino
 	interfaceRegistry := encodingConfig.InterfaceRegistry
@@ -131,7 +131,7 @@ func NewQuicksilver(
 	bApp.SetVersion(version.Version)
 	bApp.SetInterfaceRegistry(interfaceRegistry)
 
-	app := &Quicksilver{
+	app := &Blackfury{
 		BaseApp:           bApp,
 		cdc:               cdc,
 		appCodec:          appCodec,
@@ -234,11 +234,11 @@ func NewQuicksilver(
 }
 
 // Name returns the name of the App.
-func (app *Quicksilver) Name() string { return app.BaseApp.Name() }
+func (app *Blackfury) Name() string { return app.BaseApp.Name() }
 
 // BeginBlocker updates every begin block.
-func (app *Quicksilver) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
-	if ctx.ChainID() == "quicksilver-2" && ctx.BlockHeight() == 235001 {
+func (app *Blackfury) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+	if ctx.ChainID() == "blackfury-2" && ctx.BlockHeight() == 235001 {
 		zone, found := app.InterchainstakingKeeper.GetZone(ctx, "stargaze-1")
 		if !found {
 			panic("ERROR: unable to find expected stargaze-1 zone")
@@ -250,12 +250,12 @@ func (app *Quicksilver) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock
 }
 
 // EndBlocker updates every end block.
-func (app *Quicksilver) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *Blackfury) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.mm.EndBlock(ctx, req)
 }
 
 // DeliverTx calls BaseApp.DeliverTx and calculates transactions per second.
-func (app *Quicksilver) DeliverTx(req abci.RequestDeliverTx) (res abci.ResponseDeliverTx) {
+func (app *Blackfury) DeliverTx(req abci.RequestDeliverTx) (res abci.ResponseDeliverTx) {
 	defer func() {
 		// TODO: Record the count along with the code and or reason so as to display
 		// in the transactions per second live dashboards.
@@ -270,7 +270,7 @@ func (app *Quicksilver) DeliverTx(req abci.RequestDeliverTx) (res abci.ResponseD
 }
 
 // InitChainer updates at chain initialization.
-func (app *Quicksilver) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *Blackfury) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
 	if err := json.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
@@ -280,12 +280,12 @@ func (app *Quicksilver) InitChainer(ctx sdk.Context, req abci.RequestInitChain) 
 }
 
 // LoadHeight loads state at a particular height.
-func (app *Quicksilver) LoadHeight(height int64) error {
+func (app *Blackfury) LoadHeight(height int64) error {
 	return app.LoadVersion(height)
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
-func (app *Quicksilver) ModuleAccountAddrs() map[string]bool {
+func (app *Blackfury) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		modAccAddrs[authtypes.NewModuleAddress(acc).String()] = true
@@ -296,7 +296,7 @@ func (app *Quicksilver) ModuleAccountAddrs() map[string]bool {
 
 // BlockedAddrs returns all the app's module account addresses that are not
 // allowed to receive external tokens.
-func (app *Quicksilver) BlockedAddrs() map[string]bool {
+func (app *Blackfury) BlockedAddrs() map[string]bool {
 	blockedAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		blockedAddrs[authtypes.NewModuleAddress(acc).String()] = !allowedReceivingModAcc[acc]
@@ -305,43 +305,43 @@ func (app *Quicksilver) BlockedAddrs() map[string]bool {
 	return blockedAddrs
 }
 
-// LegacyAmino returns Quicksilver's amino codec.
+// LegacyAmino returns Blackfury's amino codec.
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *Quicksilver) LegacyAmino() *codec.LegacyAmino {
+func (app *Blackfury) LegacyAmino() *codec.LegacyAmino {
 	return app.cdc
 }
 
-// AppCodec returns Quicksilver's app codec.
+// AppCodec returns Blackfury's app codec.
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *Quicksilver) AppCodec() codec.Codec {
+func (app *Blackfury) AppCodec() codec.Codec {
 	return app.appCodec
 }
 
-// InterfaceRegistry returns Quicksilver's InterfaceRegistry.
-func (app *Quicksilver) InterfaceRegistry() types.InterfaceRegistry {
+// InterfaceRegistry returns Blackfury's InterfaceRegistry.
+func (app *Blackfury) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
 }
 
 // GetSubspace returns a param subspace for a given module name.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *Quicksilver) GetSubspace(moduleName string) paramstypes.Subspace {
+func (app *Blackfury) GetSubspace(moduleName string) paramstypes.Subspace {
 	subspace, _ := app.ParamsKeeper.GetSubspace(moduleName)
 	return subspace
 }
 
 // SimulationManager implements the SimulationApp interface.
-func (app *Quicksilver) SimulationManager() *module.SimulationManager {
+func (app *Blackfury) SimulationManager() *module.SimulationManager {
 	return app.sm
 }
 
 // RegisterAPIRoutes registers all application module routes with the provided
 // API server.
-func (app *Quicksilver) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
+func (app *Blackfury) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
 	clientCtx := apiSvr.ClientCtx
 
 	// Register new tx routes from grpc-gateway.
@@ -358,12 +358,12 @@ func (app *Quicksilver) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.A
 	}
 }
 
-func (app *Quicksilver) RegisterTxService(clientCtx client.Context) {
+func (app *Blackfury) RegisterTxService(clientCtx client.Context) {
 	authtx.RegisterTxService(app.BaseApp.GRPCQueryRouter(), clientCtx, app.BaseApp.Simulate, app.interfaceRegistry)
 }
 
 // RegisterTendermintService implements the Application.RegisterTendermintService method.
-func (app *Quicksilver) RegisterTendermintService(clientCtx client.Context) {
+func (app *Blackfury) RegisterTendermintService(clientCtx client.Context) {
 	tmservice.RegisterTendermintService(
 		clientCtx,
 		app.BaseApp.GRPCQueryRouter(),
@@ -375,27 +375,27 @@ func (app *Quicksilver) RegisterTendermintService(clientCtx client.Context) {
 // IBC Go TestingApp functions
 
 // GetBaseApp implements the TestingApp interface.
-func (app *Quicksilver) GetBaseApp() *baseapp.BaseApp {
+func (app *Blackfury) GetBaseApp() *baseapp.BaseApp {
 	return app.BaseApp
 }
 
 // GetStakingKeeper implements the TestingApp interface.
-func (app *Quicksilver) GetStakingKeeper() ibctestingtypes.StakingKeeper {
+func (app *Blackfury) GetStakingKeeper() ibctestingtypes.StakingKeeper {
 	return app.StakingKeeper
 }
 
 // GetIBCKeeper implements the TestingApp interface.
-func (app *Quicksilver) GetIBCKeeper() *ibckeeper.Keeper {
+func (app *Blackfury) GetIBCKeeper() *ibckeeper.Keeper {
 	return app.IBCKeeper
 }
 
 // GetScopedIBCKeeper implements the TestingApp interface.
-func (app *Quicksilver) GetScopedIBCKeeper() capabilitykeeper.ScopedKeeper {
+func (app *Blackfury) GetScopedIBCKeeper() capabilitykeeper.ScopedKeeper {
 	return app.ScopedIBCKeeper
 }
 
 // GetTxConfig implements the TestingApp interface.
-func (app *Quicksilver) GetTxConfig() client.TxConfig {
+func (app *Blackfury) GetTxConfig() client.TxConfig {
 	cfg := MakeEncodingConfig()
 	return cfg.TxConfig
 }

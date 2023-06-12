@@ -6,17 +6,17 @@ import (
 	staking "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/tendermint/tendermint/proto/tendermint/crypto"
 
-	minttypes "github.com/ingenuity-build/quicksilver/x/mint/types"
+	minttypes "github.com/ingenuity-build/blackfury/x/mint/types"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/airdrop/keeper"
-	"github.com/ingenuity-build/quicksilver/x/airdrop/types"
-	cmtypes "github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
-	icstypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/airdrop/keeper"
+	"github.com/ingenuity-build/blackfury/x/airdrop/types"
+	cmtypes "github.com/ingenuity-build/blackfury/x/claimsmanager/types"
+	icstypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 func (s *KeeperTestSuite) Test_msgServer_Claim() {
-	appA := s.GetQuicksilverApp(s.chainA)
+	appA := s.GetBlackfuryApp(s.chainA)
 
 	userAddress := addressutils.GenerateAccAddressForTest().String()
 	denom := "uatom" // same as test zone setup in keeper_test
@@ -238,7 +238,7 @@ func (s *KeeperTestSuite) Test_msgServer_Claim() {
 
 				msg = types.MsgClaim{
 					ChainId: s.chainB.ChainID,
-					Action:  int64(types.ActionStakeQCK),
+					Action:  int64(types.ActionStakeFURY),
 					Address: userAddress,
 					Proofs:  nil,
 				}
@@ -267,7 +267,7 @@ func (s *KeeperTestSuite) Test_msgServer_Claim() {
 
 				msg = types.MsgClaim{
 					ChainId: s.chainB.ChainID,
-					Action:  int64(types.ActionStakeQCK),
+					Action:  int64(types.ActionStakeFURY),
 					Address: userAddress,
 					Proofs:  nil,
 				}
@@ -489,7 +489,7 @@ func (s *KeeperTestSuite) Test_msgServer_Claim() {
 }
 
 func (s *KeeperTestSuite) Test_msgServer_IncentivePoolSpend() {
-	appA := s.GetQuicksilverApp(s.chainA)
+	appA := s.GetBlackfuryApp(s.chainA)
 
 	modAccAddr := "cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn"
 	userAddress := addressutils.GenerateAccAddressForTest().String()

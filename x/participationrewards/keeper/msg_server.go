@@ -7,7 +7,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/x/participationrewards/types"
+	"github.com/ingenuity-build/blackfury/x/participationrewards/types"
 )
 
 type msgServer struct {
@@ -60,7 +60,7 @@ func (k msgServer) SubmitClaim(goCtx context.Context, msg *types.MsgSubmitClaim)
 			)
 		}
 
-		// if we are claiming against Quicksilver, use the SelfProofOpsFn.
+		// if we are claiming against Blackfury, use the SelfProofOpsFn.
 		if msg.SrcZone == ctx.ChainID() {
 			if err := k.ValidateSelfProofOps(
 				ctx,

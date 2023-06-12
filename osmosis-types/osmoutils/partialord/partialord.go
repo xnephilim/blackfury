@@ -3,7 +3,7 @@ package partialord
 import (
 	"sort"
 
-	"github.com/ingenuity-build/quicksilver/osmosis-types/osmoutils/partialord/internal/dag"
+	"github.com/ingenuity-build/blackfury/osmosis-types/osmoutils/partialord/internal/dag"
 )
 
 type PartialOrdering struct {

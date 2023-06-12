@@ -8,10 +8,10 @@ import (
 	ibctesting "github.com/cosmos/ibc-go/v5/testing"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/x/interchainquery"
-	"github.com/ingenuity-build/quicksilver/x/interchainquery/keeper"
-	"github.com/ingenuity-build/quicksilver/x/interchainquery/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/x/interchainquery"
+	"github.com/ingenuity-build/blackfury/x/interchainquery/keeper"
+	"github.com/ingenuity-build/blackfury/x/interchainquery/types"
 )
 
 func init() {
@@ -32,13 +32,13 @@ type InterChainQueryTestSuite struct {
 	path   *ibctesting.Path
 }
 
-func (s *InterChainQueryTestSuite) GetSimApp(chain *ibctesting.TestChain) *app.Quicksilver {
-	quicksilver, ok := chain.App.(*app.Quicksilver)
+func (s *InterChainQueryTestSuite) GetSimApp(chain *ibctesting.TestChain) *app.Blackfury {
+	blackfury, ok := chain.App.(*app.Blackfury)
 	if !ok {
-		panic("not quicksilver app")
+		panic("not blackfury app")
 	}
 
-	return quicksilver
+	return blackfury
 }
 
 func (s *InterChainQueryTestSuite) SetupTest() {

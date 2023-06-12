@@ -1,4 +1,4 @@
-name: simulate quicksilver
+name: simulate blackfury
 
 on:
   schedule:

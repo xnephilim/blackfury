@@ -10,9 +10,9 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/x/interchainquery/keeper"
-	icqtypes "github.com/ingenuity-build/quicksilver/x/interchainquery/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/x/interchainquery/keeper"
+	icqtypes "github.com/ingenuity-build/blackfury/x/interchainquery/types"
 )
 
 const TestOwnerAddress = "cosmos17dtl0mjt3t77kpuhg2edqzjpszulwhgzuj9ljs"
@@ -35,13 +35,13 @@ type KeeperTestSuite struct {
 	path   *ibctesting.Path
 }
 
-func (s *KeeperTestSuite) GetSimApp(chain *ibctesting.TestChain) *app.Quicksilver {
-	quicksilver, ok := chain.App.(*app.Quicksilver)
+func (s *KeeperTestSuite) GetSimApp(chain *ibctesting.TestChain) *app.Blackfury {
+	blackfury, ok := chain.App.(*app.Blackfury)
 	if !ok {
-		panic("not quicksilver app")
+		panic("not blackfury app")
 	}
 
-	return quicksilver
+	return blackfury
 }
 
 func (s *KeeperTestSuite) SetupTest() {

@@ -7,9 +7,9 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	icskeeper "github.com/ingenuity-build/quicksilver/x/interchainstaking/keeper"
-	icstypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	icskeeper "github.com/ingenuity-build/blackfury/x/interchainstaking/keeper"
+	icstypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 func (suite *KeeperTestSuite) TestRequestRedemption() {
@@ -49,10 +49,10 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 					FromAddress:        testAddress,
 				}
 
-				zone, found := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
+				zone, found := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 				suite.Require().True(found)
 				zone.RedemptionRate = sdk.MustNewDecFromStr("0.95")
-				suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
+				suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
 			},
 			"",
 			"",
@@ -68,11 +68,11 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 					FromAddress:        testAddress,
 				}
 
-				zone, found := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
+				zone, found := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 				suite.Require().True(found)
 				zone.LastRedemptionRate = sdk.MustNewDecFromStr("1.05")
 				zone.RedemptionRate = sdk.MustNewDecFromStr("1.1")
-				suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
+				suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
 			},
 			"",
 			"",
@@ -88,11 +88,11 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 					FromAddress:        testAddress,
 				}
 
-				zone, found := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
+				zone, found := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 				suite.Require().True(found)
 				zone.LastRedemptionRate = sdk.MustNewDecFromStr("1.1")
 				zone.RedemptionRate = sdk.MustNewDecFromStr("1.05")
-				suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
+				suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
 			},
 			"",
 			"",
@@ -122,10 +122,10 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 					FromAddress:        testAddress,
 				}
 
-				zone, found := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
+				zone, found := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 				suite.Require().True(found)
 				zone.RedemptionRate = sdk.MustNewDecFromStr("0.99999")
-				suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
+				suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
 			},
 			"",
 			"",
@@ -141,11 +141,11 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 					FromAddress:        testAddress,
 				}
 
-				zone, found := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
+				zone, found := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 				suite.Require().True(found)
 				zone.LastRedemptionRate = sdk.MustNewDecFromStr("1.049999")
 				zone.RedemptionRate = sdk.MustNewDecFromStr("1.099999")
-				suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
+				suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
 			},
 			"",
 			"",
@@ -161,10 +161,10 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 					FromAddress:        testAddress,
 				}
 
-				zone, found := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
+				zone, found := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 				suite.Require().True(found)
 				zone.UnbondingEnabled = false
-				suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
+				suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zone)
 			},
 			"unbonding currently disabled for zone testchain2",
 			"unbonding currently disabled for zone testchain2",
@@ -237,8 +237,8 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 				}
 
 				ctx := suite.chainA.GetContext()
-				zoneVals := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetValidatorAddresses(ctx, suite.chainB.ChainID)
-				suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetRedelegationRecord(ctx, icstypes.RedelegationRecord{
+				zoneVals := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetValidatorAddresses(ctx, suite.chainB.ChainID)
+				suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetRedelegationRecord(ctx, icstypes.RedelegationRecord{
 					ChainId:        suite.chainB.ChainID,
 					EpochNumber:    1,
 					Source:         zoneVals[0],
@@ -262,25 +262,25 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 
 			ctx := suite.chainA.GetContext()
 
-			params := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetParams(ctx)
+			params := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetParams(ctx)
 			params.UnbondingEnabled = true
-			suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetParams(ctx, params)
+			suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetParams(ctx, params)
 
-			err := suite.GetQuicksilverApp(suite.chainA).BankKeeper.MintCoins(ctx, icstypes.ModuleName, sdk.NewCoins(sdk.NewCoin("uqatom", math.NewInt(10000000))))
+			err := suite.GetBlackfuryApp(suite.chainA).BankKeeper.MintCoins(ctx, icstypes.ModuleName, sdk.NewCoins(sdk.NewCoin("uqatom", math.NewInt(10000000))))
 			suite.Require().NoError(err)
-			err = suite.GetQuicksilverApp(suite.chainA).BankKeeper.SendCoinsFromModuleToAccount(ctx, icstypes.ModuleName, testAccount, sdk.NewCoins(sdk.NewCoin("uqatom", math.NewInt(10000000))))
+			err = suite.GetBlackfuryApp(suite.chainA).BankKeeper.SendCoinsFromModuleToAccount(ctx, icstypes.ModuleName, testAccount, sdk.NewCoins(sdk.NewCoin("uqatom", math.NewInt(10000000))))
 			suite.Require().NoError(err)
 
 			// disable LSM
-			zone, found := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+			zone, found := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 			suite.Require().True(found)
 			zone.LiquidityModule = false
 			zone.UnbondingEnabled = true
-			suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetZone(ctx, &zone)
+			suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetZone(ctx, &zone)
 
 			tt.malleate()
 
-			msgSrv := icskeeper.NewMsgServerImpl(suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper)
+			msgSrv := icskeeper.NewMsgServerImpl(suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper)
 			res, err := msgSrv.RequestRedemption(sdk.WrapSDKContext(suite.chainA.GetContext()), &msg)
 
 			if tt.expectErr != "" {
@@ -301,23 +301,23 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 
 			ctx := suite.chainA.GetContext()
 
-			params := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetParams(ctx)
+			params := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetParams(ctx)
 			params.UnbondingEnabled = true
-			suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetParams(ctx, params)
+			suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetParams(ctx, params)
 
-			err := suite.GetQuicksilverApp(suite.chainA).BankKeeper.MintCoins(ctx, icstypes.ModuleName, sdk.NewCoins(sdk.NewCoin("uqatom", math.NewInt(10000000))))
+			err := suite.GetBlackfuryApp(suite.chainA).BankKeeper.MintCoins(ctx, icstypes.ModuleName, sdk.NewCoins(sdk.NewCoin("uqatom", math.NewInt(10000000))))
 			suite.Require().NoError(err)
-			err = suite.GetQuicksilverApp(suite.chainA).BankKeeper.SendCoinsFromModuleToAccount(ctx, icstypes.ModuleName, testAccount, sdk.NewCoins(sdk.NewCoin("uqatom", math.NewInt(10000000))))
+			err = suite.GetBlackfuryApp(suite.chainA).BankKeeper.SendCoinsFromModuleToAccount(ctx, icstypes.ModuleName, testAccount, sdk.NewCoins(sdk.NewCoin("uqatom", math.NewInt(10000000))))
 			suite.Require().NoError(err)
 
 			// enable LSM
-			zone, found := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+			zone, found := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 			suite.Require().True(found)
 			zone.LiquidityModule = true
 			zone.UnbondingEnabled = true
-			suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetZone(ctx, &zone)
+			suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetZone(ctx, &zone)
 
-			validators := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetValidatorAddresses(ctx, suite.chainB.ChainID)
+			validators := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetValidatorAddresses(ctx, suite.chainB.ChainID)
 			for _, delegation := range func(zone icstypes.Zone) []icstypes.Delegation {
 				out := make([]icstypes.Delegation, 0)
 				for _, valoper := range validators {
@@ -325,12 +325,12 @@ func (suite *KeeperTestSuite) TestRequestRedemption() {
 				}
 				return out
 			}(zone) {
-				suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetDelegation(ctx, &zone, delegation)
+				suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetDelegation(ctx, &zone, delegation)
 			}
 
 			tt.malleate()
 
-			msgSrv := icskeeper.NewMsgServerImpl(suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper)
+			msgSrv := icskeeper.NewMsgServerImpl(suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper)
 			res, err := msgSrv.RequestRedemption(sdk.WrapSDKContext(suite.chainA.GetContext()), &msg)
 
 			if tt.expectErrLsm != "" {
@@ -461,7 +461,7 @@ func (suite *KeeperTestSuite) TestSignalIntent() {
 			}
 			suite.Require().NoError(err)
 
-			msgSrv := icskeeper.NewMsgServerImpl(suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper)
+			msgSrv := icskeeper.NewMsgServerImpl(suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper)
 			res, err := msgSrv.SignalIntent(sdk.WrapSDKContext(suite.chainA.GetContext()), msg)
 			if tt.expectErr {
 				suite.Require().Error(err)
@@ -471,8 +471,8 @@ func (suite *KeeperTestSuite) TestSignalIntent() {
 				suite.Require().NotNil(res)
 			}
 
-			quicksilver := suite.GetQuicksilverApp(suite.chainA)
-			icsKeeper := quicksilver.InterchainstakingKeeper
+			blackfury := suite.GetBlackfuryApp(suite.chainA)
+			icsKeeper := blackfury.InterchainstakingKeeper
 			zone, found := icsKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 			suite.Require().True(found)
 

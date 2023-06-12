@@ -24,10 +24,10 @@ import (
 	"github.com/tendermint/tendermint/crypto/tmhash"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"github.com/ingenuity-build/quicksilver/utils"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	icqtypes "github.com/ingenuity-build/quicksilver/x/interchainquery/types"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/utils"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	icqtypes "github.com/ingenuity-build/blackfury/x/interchainquery/types"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 // ___________________________________________________________________________________________________
@@ -466,7 +466,7 @@ func AccountBalanceCallback(k *Keeper, ctx sdk.Context, args []byte, query icqty
 		return fmt.Errorf("no registered zone for chain id: %s", query.GetChainId())
 	}
 	// strip the BalancesPrefix from the request key, as AddressFromBalancesStore expects this to be removed
-	// by the prefixIterator. query.Request is a value that Quicksilver always sets, and is not user generated,
+	// by the prefixIterator. query.Request is a value that Blackfury always sets, and is not user generated,
 	// but lets us be safe here :)
 	if len(query.Request) < 2 {
 		k.Logger(ctx).Error("unable to unmarshal balance request", "zone", zone.ChainId, "error", "request length is too short")
@@ -488,7 +488,7 @@ func AccountBalanceCallback(k *Keeper, ctx sdk.Context, args []byte, query icqty
 	}
 
 	// Ensure that the coin is valid.
-	// Please see https://github.com/ingenuity-build/quicksilver-incognito/issues/80
+	// Please see https://github.com/ingenuity-build/blackfury-incognito/issues/80
 	if err := coin.Validate(); err != nil {
 		k.Logger(ctx).Error("invalid coin for zone", "zone", zone.ChainId, "err", err)
 		return err
@@ -509,7 +509,7 @@ func DelegationAccountBalanceCallback(k *Keeper, ctx sdk.Context, args []byte, q
 		return fmt.Errorf("no registered zone for chain id: %s", query.GetChainId())
 	}
 	// strip the BalancesPrefix from the request key, as AddressFromBalancesStore expects this to be removed
-	// by the prefixIterator. query.Request is a value that Quicksilver always sets, and is not user generated,
+	// by the prefixIterator. query.Request is a value that Blackfury always sets, and is not user generated,
 	// but lets us be safe here :)
 	if len(query.Request) < 2 {
 		k.Logger(ctx).Error("unable to unmarshal balance request", "zone", zone.ChainId, "error", "request length is too short")
@@ -531,7 +531,7 @@ func DelegationAccountBalanceCallback(k *Keeper, ctx sdk.Context, args []byte, q
 	}
 
 	// Ensure that the coin is valid.
-	// Please see https://github.com/ingenuity-build/quicksilver-incognito/issues/80
+	// Please see https://github.com/ingenuity-build/blackfury-incognito/issues/80
 	if err := coin.Validate(); err != nil {
 		k.Logger(ctx).Debug("invalid coin for zone", "zone", zone.ChainId, "err", err)
 		return err
@@ -551,7 +551,7 @@ func DelegationAccountBalanceCallback(k *Keeper, ctx sdk.Context, args []byte, q
 
 func AllBalancesCallback(k *Keeper, ctx sdk.Context, args []byte, query icqtypes.Query) error {
 	balanceQuery := banktypes.QueryAllBalancesRequest{}
-	// this shouldn't happen because query.Request comes from Quicksilver
+	// this shouldn't happen because query.Request comes from Blackfury
 	if len(query.Request) == 0 {
 		return errors.New("attempted to unmarshal zero length byte slice (7)")
 	}

@@ -3,11 +3,11 @@ package keeper_test
 import (
 	"context"
 
-	"github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
+	"github.com/ingenuity-build/blackfury/x/claimsmanager/types"
 )
 
 func (s *KeeperTestSuite) TestKeeper_Queries() {
-	k := s.GetQuicksilverApp(s.chainA).ClaimsManagerKeeper
+	k := s.GetBlackfuryApp(s.chainA).ClaimsManagerKeeper
 
 	// now that we have a kepper set the chainID of chainB
 	testClaims[0].ChainId = s.chainB.ChainID

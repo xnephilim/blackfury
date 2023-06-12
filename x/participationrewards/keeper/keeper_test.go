@@ -17,13 +17,13 @@ import (
 	tmclienttypes "github.com/cosmos/ibc-go/v5/modules/light-clients/07-tendermint/types"
 	ibctesting "github.com/cosmos/ibc-go/v5/testing"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	cmtypes "github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
-	epochtypes "github.com/ingenuity-build/quicksilver/x/epochs/types"
-	ics "github.com/ingenuity-build/quicksilver/x/interchainstaking"
-	icstypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
-	"github.com/ingenuity-build/quicksilver/x/participationrewards/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	cmtypes "github.com/ingenuity-build/blackfury/x/claimsmanager/types"
+	epochtypes "github.com/ingenuity-build/blackfury/x/epochs/types"
+	ics "github.com/ingenuity-build/blackfury/x/interchainstaking"
+	icstypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/x/participationrewards/types"
 )
 
 var testAddress = addressutils.GenerateAddressForTestWithPrefix("cosmos")
@@ -37,7 +37,7 @@ func TestKeeperTestSuite(t *testing.T) {
 	testsuite.Run(t, new(KeeperTestSuite))
 }
 
-func newQuicksilverPath(chainA, chainB *ibctesting.TestChain) *ibctesting.Path {
+func newBlackfuryPath(chainA, chainB *ibctesting.TestChain) *ibctesting.Path {
 	path := ibctesting.NewPath(chainA, chainB)
 	path.EndpointA.ChannelConfig.PortID = ibctesting.TransferPort
 	path.EndpointB.ChannelConfig.PortID = ibctesting.TransferPort
@@ -57,13 +57,13 @@ type KeeperTestSuite struct {
 	path *ibctesting.Path
 }
 
-func (suite *KeeperTestSuite) GetQuicksilverApp(chain *ibctesting.TestChain) *app.Quicksilver {
-	quicksilver, ok := chain.App.(*app.Quicksilver)
+func (suite *KeeperTestSuite) GetBlackfuryApp(chain *ibctesting.TestChain) *app.Blackfury {
+	blackfury, ok := chain.App.(*app.Blackfury)
 	if !ok {
-		panic("not quicksilver app")
+		panic("not blackfury app")
 	}
 
-	return quicksilver
+	return blackfury
 }
 
 // SetupTest creates a coordinator with 2 test chains.
@@ -72,7 +72,7 @@ func (suite *KeeperTestSuite) SetupTest() {
 	suite.chainA = suite.coordinator.GetChain(ibctesting.GetChainID(1)) // convenience and readability
 	suite.chainB = suite.coordinator.GetChain(ibctesting.GetChainID(2)) // convenience and readability
 
-	suite.path = newQuicksilverPath(suite.chainA, suite.chainB)
+	suite.path = newBlackfuryPath(suite.chainA, suite.chainB)
 	suite.coordinator.SetupConnections(suite.path)
 
 	suite.coordinator.CurrentTime = time.Now().UTC()
@@ -82,18 +82,18 @@ func (suite *KeeperTestSuite) SetupTest() {
 }
 
 func (suite *KeeperTestSuite) coreTest() {
-	quicksilver := suite.GetQuicksilverApp(suite.chainA)
+	blackfury := suite.GetBlackfuryApp(suite.chainA)
 
 	suite.setupTestZones()
 
 	// test ProtocolData
-	akpd := quicksilver.ParticipationRewardsKeeper.AllKeyedProtocolDatas(suite.chainA.GetContext())
+	akpd := blackfury.ParticipationRewardsKeeper.AllKeyedProtocolDatas(suite.chainA.GetContext())
 	// initially we expect one - the 'local' chain
 	suite.Require().Equal(1, len(akpd))
 
 	suite.setupTestProtocolData()
 
-	akpd = quicksilver.ParticipationRewardsKeeper.AllKeyedProtocolDatas(suite.chainA.GetContext())
+	akpd = blackfury.ParticipationRewardsKeeper.AllKeyedProtocolDatas(suite.chainA.GetContext())
 	// added 6 in setupTestProtocolData
 	suite.Require().Equal(7, len(akpd))
 
@@ -108,31 +108,31 @@ func (suite *KeeperTestSuite) coreTest() {
 	suite.setupTestDeposits()
 	suite.setupTestIntents()
 
-	quicksilver.EpochsKeeper.AfterEpochEnd(suite.chainA.GetContext(), epochtypes.EpochIdentifierEpoch, 1)
+	blackfury.EpochsKeeper.AfterEpochEnd(suite.chainA.GetContext(), epochtypes.EpochIdentifierEpoch, 1)
 
 	suite.setupTestClaims()
 
-	quicksilver.EpochsKeeper.AfterEpochEnd(suite.chainA.GetContext(), epochtypes.EpochIdentifierEpoch, 2)
+	blackfury.EpochsKeeper.AfterEpochEnd(suite.chainA.GetContext(), epochtypes.EpochIdentifierEpoch, 2)
 	// Epoch boundary
 	ctx := suite.chainA.GetContext()
 
-	quicksilver.InterchainstakingKeeper.IterateZones(ctx, func(index int64, zone *icstypes.Zone) (stop bool) {
-		suite.Require().NoError(quicksilver.BankKeeper.MintCoins(ctx, "mint", sdk.NewCoins(sdk.NewCoin(quicksilver.StakingKeeper.BondDenom(ctx), sdk.NewIntFromUint64(zone.HoldingsAllocation)))))
-		suite.Require().NoError(quicksilver.BankKeeper.SendCoinsFromModuleToModule(ctx, "mint", types.ModuleName, sdk.NewCoins(sdk.NewCoin(quicksilver.StakingKeeper.BondDenom(ctx), sdk.NewIntFromUint64(zone.HoldingsAllocation)))))
+	blackfury.InterchainstakingKeeper.IterateZones(ctx, func(index int64, zone *icstypes.Zone) (stop bool) {
+		suite.Require().NoError(blackfury.BankKeeper.MintCoins(ctx, "mint", sdk.NewCoins(sdk.NewCoin(blackfury.StakingKeeper.BondDenom(ctx), sdk.NewIntFromUint64(zone.HoldingsAllocation)))))
+		suite.Require().NoError(blackfury.BankKeeper.SendCoinsFromModuleToModule(ctx, "mint", types.ModuleName, sdk.NewCoins(sdk.NewCoin(blackfury.StakingKeeper.BondDenom(ctx), sdk.NewIntFromUint64(zone.HoldingsAllocation)))))
 		return false
 	})
 
-	_, found := quicksilver.ClaimsManagerKeeper.GetLastEpochClaim(ctx, "cosmoshub-4", "quick16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure", cmtypes.ClaimTypeLiquidToken, "osmosis-1")
+	_, found := blackfury.ClaimsManagerKeeper.GetLastEpochClaim(ctx, "cosmoshub-4", "black16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure", cmtypes.ClaimTypeLiquidToken, "osmosis-1")
 	suite.Require().True(found)
 
-	quicksilver.EpochsKeeper.AfterEpochEnd(suite.chainA.GetContext(), epochtypes.EpochIdentifierEpoch, 3)
+	blackfury.EpochsKeeper.AfterEpochEnd(suite.chainA.GetContext(), epochtypes.EpochIdentifierEpoch, 3)
 
 	// zone for remote chain
-	zone, found := quicksilver.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+	zone, found := blackfury.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 	suite.Require().True(found)
 
 	valRewards := make(map[string]sdk.Dec)
-	for _, val := range quicksilver.InterchainstakingKeeper.GetValidators(suite.chainA.GetContext(), suite.chainB.ChainID) {
+	for _, val := range blackfury.InterchainstakingKeeper.GetValidators(suite.chainA.GetContext(), suite.chainB.ChainID) {
 		valRewards[val.ValoperAddress] = sdk.NewDec(100000000)
 	}
 
@@ -140,7 +140,7 @@ func (suite *KeeperTestSuite) coreTest() {
 }
 
 func (suite *KeeperTestSuite) setupTestZones() {
-	quicksilver := suite.GetQuicksilverApp(suite.chainA)
+	blackfury := suite.GetBlackfuryApp(suite.chainA)
 
 	// test zone
 	testzone := icstypes.Zone{
@@ -168,20 +168,20 @@ func (suite *KeeperTestSuite) setupTestZones() {
 		Is_118:           true,
 	}
 
-	quicksilver.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &selftestzone)
-	quicksilver.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &testzone)
+	blackfury.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &selftestzone)
+	blackfury.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &testzone)
 
-	quicksilver.IBCKeeper.ClientKeeper.SetClientState(suite.chainA.GetContext(), "07-tendermint-0", &tmclienttypes.ClientState{ChainId: suite.chainB.ChainID, TrustingPeriod: time.Hour, LatestHeight: clienttypes.Height{RevisionNumber: 1, RevisionHeight: 100}})
+	blackfury.IBCKeeper.ClientKeeper.SetClientState(suite.chainA.GetContext(), "07-tendermint-0", &tmclienttypes.ClientState{ChainId: suite.chainB.ChainID, TrustingPeriod: time.Hour, LatestHeight: clienttypes.Height{RevisionNumber: 1, RevisionHeight: 100}})
 
-	quicksilver.IBCKeeper.ClientKeeper.SetClientConsensusState(suite.chainA.GetContext(), "07-tendermint-0", clienttypes.Height{RevisionNumber: 1, RevisionHeight: 100}, &tmclienttypes.ConsensusState{Timestamp: suite.chainA.GetContext().BlockTime()})
+	blackfury.IBCKeeper.ClientKeeper.SetClientConsensusState(suite.chainA.GetContext(), "07-tendermint-0", clienttypes.Height{RevisionNumber: 1, RevisionHeight: 100}, &tmclienttypes.ConsensusState{Timestamp: suite.chainA.GetContext().BlockTime()})
 	suite.Require().NoError(suite.setupChannelForICA(suite.chainB.ChainID, suite.path.EndpointA.ConnectionID, "performance", testzone.AccountPrefix))
 
-	vals := suite.GetQuicksilverApp(suite.chainB).StakingKeeper.GetBondedValidatorsByPower(suite.chainB.GetContext())
-	zone, found := quicksilver.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
+	vals := suite.GetBlackfuryApp(suite.chainB).StakingKeeper.GetBondedValidatorsByPower(suite.chainB.GetContext())
+	zone, found := blackfury.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 	suite.Require().True(found)
 
 	for i := range vals {
-		suite.Require().NoError(quicksilver.InterchainstakingKeeper.SetValidatorForZone(suite.chainA.GetContext(), &zone, app.DefaultConfig().Codec.MustMarshal(&vals[i])))
+		suite.Require().NoError(blackfury.InterchainstakingKeeper.SetValidatorForZone(suite.chainA.GetContext(), &zone, app.DefaultConfig().Codec.MustMarshal(&vals[i])))
 	}
 
 	// self zone
@@ -227,7 +227,7 @@ func (suite *KeeperTestSuite) setupTestZones() {
 			},
 		},
 	}
-	quicksilver.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zoneSelf)
+	blackfury.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zoneSelf)
 
 	// cosmos zone
 	performanceAddressCosmos := addressutils.GenerateAddressForTestWithPrefix("cosmos")
@@ -246,7 +246,7 @@ func (suite *KeeperTestSuite) setupTestZones() {
 		PerformanceAddress: performanceAccountCosmos,
 		Is_118:             true,
 	}
-	quicksilver.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zoneCosmos)
+	blackfury.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zoneCosmos)
 	cosmosVals := []icstypes.Validator{
 		{
 			ValoperAddress:  "cosmosvaloper1759teakrsvnx7rnur8ezc4qaq8669nhtgukm0x",
@@ -271,7 +271,7 @@ func (suite *KeeperTestSuite) setupTestZones() {
 		},
 	}
 	for _, cosmosVal := range cosmosVals {
-		quicksilver.InterchainstakingKeeper.SetValidator(suite.chainA.GetContext(), zoneCosmos.ChainId, cosmosVal)
+		blackfury.InterchainstakingKeeper.SetValidator(suite.chainA.GetContext(), zoneCosmos.ChainId, cosmosVal)
 	}
 
 	// osmosis zone
@@ -290,34 +290,34 @@ func (suite *KeeperTestSuite) setupTestZones() {
 		},
 		Is_118: true,
 	}
-	quicksilver.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zoneOsmosis)
+	blackfury.InterchainstakingKeeper.SetZone(suite.chainA.GetContext(), &zoneOsmosis)
 }
 
 func (suite *KeeperTestSuite) setupChannelForICA(chainID, connectionID, accountSuffix, remotePrefix string) error {
 	suite.T().Helper()
-	quicksilver := suite.GetQuicksilverApp(suite.chainA)
+	blackfury := suite.GetBlackfuryApp(suite.chainA)
 
-	ibcModule := ics.NewIBCModule(quicksilver.InterchainstakingKeeper)
+	ibcModule := ics.NewIBCModule(blackfury.InterchainstakingKeeper)
 	portID, err := icatypes.NewControllerPortID(chainID + "." + accountSuffix)
 	if err != nil {
 		return err
 	}
 
-	quicksilver.InterchainstakingKeeper.SetConnectionForPort(suite.chainA.GetContext(), connectionID, portID)
+	blackfury.InterchainstakingKeeper.SetConnectionForPort(suite.chainA.GetContext(), connectionID, portID)
 
-	channelID := quicksilver.IBCKeeper.ChannelKeeper.GenerateChannelIdentifier(suite.chainA.GetContext())
-	quicksilver.IBCKeeper.ChannelKeeper.SetChannel(suite.chainA.GetContext(), portID, channelID, channeltypes.Channel{State: channeltypes.OPEN, Ordering: channeltypes.ORDERED, Counterparty: channeltypes.Counterparty{PortId: icatypes.PortID, ChannelId: channelID}, ConnectionHops: []string{connectionID}})
+	channelID := blackfury.IBCKeeper.ChannelKeeper.GenerateChannelIdentifier(suite.chainA.GetContext())
+	blackfury.IBCKeeper.ChannelKeeper.SetChannel(suite.chainA.GetContext(), portID, channelID, channeltypes.Channel{State: channeltypes.OPEN, Ordering: channeltypes.ORDERED, Counterparty: channeltypes.Counterparty{PortId: icatypes.PortID, ChannelId: channelID}, ConnectionHops: []string{connectionID}})
 
-	quicksilver.IBCKeeper.ChannelKeeper.SetNextSequenceSend(suite.chainA.GetContext(), portID, channelID, 1)
-	quicksilver.ICAControllerKeeper.SetActiveChannelID(suite.chainA.GetContext(), connectionID, portID, channelID)
-	key, err := quicksilver.InterchainstakingKeeper.ScopedKeeper().NewCapability(
+	blackfury.IBCKeeper.ChannelKeeper.SetNextSequenceSend(suite.chainA.GetContext(), portID, channelID, 1)
+	blackfury.ICAControllerKeeper.SetActiveChannelID(suite.chainA.GetContext(), connectionID, portID, channelID)
+	key, err := blackfury.InterchainstakingKeeper.ScopedKeeper().NewCapability(
 		suite.chainA.GetContext(),
 		host.ChannelCapabilityPath(portID, channelID),
 	)
 	if err != nil {
 		return err
 	}
-	err = quicksilver.GetScopedIBCKeeper().ClaimCapability(
+	err = blackfury.GetScopedIBCKeeper().ClaimCapability(
 		suite.chainA.GetContext(),
 		key,
 		host.ChannelCapabilityPath(portID, channelID),
@@ -326,14 +326,14 @@ func (suite *KeeperTestSuite) setupChannelForICA(chainID, connectionID, accountS
 		return err
 	}
 
-	key, err = quicksilver.InterchainstakingKeeper.ScopedKeeper().NewCapability(
+	key, err = blackfury.InterchainstakingKeeper.ScopedKeeper().NewCapability(
 		suite.chainA.GetContext(),
 		host.PortPath(portID),
 	)
 	if err != nil {
 		return err
 	}
-	err = quicksilver.GetScopedIBCKeeper().ClaimCapability(
+	err = blackfury.GetScopedIBCKeeper().ClaimCapability(
 		suite.chainA.GetContext(),
 		key,
 		host.PortPath(portID),
@@ -343,7 +343,7 @@ func (suite *KeeperTestSuite) setupChannelForICA(chainID, connectionID, accountS
 	}
 
 	addr := addressutils.GenerateAddressForTestWithPrefix(remotePrefix)
-	quicksilver.ICAControllerKeeper.SetInterchainAccountAddress(suite.chainA.GetContext(), connectionID, portID, addr)
+	blackfury.ICAControllerKeeper.SetInterchainAccountAddress(suite.chainA.GetContext(), connectionID, portID, addr)
 	return ibcModule.OnChanOpenAck(suite.chainA.GetContext(), portID, channelID, "", "")
 }
 
@@ -415,14 +415,14 @@ func (suite *KeeperTestSuite) addProtocolData(dataType types.ProtocolDataType, d
 		panic(err)
 	}
 
-	suite.GetQuicksilverApp(suite.chainA).ParticipationRewardsKeeper.SetProtocolData(suite.chainA.GetContext(), upd.GenerateKey(), &pd)
+	suite.GetBlackfuryApp(suite.chainA).ParticipationRewardsKeeper.SetProtocolData(suite.chainA.GetContext(), upd.GenerateKey(), &pd)
 }
 
 func (suite *KeeperTestSuite) setupTestDeposits() {
-	quicksilver := suite.GetQuicksilverApp(suite.chainA)
+	blackfury := suite.GetBlackfuryApp(suite.chainA)
 
 	// add deposit to chainB zone
-	zone, found := quicksilver.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
+	zone, found := blackfury.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 	suite.Require().True(found)
 
 	suite.addReceipt(
@@ -433,7 +433,7 @@ func (suite *KeeperTestSuite) setupTestDeposits() {
 	)
 
 	// add deposit to cosmos zone
-	zone, found = quicksilver.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), "cosmoshub-4")
+	zone, found = blackfury.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), "cosmoshub-4")
 	suite.Require().True(found)
 
 	suite.addReceipt(
@@ -444,7 +444,7 @@ func (suite *KeeperTestSuite) setupTestDeposits() {
 	)
 
 	// add deposit to osmosis zone
-	zone, found = quicksilver.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), "osmosis-1")
+	zone, found = blackfury.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), "osmosis-1")
 	suite.Require().True(found)
 
 	suite.addReceipt(
@@ -467,7 +467,7 @@ func (suite *KeeperTestSuite) addReceipt(zone *icstypes.Zone, sender, hash strin
 		Completed: &t2,
 	}
 
-	suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetReceipt(suite.chainA.GetContext(), receipt)
+	suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetReceipt(suite.chainA.GetContext(), receipt)
 
 	delegationAddress := addressutils.GenerateAddressForTestWithPrefix("cosmos")
 	validatorAddress := addressutils.GenerateAddressForTestWithPrefix("cosmos")
@@ -478,16 +478,16 @@ func (suite *KeeperTestSuite) addReceipt(zone *icstypes.Zone, sender, hash strin
 		Height:            1,
 		RedelegationEnd:   101,
 	}
-	suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetDelegation(suite.chainA.GetContext(), zone, delegation)
+	suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetDelegation(suite.chainA.GetContext(), zone, delegation)
 }
 
 func (suite *KeeperTestSuite) setupTestIntents() {
-	quicksilver := suite.GetQuicksilverApp(suite.chainA)
+	blackfury := suite.GetBlackfuryApp(suite.chainA)
 
 	// chainB
-	zone, found := quicksilver.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
+	zone, found := blackfury.InterchainstakingKeeper.GetZone(suite.chainA.GetContext(), suite.chainB.ChainID)
 	suite.Require().True(found)
-	vals := quicksilver.InterchainstakingKeeper.GetValidators(suite.chainA.GetContext(), suite.chainB.ChainID)
+	vals := blackfury.InterchainstakingKeeper.GetValidators(suite.chainA.GetContext(), suite.chainB.ChainID)
 
 	suite.addIntent(
 		testAddress,
@@ -514,7 +514,7 @@ func (suite *KeeperTestSuite) addIntent(address string, zone icstypes.Zone, inte
 		Delegator: address,
 		Intents:   intents,
 	}
-	suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.SetDelegatorIntent(suite.chainA.GetContext(), &zone, intent, false)
+	suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.SetDelegatorIntent(suite.chainA.GetContext(), &zone, intent, false)
 }
 
 func (suite *KeeperTestSuite) setupTestClaims() {
@@ -528,7 +528,7 @@ func (suite *KeeperTestSuite) setupTestClaims() {
 	)
 
 	suite.addClaim(
-		"quick16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
+		"black16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
 		"cosmoshub-4",
 		cmtypes.ClaimTypeLiquidToken,
 		"osmosis-1",
@@ -544,5 +544,5 @@ func (suite *KeeperTestSuite) addClaim(address, chainID string, claimType cmtype
 		SourceChainId: sourceChainID,
 		Amount:        amount,
 	}
-	suite.GetQuicksilverApp(suite.chainA).ClaimsManagerKeeper.SetClaim(suite.chainA.GetContext(), &claim)
+	suite.GetBlackfuryApp(suite.chainA).ClaimsManagerKeeper.SetClaim(suite.chainA.GetContext(), &claim)
 }

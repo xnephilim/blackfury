@@ -11,12 +11,12 @@ import (
 	ibctesting "github.com/cosmos/ibc-go/v5/testing"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/ingenuity-build/quicksilver/app/upgrades"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	icskeeper "github.com/ingenuity-build/quicksilver/x/interchainstaking/keeper"
-	icstypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
-	prtypes "github.com/ingenuity-build/quicksilver/x/participationrewards/types"
-	tokenfactorytypes "github.com/ingenuity-build/quicksilver/x/tokenfactory/types"
+	"github.com/ingenuity-build/blackfury/app/upgrades"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	icskeeper "github.com/ingenuity-build/blackfury/x/interchainstaking/keeper"
+	icstypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
+	prtypes "github.com/ingenuity-build/blackfury/x/participationrewards/types"
+	tokenfactorytypes "github.com/ingenuity-build/blackfury/x/tokenfactory/types"
 )
 
 func init() {
@@ -28,7 +28,7 @@ func TestAppTestSuite(t *testing.T) {
 	suite.Run(t, new(AppTestSuite))
 }
 
-func newQuicksilverPath(chainA, chainB *ibctesting.TestChain) *ibctesting.Path {
+func newBlackfuryPath(chainA, chainB *ibctesting.TestChain) *ibctesting.Path {
 	path := ibctesting.NewPath(chainA, chainB)
 	path.EndpointA.ChannelConfig.PortID = ibctesting.TransferPort
 	path.EndpointB.ChannelConfig.PortID = ibctesting.TransferPort
@@ -48,10 +48,10 @@ type AppTestSuite struct {
 	path *ibctesting.Path
 }
 
-func (s *AppTestSuite) GetQuicksilverApp(chain *ibctesting.TestChain) *Quicksilver {
-	app, ok := chain.App.(*Quicksilver)
+func (s *AppTestSuite) GetBlackfuryApp(chain *ibctesting.TestChain) *Blackfury {
+	app, ok := chain.App.(*Blackfury)
 	if !ok {
-		panic("not quicksilver app")
+		panic("not blackfury app")
 	}
 
 	return app
@@ -63,7 +63,7 @@ func (s *AppTestSuite) SetupTest() {
 	s.chainA = s.coordinator.GetChain(ibctesting.GetChainID(1)) // convenience and readability
 	s.chainB = s.coordinator.GetChain(ibctesting.GetChainID(2)) // convenience and readability
 
-	s.path = newQuicksilverPath(s.chainA, s.chainB)
+	s.path = newBlackfuryPath(s.chainA, s.chainB)
 	s.coordinator.SetupConnections(s.path)
 
 	s.coordinator.CurrentTime = time.Now().UTC()
@@ -84,7 +84,7 @@ func (s *AppTestSuite) initTestZone() {
 		LiquidityModule: true,
 		Is_118:          true,
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
 
 	// cosmos zone
 	zone = icstypes.Zone{
@@ -97,7 +97,7 @@ func (s *AppTestSuite) initTestZone() {
 		LiquidityModule: false,
 		Is_118:          true,
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
 
 	// osmosis zone
 	zone = icstypes.Zone{
@@ -110,7 +110,7 @@ func (s *AppTestSuite) initTestZone() {
 		LiquidityModule: true,
 		Is_118:          true,
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
 	// uni-5 zone
 	zone = icstypes.Zone{
 		ConnectionId:    "connection-77003",
@@ -122,7 +122,7 @@ func (s *AppTestSuite) initTestZone() {
 		LiquidityModule: true,
 		Is_118:          true,
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
 
 	receipt := icstypes.Receipt{
 		ChainId: "uni-5",
@@ -136,7 +136,7 @@ func (s *AppTestSuite) initTestZone() {
 		),
 	}
 
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetReceipt(s.chainA.GetContext(), receipt)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetReceipt(s.chainA.GetContext(), receipt)
 
 	ubRecord := icstypes.UnbondingRecord{
 		ChainId:       "uni-5",
@@ -144,7 +144,7 @@ func (s *AppTestSuite) initTestZone() {
 		Validator:     "junovaloper185hgkqs8q8ysnc8cvkgd8j2knnq2m0ah6ae73gntv9ampgwpmrxqlfzywn",
 		RelatedTxhash: []string{"ABC012"},
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetUnbondingRecord(s.chainA.GetContext(), ubRecord)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetUnbondingRecord(s.chainA.GetContext(), ubRecord)
 
 	rdRecord := icstypes.RedelegationRecord{
 		ChainId:        "uni-5",
@@ -154,7 +154,7 @@ func (s *AppTestSuite) initTestZone() {
 		Amount:         3000000,
 		CompletionTime: s.chainA.GetContext().BlockTime().Add(time.Hour),
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetRedelegationRecord(s.chainA.GetContext(), rdRecord)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetRedelegationRecord(s.chainA.GetContext(), rdRecord)
 
 	rdRecord = icstypes.RedelegationRecord{
 		ChainId:        upgrades.OsmosisTestnetChainID,
@@ -164,7 +164,7 @@ func (s *AppTestSuite) initTestZone() {
 		Amount:         3000000,
 		CompletionTime: time.Time{},
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetRedelegationRecord(s.chainA.GetContext(), rdRecord)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetRedelegationRecord(s.chainA.GetContext(), rdRecord)
 
 	delRecord := icstypes.Delegation{
 		Amount:            sdk.NewCoin(zone.BaseDenom, sdk.NewInt(17000)),
@@ -174,7 +174,7 @@ func (s *AppTestSuite) initTestZone() {
 		RedelegationEnd:   -62135596800,
 	}
 
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetDelegation(s.chainA.GetContext(), &zone, delRecord)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetDelegation(s.chainA.GetContext(), &zone, delRecord)
 
 	wRecord := icstypes.WithdrawalRecord{
 		ChainId:   "uni-5",
@@ -189,31 +189,31 @@ func (s *AppTestSuite) initTestZone() {
 		Txhash:     "7C8B95EEE82CB63771E02EBEB05E6A80076D70B2E0A1C457F1FD1A0EF2EA961D",
 		Status:     icskeeper.WithdrawStatusQueued,
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetWithdrawalRecord(s.chainA.GetContext(), wRecord)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetWithdrawalRecord(s.chainA.GetContext(), wRecord)
 
-	err := s.GetQuicksilverApp(s.chainA).BankKeeper.MintCoins(s.chainA.GetContext(), tokenfactorytypes.ModuleName, sdk.NewCoins(sdk.NewCoin("uqjunox", sdkmath.NewInt(202000000))))
+	err := s.GetBlackfuryApp(s.chainA).BankKeeper.MintCoins(s.chainA.GetContext(), tokenfactorytypes.ModuleName, sdk.NewCoins(sdk.NewCoin("uqjunox", sdkmath.NewInt(202000000))))
 	if err != nil {
 		return
 	}
 	addr1 := addressutils.GenerateAccAddressForTest()
 	addr2 := addressutils.GenerateAccAddressForTest()
 
-	err = s.GetQuicksilverApp(s.chainA).BankKeeper.SendCoinsFromModuleToAccount(s.chainA.GetContext(), tokenfactorytypes.ModuleName, addr1, sdk.NewCoins(sdk.NewCoin("uqjunox", sdkmath.NewInt(1600000))))
+	err = s.GetBlackfuryApp(s.chainA).BankKeeper.SendCoinsFromModuleToAccount(s.chainA.GetContext(), tokenfactorytypes.ModuleName, addr1, sdk.NewCoins(sdk.NewCoin("uqjunox", sdkmath.NewInt(1600000))))
 	if err != nil {
 		return
 	}
-	err = s.GetQuicksilverApp(s.chainA).BankKeeper.SendCoinsFromModuleToAccount(s.chainA.GetContext(), tokenfactorytypes.ModuleName, addr2, sdk.NewCoins(sdk.NewCoin("uqjunox", sdkmath.NewInt(200000000))))
+	err = s.GetBlackfuryApp(s.chainA).BankKeeper.SendCoinsFromModuleToAccount(s.chainA.GetContext(), tokenfactorytypes.ModuleName, addr2, sdk.NewCoins(sdk.NewCoin("uqjunox", sdkmath.NewInt(200000000))))
 	if err != nil {
 		return
 	}
-	err = s.GetQuicksilverApp(s.chainA).BankKeeper.SendCoinsFromModuleToModule(s.chainA.GetContext(), tokenfactorytypes.ModuleName, icstypes.EscrowModuleAccount, sdk.NewCoins(sdk.NewCoin("uqjunox", sdkmath.NewInt(400000))))
+	err = s.GetBlackfuryApp(s.chainA).BankKeeper.SendCoinsFromModuleToModule(s.chainA.GetContext(), tokenfactorytypes.ModuleName, icstypes.EscrowModuleAccount, sdk.NewCoins(sdk.NewCoin("uqjunox", sdkmath.NewInt(400000))))
 	if err != nil {
 		return
 	}
 }
 
 func (s *AppTestSuite) TestV010402rc1UpgradeHandler() {
-	app := s.GetQuicksilverApp(s.chainA)
+	app := s.GetBlackfuryApp(s.chainA)
 
 	handler := upgrades.V010402rc1UpgradeHandler(app.mm, app.configurator, &app.AppKeepers)
 	ctx := s.chainA.GetContext()
@@ -298,7 +298,7 @@ func (s *AppTestSuite) TestV010402rc1UpgradeHandler() {
 }
 
 func (s *AppTestSuite) TestV010402rc3UpgradeHandler() {
-	app := s.GetQuicksilverApp(s.chainA)
+	app := s.GetBlackfuryApp(s.chainA)
 
 	handler := upgrades.V010402rc3UpgradeHandler(app.mm, app.configurator, &app.AppKeepers)
 	ctx := s.chainA.GetContext()
@@ -331,7 +331,7 @@ func (s *AppTestSuite) TestV010402rc3UpgradeHandler() {
 }
 
 // func (s *AppTestSuite) TestV010400rc6UpgradeHandler() {
-//	app := s.GetQuicksilverApp(s.chainA)
+//	app := s.GetBlackfuryApp(s.chainA)
 //
 //	handler := upgrades.V010400rc6UpgradeHandler(app.mm, app.configurator, &app.AppKeepers)
 //	ctx := s.chainA.GetContext()
@@ -347,7 +347,7 @@ func (s *AppTestSuite) TestV010402rc3UpgradeHandler() {
 // }
 //
 // func (s *AppTestSuite) TestV010400rc8UpgradeHandler() {
-//	app := s.GetQuicksilverApp(s.chainA)
+//	app := s.GetBlackfuryApp(s.chainA)
 //
 //	handler := upgrades.V010400rc8UpgradeHandler(app.mm, app.configurator, &app.AppKeepers)
 //	ctx := s.chainA.GetContext()
@@ -412,7 +412,7 @@ func (s *AppTestSuite) TestV010402rc3UpgradeHandler() {
 // }
 
 // func (s *AppTestSuite) TestV010400UpgradeHandler() {
-//	app := s.GetQuicksilverApp(s.chainA)
+//	app := s.GetBlackfuryApp(s.chainA)
 //	handler := upgrades.V010400UpgradeHandler(app.mm, app.configurator, &app.AppKeepers)
 //	ctx := s.chainA.GetContext()
 //	_, err := handler(ctx, types.Plan{}, app.mm.GetVersionMap())
@@ -466,7 +466,7 @@ func (s *AppTestSuite) TestV010402rc3UpgradeHandler() {
 // }
 //
 // func (s *AppTestSuite) TestV010400rc6UpgradeHandler() {
-//	app := s.GetQuicksilverApp(s.chainA)
+//	app := s.GetBlackfuryApp(s.chainA)
 //
 //	handler := upgrades.V010400rc6UpgradeHandler(app.mm, app.configurator, &app.AppKeepers)
 //	ctx := s.chainA.GetContext()
@@ -482,7 +482,7 @@ func (s *AppTestSuite) TestV010402rc3UpgradeHandler() {
 // }
 //
 // func (s *AppTestSuite) TestV010400rc8UpgradeHandler() {
-//	app := s.GetQuicksilverApp(s.chainA)
+//	app := s.GetBlackfuryApp(s.chainA)
 //
 //	handler := upgrades.V010400rc8UpgradeHandler(app.mm, app.configurator, &app.AppKeepers)
 //	ctx := s.chainA.GetContext()

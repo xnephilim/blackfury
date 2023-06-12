@@ -15,8 +15,8 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/app/helpers"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/app/helpers"
 )
 
 // SetupSimulation creates the config, db (levelDB), temporary directory and logger for
@@ -52,7 +52,7 @@ func SetupSimulation(dirPrefix, dbName string) (simtypes.Config, dbm.DB, string,
 
 // Operations retrieves the simulation params from the provided file path
 // and returns all the modules weighted operations.
-func Operations(quicksilver *app.Quicksilver, cdc codec.JSONCodec, config simtypes.Config) []simtypes.WeightedOperation {
+func Operations(blackfury *app.Blackfury, cdc codec.JSONCodec, config simtypes.Config) []simtypes.WeightedOperation {
 	simState := module.SimulationState{
 		AppParams: make(simtypes.AppParams),
 		Cdc:       cdc,
@@ -70,21 +70,21 @@ func Operations(quicksilver *app.Quicksilver, cdc codec.JSONCodec, config simtyp
 		}
 	}
 
-	simState.ParamChanges = quicksilver.SimulationManager().GenerateParamChanges(config.Seed)
-	simState.Contents = quicksilver.SimulationManager().GetProposalContents(simState)
-	return quicksilver.SimulationManager().WeightedOperations(simState)
+	simState.ParamChanges = blackfury.SimulationManager().GenerateParamChanges(config.Seed)
+	simState.Contents = blackfury.SimulationManager().GetProposalContents(simState)
+	return blackfury.SimulationManager().WeightedOperations(simState)
 }
 
 // CheckExportSimulation exports the app state and simulation parameters to JSON
 // if the export paths are defined.
 func CheckExportSimulation(
-	quicksilver *app.Quicksilver,
+	blackfury *app.Blackfury,
 	config simtypes.Config,
 	params simtypes.Params,
 ) error {
 	if config.ExportStatePath != "" {
 		fmt.Println("exporting app state...")
-		exported, err := quicksilver.ExportAppStateAndValidators(false, nil)
+		exported, err := blackfury.ExportAppStateAndValidators(false, nil)
 		if err != nil {
 			return err
 		}

@@ -16,7 +16,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 // GetTxCmd returns a root CLI command handler for all x/interchainstaking transaction commands.
@@ -133,14 +133,14 @@ $ %s tx gov submit-proposal register-zone <path/to/proposal.json> --from=<key_or
 Where proposal.json contains:
 {
   "title": "Register cosmoshub-4",
-  "description": "Onboard the cosmoshub-4 zone to Quicksilver",
+  "description": "Onboard the cosmoshub-4 zone to Blackfury",
   "connection_id": "connection-3",
   "base_denom": "uatom",
   "local_denom": "uqatom",
   "account_prefix": "cosmos",
   "multi_send": true,
   "liquidity_module": false,
-  "deposit": "512000000uqck"
+  "deposit": "512000000ufury"
 }
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -228,7 +228,7 @@ Where proposal.json contains:
       "key": "liquidity_module",
       "value": "true",
   }],
-  "deposit": "512000000uqck"
+  "deposit": "512000000ufury"
 }
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {

@@ -4,8 +4,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 func (suite *KeeperTestSuite) TestStoreGetDeleteValidator() {
@@ -13,7 +13,7 @@ func (suite *KeeperTestSuite) TestStoreGetDeleteValidator() {
 		suite.SetupTest()
 		suite.setupTestZones()
 
-		app := suite.GetQuicksilverApp(suite.chainA)
+		app := suite.GetBlackfuryApp(suite.chainA)
 		ctx := suite.chainA.GetContext()
 
 		zone, found := app.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)

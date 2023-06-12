@@ -4,10 +4,10 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	cmtypes "github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
-	"github.com/ingenuity-build/quicksilver/x/participationrewards/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	cmtypes "github.com/ingenuity-build/blackfury/x/claimsmanager/types"
+	"github.com/ingenuity-build/blackfury/x/participationrewards/types"
 )
 
 func (suite *KeeperTestSuite) TestCalcUserHoldingsAllocations() {
@@ -16,14 +16,14 @@ func (suite *KeeperTestSuite) TestCalcUserHoldingsAllocations() {
 
 	tests := []struct {
 		name      string
-		malleate  func(ctx sdk.Context, appA *app.Quicksilver)
+		malleate  func(ctx sdk.Context, appA *app.Blackfury)
 		want      []types.UserAllocation
 		remainder math.Int
 		wantErr   string
 	}{
 		{
 			"zero claims; no allocation",
-			func(ctx sdk.Context, appA *app.Quicksilver) {
+			func(ctx sdk.Context, appA *app.Blackfury) {
 				zone, _ := appA.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				zone.HoldingsAllocation = 0
 				appA.InterchainstakingKeeper.SetZone(ctx, &zone)
@@ -34,7 +34,7 @@ func (suite *KeeperTestSuite) TestCalcUserHoldingsAllocations() {
 		},
 		{
 			"zero relevant claims; 64k allocation, all returned",
-			func(ctx sdk.Context, appA *app.Quicksilver) {
+			func(ctx sdk.Context, appA *app.Blackfury) {
 				zone, _ := appA.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				zone.HoldingsAllocation = 64000
 				appA.InterchainstakingKeeper.SetZone(ctx, &zone)
@@ -47,7 +47,7 @@ func (suite *KeeperTestSuite) TestCalcUserHoldingsAllocations() {
 		},
 		{
 			"valid claims - equal claims",
-			func(ctx sdk.Context, appA *app.Quicksilver) {
+			func(ctx sdk.Context, appA *app.Blackfury) {
 				zone, _ := appA.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				zone.HoldingsAllocation = 5000
 
@@ -71,7 +71,7 @@ func (suite *KeeperTestSuite) TestCalcUserHoldingsAllocations() {
 		},
 		{
 			"valid claims - inequal claims, less than 100%, truncation",
-			func(ctx sdk.Context, appA *app.Quicksilver) {
+			func(ctx sdk.Context, appA *app.Blackfury) {
 				zone, _ := appA.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				zone.HoldingsAllocation = 5000
 
@@ -95,7 +95,7 @@ func (suite *KeeperTestSuite) TestCalcUserHoldingsAllocations() {
 		},
 		{
 			"valid claims - inequal claims, 100%, truncation",
-			func(ctx sdk.Context, appA *app.Quicksilver) {
+			func(ctx sdk.Context, appA *app.Blackfury) {
 				zone, _ := appA.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				zone.HoldingsAllocation = 5000
 
@@ -124,7 +124,7 @@ func (suite *KeeperTestSuite) TestCalcUserHoldingsAllocations() {
 		suite.Run(tt.name, func() {
 			suite.SetupTest()
 
-			appA := suite.GetQuicksilverApp(suite.chainA)
+			appA := suite.GetBlackfuryApp(suite.chainA)
 			ctx := suite.chainA.GetContext()
 
 			params := appA.ParticipationRewardsKeeper.GetParams(ctx)

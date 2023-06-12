@@ -8,14 +8,14 @@ import (
 	"github.com/stretchr/testify/suite"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/x/epochs/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/x/epochs/types"
 )
 
 type KeeperTestSuite struct {
 	suite.Suite
 
-	app         *app.Quicksilver
+	app         *app.Blackfury
 	ctx         sdk.Context
 	queryClient types.QueryClient
 }

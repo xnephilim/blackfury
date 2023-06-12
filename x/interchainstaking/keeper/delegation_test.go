@@ -6,23 +6,23 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
 
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 func (suite *KeeperTestSuite) TestKeeper_DelegationStore() {
 	suite.SetupTest()
 	suite.setupTestZones()
 
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	// get test zone
-	zone, found := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+	zone, found := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 	suite.Require().True(found)
-	zoneValidatorAddresses := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId)
+	zoneValidatorAddresses := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId)
 
 	performanceDelegations := icsKeeper.GetAllPerformanceDelegations(ctx, &zone)
 	suite.Require().Len(performanceDelegations, 4)
@@ -199,7 +199,7 @@ func (suite *KeeperTestSuite) TestUpdateDelegation() {
 			suite.SetupTest()
 			suite.setupTestZones()
 
-			qApp := suite.GetQuicksilverApp(suite.chainA)
+			qApp := suite.GetBlackfuryApp(suite.chainA)
 			ctx := suite.chainA.GetContext()
 			zone, found := qApp.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 			suite.Require().True(found)
@@ -225,7 +225,7 @@ func (suite *KeeperTestSuite) TestStoreGetDeleteDelegation() {
 		suite.SetupTest()
 		suite.setupTestZones()
 
-		qApp := suite.GetQuicksilverApp(suite.chainA)
+		qApp := suite.GetBlackfuryApp(suite.chainA)
 		ctx := suite.chainA.GetContext()
 
 		zone, found := qApp.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
@@ -260,23 +260,23 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 	denom := "uatom"
 	tests := []struct {
 		name               string
-		setStatements      func(ctx sdk.Context, quicksilver *app.Quicksilver)
+		setStatements      func(ctx sdk.Context, blackfury *app.Blackfury)
 		delAddrBalance     sdk.Coin
 		mockAck            bool
 		expectedDelegation sdk.Coins
-		assertStatements   func(ctx sdk.Context, quicksilver *app.Quicksilver) bool
+		assertStatements   func(ctx sdk.Context, blackfury *app.Blackfury) bool
 	}{
 		{
 			name:           "case 0: zero delegation balance, no pending receipts, no excluded receipts",
-			setStatements:  func(ctx sdk.Context, quicksilver *app.Quicksilver) {},
+			setStatements:  func(ctx sdk.Context, blackfury *app.Blackfury) {},
 			delAddrBalance: sdk.NewCoin("uatom", sdkmath.ZeroInt()),
-			assertStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) bool {
+			assertStatements: func(ctx sdk.Context, blackfury *app.Blackfury) bool {
 				return true
 			},
 		},
 		{
 			name: "case 1: zero delegation balance, 2 pending receipts and no excluded receipts",
-			setStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) {
+			setStatements: func(ctx sdk.Context, blackfury *app.Blackfury) {
 				cutOffTime := ctx.BlockTime().AddDate(0, 0, -1)
 				receiptOneTime := cutOffTime.Add(-2 * time.Hour)
 				receiptTwoTime := cutOffTime.Add(-3 * time.Hour)
@@ -308,15 +308,15 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 					FirstSeen: &receiptTwoTime,
 					Completed: nil,
 				}
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
 			},
 			delAddrBalance: sdk.NewCoin("uatom", sdkmath.NewInt(0)),
-			assertStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) bool {
+			assertStatements: func(ctx sdk.Context, blackfury *app.Blackfury) bool {
 				count := 0
-				zone, found := quicksilver.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+				zone, found := blackfury.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				suite.Require().True(found)
-				quicksilver.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
+				blackfury.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
 					if receiptInfo.Completed == nil {
 						count++
 					}
@@ -330,7 +330,7 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 		},
 		{
 			name: "case 2: zero delegation balance, 1 pending receipt and 1 excluded receipt",
-			setStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) {
+			setStatements: func(ctx sdk.Context, blackfury *app.Blackfury) {
 				cutOffTime := ctx.BlockTime().AddDate(0, 0, -1)
 				receiptOneTime := cutOffTime.Add(-2 * time.Hour)
 				receiptTwoTime := cutOffTime.Add(2 * time.Hour)
@@ -361,15 +361,15 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 					),
 					FirstSeen: &receiptTwoTime,
 				}
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
 			},
 			delAddrBalance: sdk.NewCoin("uatom", sdkmath.NewInt(100)),
-			assertStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) bool {
+			assertStatements: func(ctx sdk.Context, blackfury *app.Blackfury) bool {
 				count := 0
-				zone, found := quicksilver.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+				zone, found := blackfury.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				suite.Require().True(found)
-				quicksilver.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
+				blackfury.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
 					if receiptInfo.Completed == nil {
 						count++
 					}
@@ -381,7 +381,7 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 		},
 		{
 			name: "case 3: non-zero delegation balance, 1 pending receipts and 1 excluded receipts ",
-			setStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) {
+			setStatements: func(ctx sdk.Context, blackfury *app.Blackfury) {
 				cutOffTime := ctx.BlockTime().AddDate(0, 0, -1)  // -24h
 				receiptOneTime := cutOffTime.Add(-2 * time.Hour) // -26h
 				receiptTwoTime := cutOffTime.Add(2 * time.Hour)  // -22h
@@ -413,15 +413,15 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 					FirstSeen: &receiptTwoTime,
 					Completed: nil,
 				}
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
 			},
 			delAddrBalance: sdk.NewCoin("uatom", sdkmath.NewInt(2000100)),
-			assertStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) bool {
+			assertStatements: func(ctx sdk.Context, blackfury *app.Blackfury) bool {
 				count := 0
-				zone, found := quicksilver.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+				zone, found := blackfury.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				suite.Require().True(found)
-				quicksilver.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
+				blackfury.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
 					if receiptInfo.Completed == nil {
 						count++
 					}
@@ -435,7 +435,7 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 		},
 		{
 			name: "case 4: non-zero delegation balance, 2 pending receipts",
-			setStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) {
+			setStatements: func(ctx sdk.Context, blackfury *app.Blackfury) {
 				cutOffTime := ctx.BlockTime().AddDate(0, 0, -1)
 				receiptOneTime := cutOffTime.Add(-2 * time.Hour)
 				receiptTwoTime := cutOffTime.Add(-3 * time.Hour)
@@ -467,15 +467,15 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 					FirstSeen: &receiptTwoTime,
 					Completed: nil,
 				}
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
 			},
 			delAddrBalance: sdk.NewCoin("uatom", sdkmath.NewInt(2000100)),
-			assertStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) bool {
+			assertStatements: func(ctx sdk.Context, blackfury *app.Blackfury) bool {
 				count := 0
-				zone, found := quicksilver.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+				zone, found := blackfury.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				suite.Require().True(found)
-				quicksilver.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
+				blackfury.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
 					if receiptInfo.Completed == nil {
 						count++
 					}
@@ -489,7 +489,7 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 		},
 		{
 			name: "case 5: zero delegation balance, 1 pending receipt, 1 excluded receipt",
-			setStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) {
+			setStatements: func(ctx sdk.Context, blackfury *app.Blackfury) {
 				cutOffTime := ctx.BlockTime().AddDate(0, 0, -1)
 				receiptOneTime := cutOffTime.Add(-2 * time.Hour)
 				receiptTwoTime := cutOffTime.Add(2 * time.Hour)
@@ -521,15 +521,15 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 					FirstSeen: &receiptTwoTime,
 					Completed: nil,
 				}
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
 			},
 			delAddrBalance: sdk.NewCoin("uatom", sdkmath.NewInt(0)),
-			assertStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) bool {
+			assertStatements: func(ctx sdk.Context, blackfury *app.Blackfury) bool {
 				count := 0
-				zone, found := quicksilver.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+				zone, found := blackfury.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				suite.Require().True(found)
-				quicksilver.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
+				blackfury.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
 					if receiptInfo.Completed == nil {
 						count++
 					}
@@ -543,7 +543,7 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 		},
 		{
 			name: "case 6: low delegation account balance",
-			setStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) {
+			setStatements: func(ctx sdk.Context, blackfury *app.Blackfury) {
 				cutOffTime := ctx.BlockTime().AddDate(0, 0, -1)
 				receiptOneTime := cutOffTime.Add(-2 * time.Hour)
 				rcpt1 := types.Receipt{
@@ -573,15 +573,15 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 					FirstSeen: &receiptOneTime,
 					Completed: nil,
 				}
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
-				quicksilver.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt1)
+				blackfury.InterchainstakingKeeper.SetReceipt(ctx, rcpt2)
 			},
 			delAddrBalance: sdk.NewCoin("uatom", sdkmath.NewInt(100)),
-			assertStatements: func(ctx sdk.Context, quicksilver *app.Quicksilver) bool {
+			assertStatements: func(ctx sdk.Context, blackfury *app.Blackfury) bool {
 				count := 0
-				zone, found := quicksilver.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+				zone, found := blackfury.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 				suite.Require().True(found)
-				quicksilver.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
+				blackfury.InterchainstakingKeeper.IterateZoneReceipts(ctx, &zone, func(index int64, receiptInfo types.Receipt) (stop bool) {
 					if receiptInfo.Completed == nil {
 						count++
 					}
@@ -601,27 +601,27 @@ func (suite *KeeperTestSuite) TestFlushOutstandingDelegations() {
 			suite.SetupTest()
 			suite.setupTestZones()
 
-			quicksilver := suite.GetQuicksilverApp(suite.chainA)
+			blackfury := suite.GetBlackfuryApp(suite.chainA)
 			ctx := suite.chainA.GetContext()
 
-			test.setStatements(ctx, quicksilver)
-			zone, found := quicksilver.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
+			test.setStatements(ctx, blackfury)
+			zone, found := blackfury.InterchainstakingKeeper.GetZone(ctx, suite.chainB.ChainID)
 			suite.Require().True(found)
-			err := quicksilver.InterchainstakingKeeper.FlushOutstandingDelegations(ctx, &zone, test.delAddrBalance)
+			err := blackfury.InterchainstakingKeeper.FlushOutstandingDelegations(ctx, &zone, test.delAddrBalance)
 			// refetch zone after FlushOutstandingDelegations setZone().
 			ctx = suite.chainA.GetContext()
 			if test.mockAck {
 				var msgs []sdk.Msg
-				allocations, err := quicksilver.InterchainstakingKeeper.DeterminePlanForDelegation(ctx, &zone, test.expectedDelegation)
+				allocations, err := blackfury.InterchainstakingKeeper.DeterminePlanForDelegation(ctx, &zone, test.expectedDelegation)
 				suite.Require().NoError(err)
-				msgs = append(msgs, quicksilver.InterchainstakingKeeper.PrepareDelegationMessagesForCoins(&zone, allocations)...)
+				msgs = append(msgs, blackfury.InterchainstakingKeeper.PrepareDelegationMessagesForCoins(&zone, allocations)...)
 				for _, msg := range msgs {
-					err := quicksilver.InterchainstakingKeeper.HandleDelegate(ctx, msg, "batch/1577836910")
+					err := blackfury.InterchainstakingKeeper.HandleDelegate(ctx, msg, "batch/1577836910")
 					suite.Require().NoError(err)
 				}
 			}
 			suite.Require().NoError(err)
-			isCorrect := test.assertStatements(ctx, quicksilver)
+			isCorrect := test.assertStatements(ctx, blackfury)
 			suite.Require().True(isCorrect)
 		})
 	}

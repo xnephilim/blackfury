@@ -1,8 +1,8 @@
 package bindings
 
-// QuickSilverQuery contains quicksilver custom queries.
-type QuickSilverQuery struct {
-	/// Given a subdenom minted by a contract via `QuickSilverMsg::MintTokens`,
+// BlackFuryQuery contains blackfury custom queries.
+type BlackFuryQuery struct {
+	/// Given a subdenom minted by a contract via `BlackFuryMsg::MintTokens`,
 	/// returns the full denom as used by `BankMsg::Send`.
 	FullDenom *FullDenom `json:"full_denom,omitempty"`
 	/// Return current spot price swapping In for Out on given pool ID.

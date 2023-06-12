@@ -27,16 +27,16 @@ port = 3001
 
 [[chains]]
 id = 'qstest-1'
-rpc_addr = 'http://quicksilver:26657'
-grpc_addr = 'http://quicksilver:9090'
-websocket_addr = 'ws://quicksilver:26657/websocket'
+rpc_addr = 'http://blackfury:26657'
+grpc_addr = 'http://blackfury:9090'
+websocket_addr = 'ws://blackfury:26657/websocket'
 rpc_timeout = '10s'
-account_prefix = 'quick'
+account_prefix = 'black'
 key_name = 'testkey'
 store_prefix = 'ibc'
 default_gas = 100000
 max_gas = 5000000
-gas_price = { price = 0.000000, denom = 'uqck' }
+gas_price = { price = 0.000000, denom = 'ufury' }
 gas_multiplier = 1.5
 max_msg_num = 30
 max_tx_size = 2097152

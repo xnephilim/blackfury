@@ -1,14 +1,14 @@
-# Quicksilver
+# Blackfury
 
 
 |                                                                                                                                                   |                                                                                                                                                                    |                                                                                                                                                       |                                                                                                                                                      |                                                                                                                | 
 |---------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| [![codecov](https://codecov.io/gh/ingenuity-build/quicksilver/branch/develop/graph/badge.svg)](https://codecov.io/gh/ingenuity-build/quicksilver) | [![Go Report Card](https://goreportcard.com/badge/github.com/ingenuity-build/quicksilver)](https://goreportcard.com/report/github.com/ingenuity-build/quicksilver) | [![license](https://img.shields.io/github/license/ingenuity-build/quicksilver.svg)](https://github.com/ingenuity-build/quicksilver/blob/main/LICENSE) | [![GolangCI](https://golangci.com/badges/github.com/ingenuity-build/quicksilver.svg)](https://golangci.com/r/github.com/ingenuity-build/quicksilver) | [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/quicksilverprotocol) |  
+| [![codecov](https://codecov.io/gh/ingenuity-build/blackfury/branch/develop/graph/badge.svg)](https://codecov.io/gh/ingenuity-build/blackfury) | [![Go Report Card](https://goreportcard.com/badge/github.com/ingenuity-build/blackfury)](https://goreportcard.com/report/github.com/ingenuity-build/blackfury) | [![license](https://img.shields.io/github/license/ingenuity-build/blackfury.svg)](https://github.com/ingenuity-build/blackfury/blob/main/LICENSE) | [![GolangCI](https://golangci.com/badges/github.com/ingenuity-build/blackfury.svg)](https://golangci.com/r/github.com/ingenuity-build/blackfury) | [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/blackfuryprotocol) |  
 
-Quicksilver is the Cosmos Liquid Staking Zone.
+Blackfury is the Cosmos Liquid Staking Zone.
 
 Many existing Liquid Staking providers take power and agency _away_ from delegators, permitting only a small whitelist
-of validators to delegate to, and stripping away users voting rights. Quicksilver aims to right these wrongs, with
+of validators to delegate to, and stripping away users voting rights. Blackfury aims to right these wrongs, with
 active measures to reward and incentivise decentralisation and governance participation.
 
 
@@ -42,14 +42,14 @@ In addition, install `jq` (a command line JSON processor):
  - Windows based systems (using [Chocolatey NuGet](https://chocolatey.org/)):  
 `chocolatey install jq`
 
-## Clone & Run Quicksilver (dev)
+## Clone & Run Blackfury (dev)
 
 _NB!! Use a fork of the repository when you plan to create Pull Requests;_
 
 Clone the repository from GitHub and enter the directory:
 
-    git clone https://github.com/ingenuity-build/quicksilver.git
-    cd quicksilver
+    git clone https://github.com/ingenuity-build/blackfury.git
+    cd blackfury
 
 Then run:
 
@@ -64,7 +64,7 @@ For subsequent tests run the following if you want to start with fresh state:
 
 ## Origination and Attribution
 
-Quicksilver utilises code and logic that originated from other projects; as an open-source project ourselves, we believe that appropriate attribution is necessary, in order to combat plagiarism.
+Blackfury utilises code and logic that originated from other projects; as an open-source project ourselves, we believe that appropriate attribution is necessary, in order to combat plagiarism.
 
 The following modules and packages were lifted and reused in almost entirety from Osmosis (<https://github.com/osmosis-labs/osmosis>), under the terms of the Apache 2.0 License, and we are grateful for their contribution:
 

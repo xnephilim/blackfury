@@ -10,10 +10,10 @@ import (
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgCreateDenom{}, "quicksilver/tokenfactory/create-denom", nil)
-	cdc.RegisterConcrete(&MsgMint{}, "quicksilver/tokenfactory/mint", nil)
-	cdc.RegisterConcrete(&MsgBurn{}, "quicksilver/tokenfactory/burn", nil)
-	cdc.RegisterConcrete(&MsgChangeAdmin{}, "quicksilver/tokenfactory/change-admin", nil)
+	cdc.RegisterConcrete(&MsgCreateDenom{}, "blackfury/tokenfactory/create-denom", nil)
+	cdc.RegisterConcrete(&MsgMint{}, "blackfury/tokenfactory/mint", nil)
+	cdc.RegisterConcrete(&MsgBurn{}, "blackfury/tokenfactory/burn", nil)
+	cdc.RegisterConcrete(&MsgChangeAdmin{}, "blackfury/tokenfactory/change-admin", nil)
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {

@@ -1,4 +1,4 @@
-module github.com/ingenuity-build/quicksilver
+module github.com/ingenuity-build/blackfury
 
 go 1.20
 

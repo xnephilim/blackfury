@@ -15,9 +15,9 @@ var (
 )
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgClaim{}, "quicksilver/MsgClaim", nil)
-	cdc.RegisterConcrete(&MsgIncentivePoolSpend{}, "quicksilver/MsgIncentivePoolSpend", nil)
-	cdc.RegisterConcrete(&RegisterZoneDropProposal{}, "quicksilver/RegisterZoneDropProposal", nil)
+	cdc.RegisterConcrete(&MsgClaim{}, "blackfury/MsgClaim", nil)
+	cdc.RegisterConcrete(&MsgIncentivePoolSpend{}, "blackfury/MsgIncentivePoolSpend", nil)
+	cdc.RegisterConcrete(&RegisterZoneDropProposal{}, "blackfury/RegisterZoneDropProposal", nil)
 }
 
 func RegisterInterfaces(registry types.InterfaceRegistry) {

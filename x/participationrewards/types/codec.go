@@ -8,9 +8,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 
-	"github.com/ingenuity-build/quicksilver/osmosis-types/gamm"
-	"github.com/ingenuity-build/quicksilver/osmosis-types/gamm/pool-models/balancer"
-	"github.com/ingenuity-build/quicksilver/osmosis-types/gamm/pool-models/stableswap"
+	"github.com/ingenuity-build/blackfury/osmosis-types/gamm"
+	"github.com/ingenuity-build/blackfury/osmosis-types/gamm/pool-models/balancer"
+	"github.com/ingenuity-build/blackfury/osmosis-types/gamm/pool-models/stableswap"
 )
 
 var (
@@ -19,8 +19,8 @@ var (
 )
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgSubmitClaim{}, "quicksilver/MsgSubmitClaim", nil)
-	cdc.RegisterConcrete(&AddProtocolDataProposal{}, "quicksilver/AddProtocolDataProposal", nil)
+	cdc.RegisterConcrete(&MsgSubmitClaim{}, "blackfury/MsgSubmitClaim", nil)
+	cdc.RegisterConcrete(&AddProtocolDataProposal{}, "blackfury/AddProtocolDataProposal", nil)
 }
 
 func RegisterInterfaces(registry types.InterfaceRegistry) {

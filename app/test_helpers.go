@@ -36,7 +36,7 @@ func (ao EmptyAppOptions) Get(_ string) interface{} {
 }
 
 // DefaultConsensusParams defines the default Tendermint consensus params used in
-// Quicksilver testing.
+// Blackfury testing.
 var DefaultConsensusParams = &abci.ConsensusParams{
 	Block: &abci.BlockParams{
 		MaxBytes: 200000,
@@ -54,8 +54,8 @@ var DefaultConsensusParams = &abci.ConsensusParams{
 	},
 }
 
-// Setup initializes a new Quicksilver. A Nop logger is set in Quicksilver.
-func Setup(t *testing.T, isCheckTx bool) *Quicksilver {
+// Setup initializes a new Blackfury. A Nop logger is set in Blackfury.
+func Setup(t *testing.T, isCheckTx bool) *Blackfury {
 	t.Helper()
 
 	privVal := mock.NewPV()
@@ -79,7 +79,7 @@ func Setup(t *testing.T, isCheckTx bool) *Quicksilver {
 	}
 
 	db := dbm.NewMemDB()
-	app := NewQuicksilver(
+	app := NewBlackfury(
 		log.NewNopLogger(),
 		db,
 		nil,
@@ -117,7 +117,7 @@ func Setup(t *testing.T, isCheckTx bool) *Quicksilver {
 	return app
 }
 
-func GetAppWithContext(t *testing.T, init bool) (*Quicksilver, sdk.Context) {
+func GetAppWithContext(t *testing.T, init bool) (*Blackfury, sdk.Context) {
 	t.Helper()
 
 	app := Setup(t, !init)
@@ -128,7 +128,7 @@ func GetAppWithContext(t *testing.T, init bool) (*Quicksilver, sdk.Context) {
 // SetupTestingApp initializes the IBC-go testing application.
 func SetupTestingApp() (testApp ibctesting.TestingApp, genesisState map[string]json.RawMessage) {
 	db := dbm.NewMemDB()
-	app := NewQuicksilver(
+	app := NewBlackfury(
 		log.NewNopLogger(),
 		db,
 		nil,
@@ -145,9 +145,9 @@ func SetupTestingApp() (testApp ibctesting.TestingApp, genesisState map[string]j
 	return app, NewDefaultGenesisState()
 }
 
-// GenesisStateWithValSet creates a quicksilver genesis state with the given validator set.
+// GenesisStateWithValSet creates a blackfury genesis state with the given validator set.
 func GenesisStateWithValSet(t *testing.T,
-	app *Quicksilver, genesisState GenesisState,
+	app *Blackfury, genesisState GenesisState,
 	valSet *tmtypes.ValidatorSet, genAccs []authtypes.GenesisAccount,
 	balances ...banktypes.Balance,
 ) GenesisState {

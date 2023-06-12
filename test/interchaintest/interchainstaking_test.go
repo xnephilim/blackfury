@@ -22,7 +22,7 @@ func TestInterchainStaking(t *testing.T) {
 
 	t.Parallel()
 
-	// Create chain factory with Quicksilver and Juno
+	// Create chain factory with Blackfury and Juno
 	numVals := 3
 	numFullNodes := 3
 
@@ -31,7 +31,7 @@ func TestInterchainStaking(t *testing.T) {
 
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
 		{
-			Name:          "quicksilver",
+			Name:          "blackfury",
 			ChainConfig:   config,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,
@@ -51,7 +51,7 @@ func TestInterchainStaking(t *testing.T) {
 	chains, err := cf.Chains(t.Name())
 	require.NoError(t, err)
 
-	quicksilver, juno := chains[0].(*cosmos.CosmosChain), chains[1].(*cosmos.CosmosChain)
+	blackfury, juno := chains[0].(*cosmos.CosmosChain), chains[1].(*cosmos.CosmosChain)
 
 	// Create relayer factory to utilize the go-relayer
 	client, network := interchaintest.DockerSetup(t)
@@ -60,14 +60,14 @@ func TestInterchainStaking(t *testing.T) {
 
 	// Create a new Interchain object which describes the chains, relayers, and IBC connections we want to use
 	ic := interchaintest.NewInterchain().
-		AddChain(quicksilver).
+		AddChain(blackfury).
 		AddChain(juno).
 		AddRelayer(r, "rly").
 		AddLink(interchaintest.InterchainLink{
-			Chain1:  quicksilver,
+			Chain1:  blackfury,
 			Chain2:  juno,
 			Relayer: r,
-			Path:    pathQuicksilverJuno,
+			Path:    pathBlackfuryJuno,
 		})
 
 	rep := testreporter.NewNopReporter()
@@ -91,7 +91,7 @@ func TestInterchainStaking(t *testing.T) {
 	})
 
 	// Start the relayer
-	require.NoError(t, r.StartRelayer(ctx, eRep, pathQuicksilverJuno))
+	require.NoError(t, r.StartRelayer(ctx, eRep, pathBlackfuryJuno))
 	t.Cleanup(
 		func() {
 			err := r.StopRelayer(ctx, eRep)
@@ -102,35 +102,35 @@ func TestInterchainStaking(t *testing.T) {
 	)
 
 	// Create some user accounts on both chains
-	users := interchaintest.GetAndFundTestUsers(t, ctx, t.Name(), genesisWalletAmount, quicksilver, juno)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, t.Name(), genesisWalletAmount, blackfury, juno)
 
 	// Wait a few blocks for relayer to start and for user accounts to be created
-	err = testutil.WaitForBlocks(ctx, 5, quicksilver, juno)
+	err = testutil.WaitForBlocks(ctx, 5, blackfury, juno)
 	require.NoError(t, err)
 
 	// Get our Bech32 encoded user addresses
-	quickUser, junoUser := users[0], users[1]
+	blackUser, junoUser := users[0], users[1]
 
-	quickUserAddr := quickUser.FormattedAddress()
+	blackUserAddr := blackUser.FormattedAddress()
 	junoUserAddr := junoUser.FormattedAddress()
-	_ = quickUserAddr
+	_ = blackUserAddr
 	_ = junoUserAddr
 
-	runSidecars(t, ctx, quicksilver, juno)
+	runSidecars(t, ctx, blackfury, juno)
 }
 
-func runSidecars(t *testing.T, ctx context.Context, quicksilver, juno *cosmos.CosmosChain) {
+func runSidecars(t *testing.T, ctx context.Context, blackfury, juno *cosmos.CosmosChain) {
 	t.Helper()
 
-	runICQ(t, ctx, quicksilver, juno)
-	// runXCC(t, ctx, quicksilver, juno)
+	runICQ(t, ctx, blackfury, juno)
+	// runXCC(t, ctx, blackfury, juno)
 }
 
-func runICQ(t *testing.T, ctx context.Context, quicksilver, juno *cosmos.CosmosChain) {
+func runICQ(t *testing.T, ctx context.Context, blackfury, juno *cosmos.CosmosChain) {
 	t.Helper()
 
 	var icq *cosmos.SidecarProcess
-	for _, sidecar := range quicksilver.Sidecars {
+	for _, sidecar := range blackfury.Sidecars {
 		if sidecar.ProcessName == "icq" {
 			icq = sidecar
 		}
@@ -146,10 +146,10 @@ chains:
     chain-id: '%s'
     rpc-addr: '%s'
     grpc-addr: '%s'
-    account-prefix: quick
+    account-prefix: black
     keyring-backend: test
     gas-adjustment: 1.2
-    gas-prices: 0.01uqck
+    gas-prices: 0.01ufury
     min-gas-amount: 0
     key-directory: %s/.icq/keys
     debug: false
@@ -174,11 +174,11 @@ chains:
     output-format: json
     sign-mode: direct
 `,
-		quicksilver.Config().ChainID,
-		quicksilver.Config().ChainID,
-		quicksilver.Config().ChainID,
-		quicksilver.GetRPCAddress(),
-		quicksilver.GetGRPCAddress(),
+		blackfury.Config().ChainID,
+		blackfury.Config().ChainID,
+		blackfury.Config().ChainID,
+		blackfury.GetRPCAddress(),
+		blackfury.GetGRPCAddress(),
 		icq.HomeDir(),
 		juno.Config().ChainID,
 		juno.Config().ChainID,
@@ -199,11 +199,11 @@ chains:
 	require.NoError(t, err)
 }
 
-func runXCC(t *testing.T, ctx context.Context, quicksilver, juno *cosmos.CosmosChain) {
+func runXCC(t *testing.T, ctx context.Context, blackfury, juno *cosmos.CosmosChain) {
 	t.Helper()
 
 	var xcc *cosmos.SidecarProcess
-	for _, sidecar := range quicksilver.Sidecars {
+	for _, sidecar := range blackfury.Sidecars {
 		if sidecar.ProcessName == "xcc" {
 			xcc = sidecar
 		}
@@ -214,11 +214,11 @@ func runXCC(t *testing.T, ctx context.Context, quicksilver, juno *cosmos.CosmosC
 
 	file := fmt.Sprintf(`source_chain: '%s'
 chains:
-  quick-1: '%s'
+  black-1: '%s'
   juno-1: '%s'
 `,
-		quicksilver.Config().ChainID,
-		quicksilver.GetRPCAddress(),
+		blackfury.Config().ChainID,
+		blackfury.GetRPCAddress(),
 		juno.GetRPCAddress(),
 	)
 

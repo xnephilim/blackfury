@@ -11,14 +11,14 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/tendermint/tendermint/libs/log"
 
-	config "github.com/ingenuity-build/quicksilver/cmd/config"
-	osmosistypes "github.com/ingenuity-build/quicksilver/osmosis-types"
-	"github.com/ingenuity-build/quicksilver/utils"
-	cmtypes "github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
-	epochskeeper "github.com/ingenuity-build/quicksilver/x/epochs/keeper"
-	icqkeeper "github.com/ingenuity-build/quicksilver/x/interchainquery/keeper"
-	icskeeper "github.com/ingenuity-build/quicksilver/x/interchainstaking/keeper"
-	"github.com/ingenuity-build/quicksilver/x/participationrewards/types"
+	config "github.com/ingenuity-build/blackfury/cmd/config"
+	osmosistypes "github.com/ingenuity-build/blackfury/osmosis-types"
+	"github.com/ingenuity-build/blackfury/utils"
+	cmtypes "github.com/ingenuity-build/blackfury/x/claimsmanager/types"
+	epochskeeper "github.com/ingenuity-build/blackfury/x/epochs/keeper"
+	icqkeeper "github.com/ingenuity-build/blackfury/x/interchainquery/keeper"
+	icskeeper "github.com/ingenuity-build/blackfury/x/interchainstaking/keeper"
+	"github.com/ingenuity-build/blackfury/x/participationrewards/types"
 )
 
 // UserAllocation is an internal keeper struct to track transient state for

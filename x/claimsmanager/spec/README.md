@@ -110,7 +110,7 @@ func GetPrefixLastEpochUserClaim(chainID string, address string) []byte {
 type Claim struct {
 	UserAddress   string    `protobuf:"bytes,1,opt,name=user_address,json=userAddress,proto3" json:"user_address,omitempty"`
 	ChainId       string    `protobuf:"bytes,2,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
-	Module        ClaimType `protobuf:"varint,3,opt,name=module,proto3,enum=quicksilver.claimsmanager.v1.ClaimType" json:"module,omitempty"`
+	Module        ClaimType `protobuf:"varint,3,opt,name=module,proto3,enum=blackfury.claimsmanager.v1.ClaimType" json:"module,omitempty"`
 	SourceChainId string    `protobuf:"bytes,4,opt,name=source_chain_id,json=sourceChainId,proto3" json:"source_chain_id,omitempty"`
 	Amount        uint64    `protobuf:"varint,5,opt,name=amount,proto3" json:"amount,omitempty"`
 }
@@ -158,22 +158,22 @@ Description of available information request queries;
 service Query {
   // Claims returns all zone claims from the current epoch.
   rpc Claims(QueryClaimsRequest) returns (QueryClaimsResponse) {
-    option (google.api.http).get = "/quicksilver/claimsmanager/v1/claims/{chain_id}";
+    option (google.api.http).get = "/blackfury/claimsmanager/v1/claims/{chain_id}";
   }
 
   // LastEpochClaims returns all zone claims from the last epoch.
   rpc LastEpochClaims(QueryClaimsRequest) returns (QueryClaimsResponse) {
-    option (google.api.http).get = "/quicksilver/claimsmanager/v1/previous_epoch_claims/{chain_id}";
+    option (google.api.http).get = "/blackfury/claimsmanager/v1/previous_epoch_claims/{chain_id}";
   }
 
   // UserClaims returns all zone claims for a given address from the current epoch.
   rpc UserClaims(QueryClaimsRequest) returns (QueryClaimsResponse) {
-    option (google.api.http).get = "/quicksilver/claimsmanager/v1/user/{address}/claims";
+    option (google.api.http).get = "/blackfury/claimsmanager/v1/user/{address}/claims";
   }
 
   // UserLastEpochClaims returns all zone claims for a given address from the last epoch.
   rpc UserLastEpochClaims(QueryClaimsRequest) returns (QueryClaimsResponse) {
-    option (google.api.http).get = "/quicksilver/claimsmanager/v1/user/{address}/previous_epoch_claims";
+    option (google.api.http).get = "/blackfury/claimsmanager/v1/user/{address}/previous_epoch_claims";
   }
 }
 ```
@@ -197,7 +197,7 @@ type QueryClaimsResponse struct {
 
 ## Keepers
 
-<https://pkg.go.dev/github.com/ingenuity-build/quicksilver/x/claimsmanager/keeper>
+<https://pkg.go.dev/github.com/ingenuity-build/blackfury/x/claimsmanager/keeper>
 
 ## Parameters
 

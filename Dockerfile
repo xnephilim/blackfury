@@ -23,8 +23,8 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 
 # Add to a distroless container
 FROM alpine:3.17
-COPY --from=builder /src/app/build/quicksilverd /usr/local/bin/quicksilverd
-RUN adduser -S -h /quicksilver -D quicksilver -u 1000
-USER quicksilver
+COPY --from=builder /src/app/build/blackfuryd /usr/local/bin/blackfuryd
+RUN adduser -S -h /blackfury -D blackfury -u 1000
+USER blackfury
 
-CMD ["quicksilverd", "start"]
+CMD ["blackfuryd", "start"]

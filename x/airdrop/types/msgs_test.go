@@ -8,9 +8,9 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/proto/tendermint/crypto"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/airdrop/types"
-	cmtypes "github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/airdrop/types"
+	cmtypes "github.com/ingenuity-build/blackfury/x/claimsmanager/types"
 )
 
 func TestMsgClaim_ValidateBasic(t *testing.T) {
@@ -82,7 +82,7 @@ func TestMsgClaim_ValidateBasic(t *testing.T) {
 			true,
 		},
 		// TODO: add more address checks
-		//   - currently it fails using quick address (no sdk setup done)
+		//   - currently it fails using black address (no sdk setup done)
 		{
 			"invalid_ActionUndefined",
 			fields{

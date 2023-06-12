@@ -10,10 +10,10 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/ingenuity-build/quicksilver/app/keepers"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
-	prtypes "github.com/ingenuity-build/quicksilver/x/participationrewards/types"
+	"github.com/ingenuity-build/blackfury/app/keepers"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
+	prtypes "github.com/ingenuity-build/blackfury/x/participationrewards/types"
 )
 
 func Upgrades() []Upgrade {
@@ -303,11 +303,11 @@ func V010403rc0UpgradeHandler(
 //			appKeepers.InterchainstakingKeeper.RemoveZoneAndAssociatedRecords(ctx, "uni-5")
 //
 //			// burn uqjunox
-//			addr1, err := utils.AccAddressFromBech32("quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq", "quick")
+//			addr1, err := utils.AccAddressFromBech32("black17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq", "black")
 //			if err != nil {
 //				return nil, err
 //			}
-//			addr2, err := utils.AccAddressFromBech32("quick16x03wcp37kx5e8ehckjxvwcgk9j0cqnhcccnty", "quick")
+//			addr2, err := utils.AccAddressFromBech32("black16x03wcp37kx5e8ehckjxvwcgk9j0cqnhcccnty", "black")
 //			if err != nil {
 //				return nil, err
 //			}
@@ -373,7 +373,7 @@ func V010403rc0UpgradeHandler(
 //		// remove and refund failed unbondings
 //		appKeepers.InterchainstakingKeeper.IterateWithdrawalRecords(ctx, func(index int64, record icstypes.WithdrawalRecord) (stop bool) {
 //			if record.Status == icskeeper.WithdrawStatusUnbond && record.CompletionTime.Equal(time.Time{}) {
-//				delegatorAcc, err := utils.AccAddressFromBech32(record.Delegator, "quick")
+//				delegatorAcc, err := utils.AccAddressFromBech32(record.Delegator, "black")
 //				if err != nil {
 //					panic(err)
 //				}

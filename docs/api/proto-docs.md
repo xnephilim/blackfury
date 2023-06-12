@@ -4,120 +4,120 @@
 
 ## Table of Contents
 
-- [quicksilver/epochs/v1/genesis.proto](#quicksilver/epochs/v1/genesis.proto)
-    - [EpochInfo](#quicksilver.epochs.v1.EpochInfo)
-    - [GenesisState](#quicksilver.epochs.v1.GenesisState)
+- [blackfury/epochs/v1/genesis.proto](#blackfury/epochs/v1/genesis.proto)
+    - [EpochInfo](#blackfury.epochs.v1.EpochInfo)
+    - [GenesisState](#blackfury.epochs.v1.GenesisState)
   
-- [quicksilver/epochs/v1/query.proto](#quicksilver/epochs/v1/query.proto)
-    - [QueryCurrentEpochRequest](#quicksilver.epochs.v1.QueryCurrentEpochRequest)
-    - [QueryCurrentEpochResponse](#quicksilver.epochs.v1.QueryCurrentEpochResponse)
-    - [QueryEpochsInfoRequest](#quicksilver.epochs.v1.QueryEpochsInfoRequest)
-    - [QueryEpochsInfoResponse](#quicksilver.epochs.v1.QueryEpochsInfoResponse)
+- [blackfury/epochs/v1/query.proto](#blackfury/epochs/v1/query.proto)
+    - [QueryCurrentEpochRequest](#blackfury.epochs.v1.QueryCurrentEpochRequest)
+    - [QueryCurrentEpochResponse](#blackfury.epochs.v1.QueryCurrentEpochResponse)
+    - [QueryEpochsInfoRequest](#blackfury.epochs.v1.QueryEpochsInfoRequest)
+    - [QueryEpochsInfoResponse](#blackfury.epochs.v1.QueryEpochsInfoResponse)
   
-    - [Query](#quicksilver.epochs.v1.Query)
+    - [Query](#blackfury.epochs.v1.Query)
   
-- [quicksilver/interchainquery/v1/genesis.proto](#quicksilver/interchainquery/v1/genesis.proto)
-    - [DataPoint](#quicksilver.interchainquery.v1.DataPoint)
-    - [GenesisState](#quicksilver.interchainquery.v1.GenesisState)
-    - [Query](#quicksilver.interchainquery.v1.Query)
+- [blackfury/interchainquery/v1/genesis.proto](#blackfury/interchainquery/v1/genesis.proto)
+    - [DataPoint](#blackfury.interchainquery.v1.DataPoint)
+    - [GenesisState](#blackfury.interchainquery.v1.GenesisState)
+    - [Query](#blackfury.interchainquery.v1.Query)
   
-- [quicksilver/interchainquery/v1/messages.proto](#quicksilver/interchainquery/v1/messages.proto)
-    - [MsgSubmitQueryResponse](#quicksilver.interchainquery.v1.MsgSubmitQueryResponse)
-    - [MsgSubmitQueryResponseResponse](#quicksilver.interchainquery.v1.MsgSubmitQueryResponseResponse)
+- [blackfury/interchainquery/v1/messages.proto](#blackfury/interchainquery/v1/messages.proto)
+    - [MsgSubmitQueryResponse](#blackfury.interchainquery.v1.MsgSubmitQueryResponse)
+    - [MsgSubmitQueryResponseResponse](#blackfury.interchainquery.v1.MsgSubmitQueryResponseResponse)
   
-    - [Msg](#quicksilver.interchainquery.v1.Msg)
+    - [Msg](#blackfury.interchainquery.v1.Msg)
   
-- [quicksilver/interchainstaking/v1/genesis.proto](#quicksilver/interchainstaking/v1/genesis.proto)
-    - [Delegation](#quicksilver.interchainstaking.v1.Delegation)
-    - [DelegationPlan](#quicksilver.interchainstaking.v1.DelegationPlan)
-    - [DelegatorIntent](#quicksilver.interchainstaking.v1.DelegatorIntent)
-    - [GenesisState](#quicksilver.interchainstaking.v1.GenesisState)
-    - [ICAAccount](#quicksilver.interchainstaking.v1.ICAAccount)
-    - [Params](#quicksilver.interchainstaking.v1.Params)
-    - [PortConnectionTuple](#quicksilver.interchainstaking.v1.PortConnectionTuple)
-    - [Receipt](#quicksilver.interchainstaking.v1.Receipt)
-    - [RegisteredZone](#quicksilver.interchainstaking.v1.RegisteredZone)
-    - [RegisteredZone.AggregateIntentEntry](#quicksilver.interchainstaking.v1.RegisteredZone.AggregateIntentEntry)
-    - [TransferRecord](#quicksilver.interchainstaking.v1.TransferRecord)
-    - [Validator](#quicksilver.interchainstaking.v1.Validator)
-    - [ValidatorIntent](#quicksilver.interchainstaking.v1.ValidatorIntent)
-    - [WithdrawalRecord](#quicksilver.interchainstaking.v1.WithdrawalRecord)
+- [blackfury/interchainstaking/v1/genesis.proto](#blackfury/interchainstaking/v1/genesis.proto)
+    - [Delegation](#blackfury.interchainstaking.v1.Delegation)
+    - [DelegationPlan](#blackfury.interchainstaking.v1.DelegationPlan)
+    - [DelegatorIntent](#blackfury.interchainstaking.v1.DelegatorIntent)
+    - [GenesisState](#blackfury.interchainstaking.v1.GenesisState)
+    - [ICAAccount](#blackfury.interchainstaking.v1.ICAAccount)
+    - [Params](#blackfury.interchainstaking.v1.Params)
+    - [PortConnectionTuple](#blackfury.interchainstaking.v1.PortConnectionTuple)
+    - [Receipt](#blackfury.interchainstaking.v1.Receipt)
+    - [RegisteredZone](#blackfury.interchainstaking.v1.RegisteredZone)
+    - [RegisteredZone.AggregateIntentEntry](#blackfury.interchainstaking.v1.RegisteredZone.AggregateIntentEntry)
+    - [TransferRecord](#blackfury.interchainstaking.v1.TransferRecord)
+    - [Validator](#blackfury.interchainstaking.v1.Validator)
+    - [ValidatorIntent](#blackfury.interchainstaking.v1.ValidatorIntent)
+    - [WithdrawalRecord](#blackfury.interchainstaking.v1.WithdrawalRecord)
   
-- [quicksilver/interchainstaking/v1/messages.proto](#quicksilver/interchainstaking/v1/messages.proto)
-    - [MsgRegisterZone](#quicksilver.interchainstaking.v1.MsgRegisterZone)
-    - [MsgRegisterZoneResponse](#quicksilver.interchainstaking.v1.MsgRegisterZoneResponse)
-    - [MsgRequestRedemption](#quicksilver.interchainstaking.v1.MsgRequestRedemption)
-    - [MsgRequestRedemptionResponse](#quicksilver.interchainstaking.v1.MsgRequestRedemptionResponse)
-    - [MsgSignalIntent](#quicksilver.interchainstaking.v1.MsgSignalIntent)
-    - [MsgSignalIntentResponse](#quicksilver.interchainstaking.v1.MsgSignalIntentResponse)
+- [blackfury/interchainstaking/v1/messages.proto](#blackfury/interchainstaking/v1/messages.proto)
+    - [MsgRegisterZone](#blackfury.interchainstaking.v1.MsgRegisterZone)
+    - [MsgRegisterZoneResponse](#blackfury.interchainstaking.v1.MsgRegisterZoneResponse)
+    - [MsgRequestRedemption](#blackfury.interchainstaking.v1.MsgRequestRedemption)
+    - [MsgRequestRedemptionResponse](#blackfury.interchainstaking.v1.MsgRequestRedemptionResponse)
+    - [MsgSignalIntent](#blackfury.interchainstaking.v1.MsgSignalIntent)
+    - [MsgSignalIntentResponse](#blackfury.interchainstaking.v1.MsgSignalIntentResponse)
   
-    - [Msg](#quicksilver.interchainstaking.v1.Msg)
+    - [Msg](#blackfury.interchainstaking.v1.Msg)
   
-- [quicksilver/interchainstaking/v1/query.proto](#quicksilver/interchainstaking/v1/query.proto)
-    - [QueryDelegationPlansRequest](#quicksilver.interchainstaking.v1.QueryDelegationPlansRequest)
-    - [QueryDelegationPlansResponse](#quicksilver.interchainstaking.v1.QueryDelegationPlansResponse)
-    - [QueryDelegationsRequest](#quicksilver.interchainstaking.v1.QueryDelegationsRequest)
-    - [QueryDelegationsResponse](#quicksilver.interchainstaking.v1.QueryDelegationsResponse)
-    - [QueryDelegatorDelegationsRequest](#quicksilver.interchainstaking.v1.QueryDelegatorDelegationsRequest)
-    - [QueryDelegatorDelegationsResponse](#quicksilver.interchainstaking.v1.QueryDelegatorDelegationsResponse)
-    - [QueryDelegatorIntentRequest](#quicksilver.interchainstaking.v1.QueryDelegatorIntentRequest)
-    - [QueryDelegatorIntentResponse](#quicksilver.interchainstaking.v1.QueryDelegatorIntentResponse)
-    - [QueryDepositAccountForChainRequest](#quicksilver.interchainstaking.v1.QueryDepositAccountForChainRequest)
-    - [QueryDepositAccountForChainResponse](#quicksilver.interchainstaking.v1.QueryDepositAccountForChainResponse)
-    - [QueryRegisteredZonesInfoRequest](#quicksilver.interchainstaking.v1.QueryRegisteredZonesInfoRequest)
-    - [QueryRegisteredZonesInfoResponse](#quicksilver.interchainstaking.v1.QueryRegisteredZonesInfoResponse)
-    - [QueryValidatorDelegationsRequest](#quicksilver.interchainstaking.v1.QueryValidatorDelegationsRequest)
-    - [QueryValidatorDelegationsResponse](#quicksilver.interchainstaking.v1.QueryValidatorDelegationsResponse)
+- [blackfury/interchainstaking/v1/query.proto](#blackfury/interchainstaking/v1/query.proto)
+    - [QueryDelegationPlansRequest](#blackfury.interchainstaking.v1.QueryDelegationPlansRequest)
+    - [QueryDelegationPlansResponse](#blackfury.interchainstaking.v1.QueryDelegationPlansResponse)
+    - [QueryDelegationsRequest](#blackfury.interchainstaking.v1.QueryDelegationsRequest)
+    - [QueryDelegationsResponse](#blackfury.interchainstaking.v1.QueryDelegationsResponse)
+    - [QueryDelegatorDelegationsRequest](#blackfury.interchainstaking.v1.QueryDelegatorDelegationsRequest)
+    - [QueryDelegatorDelegationsResponse](#blackfury.interchainstaking.v1.QueryDelegatorDelegationsResponse)
+    - [QueryDelegatorIntentRequest](#blackfury.interchainstaking.v1.QueryDelegatorIntentRequest)
+    - [QueryDelegatorIntentResponse](#blackfury.interchainstaking.v1.QueryDelegatorIntentResponse)
+    - [QueryDepositAccountForChainRequest](#blackfury.interchainstaking.v1.QueryDepositAccountForChainRequest)
+    - [QueryDepositAccountForChainResponse](#blackfury.interchainstaking.v1.QueryDepositAccountForChainResponse)
+    - [QueryRegisteredZonesInfoRequest](#blackfury.interchainstaking.v1.QueryRegisteredZonesInfoRequest)
+    - [QueryRegisteredZonesInfoResponse](#blackfury.interchainstaking.v1.QueryRegisteredZonesInfoResponse)
+    - [QueryValidatorDelegationsRequest](#blackfury.interchainstaking.v1.QueryValidatorDelegationsRequest)
+    - [QueryValidatorDelegationsResponse](#blackfury.interchainstaking.v1.QueryValidatorDelegationsResponse)
   
-    - [Query](#quicksilver.interchainstaking.v1.Query)
+    - [Query](#blackfury.interchainstaking.v1.Query)
   
-- [quicksilver/mint/v1beta1/mint.proto](#quicksilver/mint/v1beta1/mint.proto)
-    - [DistributionProportions](#quicksilver.mint.v1beta1.DistributionProportions)
-    - [Minter](#quicksilver.mint.v1beta1.Minter)
-    - [Params](#quicksilver.mint.v1beta1.Params)
+- [blackfury/mint/v1beta1/mint.proto](#blackfury/mint/v1beta1/mint.proto)
+    - [DistributionProportions](#blackfury.mint.v1beta1.DistributionProportions)
+    - [Minter](#blackfury.mint.v1beta1.Minter)
+    - [Params](#blackfury.mint.v1beta1.Params)
   
-- [quicksilver/mint/v1beta1/genesis.proto](#quicksilver/mint/v1beta1/genesis.proto)
-    - [GenesisState](#quicksilver.mint.v1beta1.GenesisState)
+- [blackfury/mint/v1beta1/genesis.proto](#blackfury/mint/v1beta1/genesis.proto)
+    - [GenesisState](#blackfury.mint.v1beta1.GenesisState)
   
-- [quicksilver/mint/v1beta1/query.proto](#quicksilver/mint/v1beta1/query.proto)
-    - [QueryEpochProvisionsRequest](#quicksilver.mint.v1beta1.QueryEpochProvisionsRequest)
-    - [QueryEpochProvisionsResponse](#quicksilver.mint.v1beta1.QueryEpochProvisionsResponse)
-    - [QueryParamsRequest](#quicksilver.mint.v1beta1.QueryParamsRequest)
-    - [QueryParamsResponse](#quicksilver.mint.v1beta1.QueryParamsResponse)
+- [blackfury/mint/v1beta1/query.proto](#blackfury/mint/v1beta1/query.proto)
+    - [QueryEpochProvisionsRequest](#blackfury.mint.v1beta1.QueryEpochProvisionsRequest)
+    - [QueryEpochProvisionsResponse](#blackfury.mint.v1beta1.QueryEpochProvisionsResponse)
+    - [QueryParamsRequest](#blackfury.mint.v1beta1.QueryParamsRequest)
+    - [QueryParamsResponse](#blackfury.mint.v1beta1.QueryParamsResponse)
   
-    - [Query](#quicksilver.mint.v1beta1.Query)
+    - [Query](#blackfury.mint.v1beta1.Query)
   
-- [quicksilver/participationrewards/v1/participationrewards.proto](#quicksilver/participationrewards/v1/participationrewards.proto)
-    - [DistributionProportions](#quicksilver.participationrewards.v1.DistributionProportions)
-    - [Params](#quicksilver.participationrewards.v1.Params)
+- [blackfury/participationrewards/v1/participationrewards.proto](#blackfury/participationrewards/v1/participationrewards.proto)
+    - [DistributionProportions](#blackfury.participationrewards.v1.DistributionProportions)
+    - [Params](#blackfury.participationrewards.v1.Params)
   
-- [quicksilver/participationrewards/v1/genesis.proto](#quicksilver/participationrewards/v1/genesis.proto)
-    - [GenesisState](#quicksilver.participationrewards.v1.GenesisState)
+- [blackfury/participationrewards/v1/genesis.proto](#blackfury/participationrewards/v1/genesis.proto)
+    - [GenesisState](#blackfury.participationrewards.v1.GenesisState)
   
-- [quicksilver/participationrewards/v1/messages.proto](#quicksilver/participationrewards/v1/messages.proto)
-    - [MsgSubmitClaim](#quicksilver.participationrewards.v1.MsgSubmitClaim)
-    - [MsgSubmitClaimResponse](#quicksilver.participationrewards.v1.MsgSubmitClaimResponse)
+- [blackfury/participationrewards/v1/messages.proto](#blackfury/participationrewards/v1/messages.proto)
+    - [MsgSubmitClaim](#blackfury.participationrewards.v1.MsgSubmitClaim)
+    - [MsgSubmitClaimResponse](#blackfury.participationrewards.v1.MsgSubmitClaimResponse)
   
-    - [Msg](#quicksilver.participationrewards.v1.Msg)
+    - [Msg](#blackfury.participationrewards.v1.Msg)
   
-- [quicksilver/participationrewards/v1/query.proto](#quicksilver/participationrewards/v1/query.proto)
-    - [QueryParamsRequest](#quicksilver.participationrewards.v1.QueryParamsRequest)
-    - [QueryParamsResponse](#quicksilver.participationrewards.v1.QueryParamsResponse)
+- [blackfury/participationrewards/v1/query.proto](#blackfury/participationrewards/v1/query.proto)
+    - [QueryParamsRequest](#blackfury.participationrewards.v1.QueryParamsRequest)
+    - [QueryParamsResponse](#blackfury.participationrewards.v1.QueryParamsResponse)
   
-    - [Query](#quicksilver.participationrewards.v1.Query)
+    - [Query](#blackfury.participationrewards.v1.Query)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="quicksilver/epochs/v1/genesis.proto"></a>
+<a name="blackfury/epochs/v1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/epochs/v1/genesis.proto
+## blackfury/epochs/v1/genesis.proto
 
 
 
-<a name="quicksilver.epochs.v1.EpochInfo"></a>
+<a name="blackfury.epochs.v1.EpochInfo"></a>
 
 ### EpochInfo
 
@@ -138,7 +138,7 @@
 
 
 
-<a name="quicksilver.epochs.v1.GenesisState"></a>
+<a name="blackfury.epochs.v1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the epochs module's genesis state.
@@ -146,7 +146,7 @@ GenesisState defines the epochs module's genesis state.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `epochs` | [EpochInfo](#quicksilver.epochs.v1.EpochInfo) | repeated |  |
+| `epochs` | [EpochInfo](#blackfury.epochs.v1.EpochInfo) | repeated |  |
 
 
 
@@ -162,14 +162,14 @@ GenesisState defines the epochs module's genesis state.
 
 
 
-<a name="quicksilver/epochs/v1/query.proto"></a>
+<a name="blackfury/epochs/v1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/epochs/v1/query.proto
+## blackfury/epochs/v1/query.proto
 
 
 
-<a name="quicksilver.epochs.v1.QueryCurrentEpochRequest"></a>
+<a name="blackfury.epochs.v1.QueryCurrentEpochRequest"></a>
 
 ### QueryCurrentEpochRequest
 
@@ -184,7 +184,7 @@ GenesisState defines the epochs module's genesis state.
 
 
 
-<a name="quicksilver.epochs.v1.QueryCurrentEpochResponse"></a>
+<a name="blackfury.epochs.v1.QueryCurrentEpochResponse"></a>
 
 ### QueryCurrentEpochResponse
 
@@ -199,7 +199,7 @@ GenesisState defines the epochs module's genesis state.
 
 
 
-<a name="quicksilver.epochs.v1.QueryEpochsInfoRequest"></a>
+<a name="blackfury.epochs.v1.QueryEpochsInfoRequest"></a>
 
 ### QueryEpochsInfoRequest
 
@@ -214,7 +214,7 @@ GenesisState defines the epochs module's genesis state.
 
 
 
-<a name="quicksilver.epochs.v1.QueryEpochsInfoResponse"></a>
+<a name="blackfury.epochs.v1.QueryEpochsInfoResponse"></a>
 
 ### QueryEpochsInfoResponse
 
@@ -222,7 +222,7 @@ GenesisState defines the epochs module's genesis state.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `epochs` | [EpochInfo](#quicksilver.epochs.v1.EpochInfo) | repeated |  |
+| `epochs` | [EpochInfo](#blackfury.epochs.v1.EpochInfo) | repeated |  |
 | `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  |  |
 
 
@@ -236,28 +236,28 @@ GenesisState defines the epochs module's genesis state.
  <!-- end HasExtensions -->
 
 
-<a name="quicksilver.epochs.v1.Query"></a>
+<a name="blackfury.epochs.v1.Query"></a>
 
 ### Query
 Query defines the gRPC querier service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `EpochInfos` | [QueryEpochsInfoRequest](#quicksilver.epochs.v1.QueryEpochsInfoRequest) | [QueryEpochsInfoResponse](#quicksilver.epochs.v1.QueryEpochsInfoResponse) | EpochInfos provide running epochInfos | GET|/quicksilver/epochs/v1/epochs|
-| `CurrentEpoch` | [QueryCurrentEpochRequest](#quicksilver.epochs.v1.QueryCurrentEpochRequest) | [QueryCurrentEpochResponse](#quicksilver.epochs.v1.QueryCurrentEpochResponse) | CurrentEpoch provide current epoch of specified identifier | GET|/quicksilver/epochs/v1/current_epoch|
+| `EpochInfos` | [QueryEpochsInfoRequest](#blackfury.epochs.v1.QueryEpochsInfoRequest) | [QueryEpochsInfoResponse](#blackfury.epochs.v1.QueryEpochsInfoResponse) | EpochInfos provide running epochInfos | GET|/blackfury/epochs/v1/epochs|
+| `CurrentEpoch` | [QueryCurrentEpochRequest](#blackfury.epochs.v1.QueryCurrentEpochRequest) | [QueryCurrentEpochResponse](#blackfury.epochs.v1.QueryCurrentEpochResponse) | CurrentEpoch provide current epoch of specified identifier | GET|/blackfury/epochs/v1/current_epoch|
 
  <!-- end services -->
 
 
 
-<a name="quicksilver/interchainquery/v1/genesis.proto"></a>
+<a name="blackfury/interchainquery/v1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/interchainquery/v1/genesis.proto
+## blackfury/interchainquery/v1/genesis.proto
 
 
 
-<a name="quicksilver.interchainquery.v1.DataPoint"></a>
+<a name="blackfury.interchainquery.v1.DataPoint"></a>
 
 ### DataPoint
 
@@ -275,7 +275,7 @@ Query defines the gRPC querier service.
 
 
 
-<a name="quicksilver.interchainquery.v1.GenesisState"></a>
+<a name="blackfury.interchainquery.v1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the epochs module's genesis state.
@@ -283,14 +283,14 @@ GenesisState defines the epochs module's genesis state.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `queries` | [Query](#quicksilver.interchainquery.v1.Query) | repeated |  |
+| `queries` | [Query](#blackfury.interchainquery.v1.Query) | repeated |  |
 
 
 
 
 
 
-<a name="quicksilver.interchainquery.v1.Query"></a>
+<a name="blackfury.interchainquery.v1.Query"></a>
 
 ### Query
 
@@ -322,14 +322,14 @@ GenesisState defines the epochs module's genesis state.
 
 
 
-<a name="quicksilver/interchainquery/v1/messages.proto"></a>
+<a name="blackfury/interchainquery/v1/messages.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/interchainquery/v1/messages.proto
+## blackfury/interchainquery/v1/messages.proto
 
 
 
-<a name="quicksilver.interchainquery.v1.MsgSubmitQueryResponse"></a>
+<a name="blackfury.interchainquery.v1.MsgSubmitQueryResponse"></a>
 
 ### MsgSubmitQueryResponse
 MsgSubmitQueryResponse represents a message type to fulfil a query request.
@@ -349,7 +349,7 @@ MsgSubmitQueryResponse represents a message type to fulfil a query request.
 
 
 
-<a name="quicksilver.interchainquery.v1.MsgSubmitQueryResponseResponse"></a>
+<a name="blackfury.interchainquery.v1.MsgSubmitQueryResponseResponse"></a>
 
 ### MsgSubmitQueryResponseResponse
 MsgSubmitQueryResponseResponse defines the MsgSubmitQueryResponse response
@@ -366,27 +366,27 @@ type.
  <!-- end HasExtensions -->
 
 
-<a name="quicksilver.interchainquery.v1.Msg"></a>
+<a name="blackfury.interchainquery.v1.Msg"></a>
 
 ### Msg
 Msg defines the interchainquery Msg service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `SubmitQueryResponse` | [MsgSubmitQueryResponse](#quicksilver.interchainquery.v1.MsgSubmitQueryResponse) | [MsgSubmitQueryResponseResponse](#quicksilver.interchainquery.v1.MsgSubmitQueryResponseResponse) | SubmitQueryResponse defines a method for submit query responses. | POST|/interchainquery/tx/v1beta1/submitquery|
+| `SubmitQueryResponse` | [MsgSubmitQueryResponse](#blackfury.interchainquery.v1.MsgSubmitQueryResponse) | [MsgSubmitQueryResponseResponse](#blackfury.interchainquery.v1.MsgSubmitQueryResponseResponse) | SubmitQueryResponse defines a method for submit query responses. | POST|/interchainquery/tx/v1beta1/submitquery|
 
  <!-- end services -->
 
 
 
-<a name="quicksilver/interchainstaking/v1/genesis.proto"></a>
+<a name="blackfury/interchainstaking/v1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/interchainstaking/v1/genesis.proto
+## blackfury/interchainstaking/v1/genesis.proto
 
 
 
-<a name="quicksilver.interchainstaking.v1.Delegation"></a>
+<a name="blackfury.interchainstaking.v1.Delegation"></a>
 
 ### Delegation
 
@@ -405,7 +405,7 @@ Msg defines the interchainquery Msg service.
 
 
 
-<a name="quicksilver.interchainstaking.v1.DelegationPlan"></a>
+<a name="blackfury.interchainstaking.v1.DelegationPlan"></a>
 
 ### DelegationPlan
 
@@ -422,7 +422,7 @@ Msg defines the interchainquery Msg service.
 
 
 
-<a name="quicksilver.interchainstaking.v1.DelegatorIntent"></a>
+<a name="blackfury.interchainstaking.v1.DelegatorIntent"></a>
 
 ### DelegatorIntent
 
@@ -431,14 +431,14 @@ Msg defines the interchainquery Msg service.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `delegator` | [string](#string) |  |  |
-| `intents` | [ValidatorIntent](#quicksilver.interchainstaking.v1.ValidatorIntent) | repeated |  |
+| `intents` | [ValidatorIntent](#blackfury.interchainstaking.v1.ValidatorIntent) | repeated |  |
 
 
 
 
 
 
-<a name="quicksilver.interchainstaking.v1.GenesisState"></a>
+<a name="blackfury.interchainstaking.v1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the interchainstaking module's genesis state.
@@ -446,15 +446,15 @@ GenesisState defines the interchainstaking module's genesis state.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `params` | [Params](#quicksilver.interchainstaking.v1.Params) |  |  |
-| `zones` | [RegisteredZone](#quicksilver.interchainstaking.v1.RegisteredZone) | repeated |  |
+| `params` | [Params](#blackfury.interchainstaking.v1.Params) |  |  |
+| `zones` | [RegisteredZone](#blackfury.interchainstaking.v1.RegisteredZone) | repeated |  |
 
 
 
 
 
 
-<a name="quicksilver.interchainstaking.v1.ICAAccount"></a>
+<a name="blackfury.interchainstaking.v1.ICAAccount"></a>
 
 ### ICAAccount
 
@@ -473,7 +473,7 @@ GenesisState defines the interchainstaking module's genesis state.
 
 
 
-<a name="quicksilver.interchainstaking.v1.Params"></a>
+<a name="blackfury.interchainstaking.v1.Params"></a>
 
 ### Params
 
@@ -494,7 +494,7 @@ GenesisState defines the interchainstaking module's genesis state.
 
 
 
-<a name="quicksilver.interchainstaking.v1.PortConnectionTuple"></a>
+<a name="blackfury.interchainstaking.v1.PortConnectionTuple"></a>
 
 ### PortConnectionTuple
 
@@ -510,7 +510,7 @@ GenesisState defines the interchainstaking module's genesis state.
 
 
 
-<a name="quicksilver.interchainstaking.v1.Receipt"></a>
+<a name="blackfury.interchainstaking.v1.Receipt"></a>
 
 ### Receipt
 
@@ -518,7 +518,7 @@ GenesisState defines the interchainstaking module's genesis state.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `zone` | [RegisteredZone](#quicksilver.interchainstaking.v1.RegisteredZone) |  |  |
+| `zone` | [RegisteredZone](#blackfury.interchainstaking.v1.RegisteredZone) |  |  |
 | `sender` | [string](#string) |  |  |
 | `txhash` | [string](#string) |  |  |
 | `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
@@ -528,7 +528,7 @@ GenesisState defines the interchainstaking module's genesis state.
 
 
 
-<a name="quicksilver.interchainstaking.v1.RegisteredZone"></a>
+<a name="blackfury.interchainstaking.v1.RegisteredZone"></a>
 
 ### RegisteredZone
 
@@ -538,17 +538,17 @@ GenesisState defines the interchainstaking module's genesis state.
 | ----- | ---- | ----- | ----------- |
 | `connection_id` | [string](#string) |  |  |
 | `chain_id` | [string](#string) |  |  |
-| `deposit_address` | [ICAAccount](#quicksilver.interchainstaking.v1.ICAAccount) |  |  |
-| `withdrawal_address` | [ICAAccount](#quicksilver.interchainstaking.v1.ICAAccount) |  |  |
-| `performance_address` | [ICAAccount](#quicksilver.interchainstaking.v1.ICAAccount) |  |  |
-| `delegation_addresses` | [ICAAccount](#quicksilver.interchainstaking.v1.ICAAccount) | repeated |  |
+| `deposit_address` | [ICAAccount](#blackfury.interchainstaking.v1.ICAAccount) |  |  |
+| `withdrawal_address` | [ICAAccount](#blackfury.interchainstaking.v1.ICAAccount) |  |  |
+| `performance_address` | [ICAAccount](#blackfury.interchainstaking.v1.ICAAccount) |  |  |
+| `delegation_addresses` | [ICAAccount](#blackfury.interchainstaking.v1.ICAAccount) | repeated |  |
 | `account_prefix` | [string](#string) |  |  |
 | `local_denom` | [string](#string) |  |  |
 | `base_denom` | [string](#string) |  |  |
 | `redemption_rate` | [string](#string) |  |  |
 | `last_redemption_rate` | [string](#string) |  |  |
-| `validators` | [Validator](#quicksilver.interchainstaking.v1.Validator) | repeated |  |
-| `aggregate_intent` | [RegisteredZone.AggregateIntentEntry](#quicksilver.interchainstaking.v1.RegisteredZone.AggregateIntentEntry) | repeated |  |
+| `validators` | [Validator](#blackfury.interchainstaking.v1.Validator) | repeated |  |
+| `aggregate_intent` | [RegisteredZone.AggregateIntentEntry](#blackfury.interchainstaking.v1.RegisteredZone.AggregateIntentEntry) | repeated |  |
 | `multi_send` | [bool](#bool) |  |  |
 | `liquidity_module` | [bool](#bool) |  |  |
 | `withdrawal_waitgroup` | [uint32](#uint32) |  |  |
@@ -560,7 +560,7 @@ GenesisState defines the interchainstaking module's genesis state.
 
 
 
-<a name="quicksilver.interchainstaking.v1.RegisteredZone.AggregateIntentEntry"></a>
+<a name="blackfury.interchainstaking.v1.RegisteredZone.AggregateIntentEntry"></a>
 
 ### RegisteredZone.AggregateIntentEntry
 
@@ -569,14 +569,14 @@ GenesisState defines the interchainstaking module's genesis state.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `key` | [string](#string) |  |  |
-| `value` | [ValidatorIntent](#quicksilver.interchainstaking.v1.ValidatorIntent) |  |  |
+| `value` | [ValidatorIntent](#blackfury.interchainstaking.v1.ValidatorIntent) |  |  |
 
 
 
 
 
 
-<a name="quicksilver.interchainstaking.v1.TransferRecord"></a>
+<a name="blackfury.interchainstaking.v1.TransferRecord"></a>
 
 ### TransferRecord
 
@@ -593,7 +593,7 @@ GenesisState defines the interchainstaking module's genesis state.
 
 
 
-<a name="quicksilver.interchainstaking.v1.Validator"></a>
+<a name="blackfury.interchainstaking.v1.Validator"></a>
 
 ### Validator
 
@@ -611,7 +611,7 @@ GenesisState defines the interchainstaking module's genesis state.
 
 
 
-<a name="quicksilver.interchainstaking.v1.ValidatorIntent"></a>
+<a name="blackfury.interchainstaking.v1.ValidatorIntent"></a>
 
 ### ValidatorIntent
 
@@ -627,7 +627,7 @@ GenesisState defines the interchainstaking module's genesis state.
 
 
 
-<a name="quicksilver.interchainstaking.v1.WithdrawalRecord"></a>
+<a name="blackfury.interchainstaking.v1.WithdrawalRecord"></a>
 
 ### WithdrawalRecord
 
@@ -657,14 +657,14 @@ GenesisState defines the interchainstaking module's genesis state.
 
 
 
-<a name="quicksilver/interchainstaking/v1/messages.proto"></a>
+<a name="blackfury/interchainstaking/v1/messages.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/interchainstaking/v1/messages.proto
+## blackfury/interchainstaking/v1/messages.proto
 
 
 
-<a name="quicksilver.interchainstaking.v1.MsgRegisterZone"></a>
+<a name="blackfury.interchainstaking.v1.MsgRegisterZone"></a>
 
 ### MsgRegisterZone
 MsgRegisterZone represents a message type to register a new zone. TODO:
@@ -686,7 +686,7 @@ deprecate in favour of governance vote.
 
 
 
-<a name="quicksilver.interchainstaking.v1.MsgRegisterZoneResponse"></a>
+<a name="blackfury.interchainstaking.v1.MsgRegisterZoneResponse"></a>
 
 ### MsgRegisterZoneResponse
 MsgRegisterZoneResponse defines the MsgRegisterZone response type.
@@ -696,7 +696,7 @@ MsgRegisterZoneResponse defines the MsgRegisterZone response type.
 
 
 
-<a name="quicksilver.interchainstaking.v1.MsgRequestRedemption"></a>
+<a name="blackfury.interchainstaking.v1.MsgRequestRedemption"></a>
 
 ### MsgRequestRedemption
 MsgRegisterZone represents a message type to request a burn of qAssets for
@@ -714,7 +714,7 @@ native assets.
 
 
 
-<a name="quicksilver.interchainstaking.v1.MsgRequestRedemptionResponse"></a>
+<a name="blackfury.interchainstaking.v1.MsgRequestRedemptionResponse"></a>
 
 ### MsgRequestRedemptionResponse
 MsgRequestRedemptionResponse defines the MsgRequestRedemption response type.
@@ -724,7 +724,7 @@ MsgRequestRedemptionResponse defines the MsgRequestRedemption response type.
 
 
 
-<a name="quicksilver.interchainstaking.v1.MsgSignalIntent"></a>
+<a name="blackfury.interchainstaking.v1.MsgSignalIntent"></a>
 
 ### MsgSignalIntent
 MsgSignalIntent represents a message type for signalling voting intent for
@@ -734,7 +734,7 @@ one or more validators.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `chain_id` | [string](#string) |  |  |
-| `intents` | [ValidatorIntent](#quicksilver.interchainstaking.v1.ValidatorIntent) | repeated |  |
+| `intents` | [ValidatorIntent](#blackfury.interchainstaking.v1.ValidatorIntent) | repeated |  |
 | `from_address` | [string](#string) |  |  |
 
 
@@ -742,7 +742,7 @@ one or more validators.
 
 
 
-<a name="quicksilver.interchainstaking.v1.MsgSignalIntentResponse"></a>
+<a name="blackfury.interchainstaking.v1.MsgSignalIntentResponse"></a>
 
 ### MsgSignalIntentResponse
 MsgSignalIntentResponse defines the MsgSignalIntent response type.
@@ -758,29 +758,29 @@ MsgSignalIntentResponse defines the MsgSignalIntent response type.
  <!-- end HasExtensions -->
 
 
-<a name="quicksilver.interchainstaking.v1.Msg"></a>
+<a name="blackfury.interchainstaking.v1.Msg"></a>
 
 ### Msg
 Msg defines the interchainstaking Msg service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `RegisterZone` | [MsgRegisterZone](#quicksilver.interchainstaking.v1.MsgRegisterZone) | [MsgRegisterZoneResponse](#quicksilver.interchainstaking.v1.MsgRegisterZoneResponse) | RegisterZone defines a method for registering a new zone. TODO: deprecate in favour of governance vote. | POST|/quicksilver/tx/v1/interchainstaking/zone|
-| `RequestRedemption` | [MsgRequestRedemption](#quicksilver.interchainstaking.v1.MsgRequestRedemption) | [MsgRequestRedemptionResponse](#quicksilver.interchainstaking.v1.MsgRequestRedemptionResponse) | RequestRedemption defines a method for requesting burning of qAssets for native assets. | POST|/quicksilver/tx/v1/interchainstaking/redeem|
-| `SignalIntent` | [MsgSignalIntent](#quicksilver.interchainstaking.v1.MsgSignalIntent) | [MsgSignalIntentResponse](#quicksilver.interchainstaking.v1.MsgSignalIntentResponse) | SignalIntent defines a method for signalling voting intent for one or more validators. | POST|/quicksilver/tx/v1/interchainstaking/intent|
+| `RegisterZone` | [MsgRegisterZone](#blackfury.interchainstaking.v1.MsgRegisterZone) | [MsgRegisterZoneResponse](#blackfury.interchainstaking.v1.MsgRegisterZoneResponse) | RegisterZone defines a method for registering a new zone. TODO: deprecate in favour of governance vote. | POST|/blackfury/tx/v1/interchainstaking/zone|
+| `RequestRedemption` | [MsgRequestRedemption](#blackfury.interchainstaking.v1.MsgRequestRedemption) | [MsgRequestRedemptionResponse](#blackfury.interchainstaking.v1.MsgRequestRedemptionResponse) | RequestRedemption defines a method for requesting burning of qAssets for native assets. | POST|/blackfury/tx/v1/interchainstaking/redeem|
+| `SignalIntent` | [MsgSignalIntent](#blackfury.interchainstaking.v1.MsgSignalIntent) | [MsgSignalIntentResponse](#blackfury.interchainstaking.v1.MsgSignalIntentResponse) | SignalIntent defines a method for signalling voting intent for one or more validators. | POST|/blackfury/tx/v1/interchainstaking/intent|
 
  <!-- end services -->
 
 
 
-<a name="quicksilver/interchainstaking/v1/query.proto"></a>
+<a name="blackfury/interchainstaking/v1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/interchainstaking/v1/query.proto
+## blackfury/interchainstaking/v1/query.proto
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDelegationPlansRequest"></a>
+<a name="blackfury.interchainstaking.v1.QueryDelegationPlansRequest"></a>
 
 ### QueryDelegationPlansRequest
 
@@ -796,7 +796,7 @@ Msg defines the interchainstaking Msg service.
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDelegationPlansResponse"></a>
+<a name="blackfury.interchainstaking.v1.QueryDelegationPlansResponse"></a>
 
 ### QueryDelegationPlansResponse
 
@@ -804,14 +804,14 @@ Msg defines the interchainstaking Msg service.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `delegations` | [DelegationPlan](#quicksilver.interchainstaking.v1.DelegationPlan) | repeated |  |
+| `delegations` | [DelegationPlan](#blackfury.interchainstaking.v1.DelegationPlan) | repeated |  |
 
 
 
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDelegationsRequest"></a>
+<a name="blackfury.interchainstaking.v1.QueryDelegationsRequest"></a>
 
 ### QueryDelegationsRequest
 
@@ -827,7 +827,7 @@ Msg defines the interchainstaking Msg service.
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDelegationsResponse"></a>
+<a name="blackfury.interchainstaking.v1.QueryDelegationsResponse"></a>
 
 ### QueryDelegationsResponse
 
@@ -835,14 +835,14 @@ Msg defines the interchainstaking Msg service.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `delegations` | [Delegation](#quicksilver.interchainstaking.v1.Delegation) | repeated |  |
+| `delegations` | [Delegation](#blackfury.interchainstaking.v1.Delegation) | repeated |  |
 
 
 
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDelegatorDelegationsRequest"></a>
+<a name="blackfury.interchainstaking.v1.QueryDelegatorDelegationsRequest"></a>
 
 ### QueryDelegatorDelegationsRequest
 
@@ -859,7 +859,7 @@ Msg defines the interchainstaking Msg service.
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDelegatorDelegationsResponse"></a>
+<a name="blackfury.interchainstaking.v1.QueryDelegatorDelegationsResponse"></a>
 
 ### QueryDelegatorDelegationsResponse
 
@@ -867,14 +867,14 @@ Msg defines the interchainstaking Msg service.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `delegations` | [Delegation](#quicksilver.interchainstaking.v1.Delegation) | repeated |  |
+| `delegations` | [Delegation](#blackfury.interchainstaking.v1.Delegation) | repeated |  |
 
 
 
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDelegatorIntentRequest"></a>
+<a name="blackfury.interchainstaking.v1.QueryDelegatorIntentRequest"></a>
 
 ### QueryDelegatorIntentRequest
 
@@ -890,7 +890,7 @@ Msg defines the interchainstaking Msg service.
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDelegatorIntentResponse"></a>
+<a name="blackfury.interchainstaking.v1.QueryDelegatorIntentResponse"></a>
 
 ### QueryDelegatorIntentResponse
 
@@ -898,14 +898,14 @@ Msg defines the interchainstaking Msg service.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `intent` | [DelegatorIntent](#quicksilver.interchainstaking.v1.DelegatorIntent) |  |  |
+| `intent` | [DelegatorIntent](#blackfury.interchainstaking.v1.DelegatorIntent) |  |  |
 
 
 
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDepositAccountForChainRequest"></a>
+<a name="blackfury.interchainstaking.v1.QueryDepositAccountForChainRequest"></a>
 
 ### QueryDepositAccountForChainRequest
 QueryDepositAccountForChainRequest is the request type for the
@@ -921,7 +921,7 @@ Query/InterchainAccountAddress RPC
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryDepositAccountForChainResponse"></a>
+<a name="blackfury.interchainstaking.v1.QueryDepositAccountForChainResponse"></a>
 
 ### QueryDepositAccountForChainResponse
 QueryDepositAccountForChainResponse the response type for the
@@ -937,7 +937,7 @@ Query/InterchainAccountAddress RPC
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryRegisteredZonesInfoRequest"></a>
+<a name="blackfury.interchainstaking.v1.QueryRegisteredZonesInfoRequest"></a>
 
 ### QueryRegisteredZonesInfoRequest
 
@@ -952,7 +952,7 @@ Query/InterchainAccountAddress RPC
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryRegisteredZonesInfoResponse"></a>
+<a name="blackfury.interchainstaking.v1.QueryRegisteredZonesInfoResponse"></a>
 
 ### QueryRegisteredZonesInfoResponse
 
@@ -960,7 +960,7 @@ Query/InterchainAccountAddress RPC
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `zones` | [RegisteredZone](#quicksilver.interchainstaking.v1.RegisteredZone) | repeated |  |
+| `zones` | [RegisteredZone](#blackfury.interchainstaking.v1.RegisteredZone) | repeated |  |
 | `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  |  |
 
 
@@ -968,7 +968,7 @@ Query/InterchainAccountAddress RPC
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryValidatorDelegationsRequest"></a>
+<a name="blackfury.interchainstaking.v1.QueryValidatorDelegationsRequest"></a>
 
 ### QueryValidatorDelegationsRequest
 
@@ -985,7 +985,7 @@ Query/InterchainAccountAddress RPC
 
 
 
-<a name="quicksilver.interchainstaking.v1.QueryValidatorDelegationsResponse"></a>
+<a name="blackfury.interchainstaking.v1.QueryValidatorDelegationsResponse"></a>
 
 ### QueryValidatorDelegationsResponse
 
@@ -993,7 +993,7 @@ Query/InterchainAccountAddress RPC
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `delegations` | [Delegation](#quicksilver.interchainstaking.v1.Delegation) | repeated |  |
+| `delegations` | [Delegation](#blackfury.interchainstaking.v1.Delegation) | repeated |  |
 
 
 
@@ -1006,33 +1006,33 @@ Query/InterchainAccountAddress RPC
  <!-- end HasExtensions -->
 
 
-<a name="quicksilver.interchainstaking.v1.Query"></a>
+<a name="blackfury.interchainstaking.v1.Query"></a>
 
 ### Query
 Query defines the gRPC querier service.
 
 | Method Name            | Request Type                                                                                               | Response Type | Description                                                                                      | HTTP Verb | Endpoint |
 |------------------------|------------------------------------------------------------------------------------------------------------| ------------- |--------------------------------------------------------------------------------------------------| ------- | -------- |
-| `Zones`      | [QueryZonesRequest](#quicksilver.interchainstaking.v1.QueryZonesRequest)                                   | [QueryZonesResponse](#quicksilver.interchainstaking.v1.QueryZonesResponse) | Zones provides meta data on connected zones.                                                     | GET|/quicksilver/interchainstaking/v1/zones|
-| `DepositAccount`       | [QueryDepositAccountForChainRequest](#quicksilver.interchainstaking.v1.QueryDepositAccountForChainRequest) | [QueryDepositAccountForChainResponse](#quicksilver.interchainstaking.v1.QueryDepositAccountForChainResponse) | DepositAccount provides data on the deposit address for a connected zone.                        | GET|/quicksilver/interchainstaking/v1/zones/{chain_id}/deposit_address|
-| `DelegatorIntent`      | [QueryDelegatorIntentRequest](#quicksilver.interchainstaking.v1.QueryDelegatorIntentRequest)               | [QueryDelegatorIntentResponse](#quicksilver.interchainstaking.v1.QueryDelegatorIntentResponse) | DelegatorIntent provides data on the intent of the delegator for the given zone.                 | GET|/quicksilver/interchainstaking/v1/zones/{chain_id}/delegator_intent/{delegator_address}|
-| `Delegations`          | [QueryDelegationsRequest](#quicksilver.interchainstaking.v1.QueryDelegationsRequest)                       | [QueryDelegationsResponse](#quicksilver.interchainstaking.v1.QueryDelegationsResponse) | Delegations provides data on the delegations for the given zone.                                 | GET|/quicksilver/interchainstaking/v1/zones/{chain_id}/delegations|
-| `DelegatorDelegations` | [QueryDelegatorDelegationsRequest](#quicksilver.interchainstaking.v1.QueryDelegatorDelegationsRequest)     | [QueryDelegatorDelegationsResponse](#quicksilver.interchainstaking.v1.QueryDelegatorDelegationsResponse) | DelegatorDelegations provides data on the delegations from a given delegator for the given zone. | GET|/quicksilver/interchainstaking/v1/zones/{chain_id}/delegator_delegations/{delegator_address}|
-| `ValidatorDelegations` | [QueryValidatorDelegationsRequest](#quicksilver.interchainstaking.v1.QueryValidatorDelegationsRequest)     | [QueryValidatorDelegationsResponse](#quicksilver.interchainstaking.v1.QueryValidatorDelegationsResponse) | ValidatorDelegations provides data on the delegations to a given validator for the given zone.   | GET|/quicksilver/interchainstaking/v1/zones/{chain_id}/validator_delegations/{validator_address}|
-| `DelegationPlans`      | [QueryDelegationPlansRequest](#quicksilver.interchainstaking.v1.QueryDelegationPlansRequest)               | [QueryDelegationPlansResponse](#quicksilver.interchainstaking.v1.QueryDelegationPlansResponse) | DelegationPlans provides data on the delegations to a given validator for the given zone.        | GET|/quicksilver/interchainstaking/v1/zones/{chain_id}/delegation_plans|
+| `Zones`      | [QueryZonesRequest](#blackfury.interchainstaking.v1.QueryZonesRequest)                                   | [QueryZonesResponse](#blackfury.interchainstaking.v1.QueryZonesResponse) | Zones provides meta data on connected zones.                                                     | GET|/blackfury/interchainstaking/v1/zones|
+| `DepositAccount`       | [QueryDepositAccountForChainRequest](#blackfury.interchainstaking.v1.QueryDepositAccountForChainRequest) | [QueryDepositAccountForChainResponse](#blackfury.interchainstaking.v1.QueryDepositAccountForChainResponse) | DepositAccount provides data on the deposit address for a connected zone.                        | GET|/blackfury/interchainstaking/v1/zones/{chain_id}/deposit_address|
+| `DelegatorIntent`      | [QueryDelegatorIntentRequest](#blackfury.interchainstaking.v1.QueryDelegatorIntentRequest)               | [QueryDelegatorIntentResponse](#blackfury.interchainstaking.v1.QueryDelegatorIntentResponse) | DelegatorIntent provides data on the intent of the delegator for the given zone.                 | GET|/blackfury/interchainstaking/v1/zones/{chain_id}/delegator_intent/{delegator_address}|
+| `Delegations`          | [QueryDelegationsRequest](#blackfury.interchainstaking.v1.QueryDelegationsRequest)                       | [QueryDelegationsResponse](#blackfury.interchainstaking.v1.QueryDelegationsResponse) | Delegations provides data on the delegations for the given zone.                                 | GET|/blackfury/interchainstaking/v1/zones/{chain_id}/delegations|
+| `DelegatorDelegations` | [QueryDelegatorDelegationsRequest](#blackfury.interchainstaking.v1.QueryDelegatorDelegationsRequest)     | [QueryDelegatorDelegationsResponse](#blackfury.interchainstaking.v1.QueryDelegatorDelegationsResponse) | DelegatorDelegations provides data on the delegations from a given delegator for the given zone. | GET|/blackfury/interchainstaking/v1/zones/{chain_id}/delegator_delegations/{delegator_address}|
+| `ValidatorDelegations` | [QueryValidatorDelegationsRequest](#blackfury.interchainstaking.v1.QueryValidatorDelegationsRequest)     | [QueryValidatorDelegationsResponse](#blackfury.interchainstaking.v1.QueryValidatorDelegationsResponse) | ValidatorDelegations provides data on the delegations to a given validator for the given zone.   | GET|/blackfury/interchainstaking/v1/zones/{chain_id}/validator_delegations/{validator_address}|
+| `DelegationPlans`      | [QueryDelegationPlansRequest](#blackfury.interchainstaking.v1.QueryDelegationPlansRequest)               | [QueryDelegationPlansResponse](#blackfury.interchainstaking.v1.QueryDelegationPlansResponse) | DelegationPlans provides data on the delegations to a given validator for the given zone.        | GET|/blackfury/interchainstaking/v1/zones/{chain_id}/delegation_plans|
 
  <!-- end services -->
 
 
 
-<a name="quicksilver/mint/v1beta1/mint.proto"></a>
+<a name="blackfury/mint/v1beta1/mint.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/mint/v1beta1/mint.proto
+## blackfury/mint/v1beta1/mint.proto
 
 
 
-<a name="quicksilver.mint.v1beta1.DistributionProportions"></a>
+<a name="blackfury.mint.v1beta1.DistributionProportions"></a>
 
 ### DistributionProportions
 
@@ -1050,7 +1050,7 @@ Query defines the gRPC querier service.
 
 
 
-<a name="quicksilver.mint.v1beta1.Minter"></a>
+<a name="blackfury.mint.v1beta1.Minter"></a>
 
 ### Minter
 Minter represents the minting state.
@@ -1065,7 +1065,7 @@ Minter represents the minting state.
 
 
 
-<a name="quicksilver.mint.v1beta1.Params"></a>
+<a name="blackfury.mint.v1beta1.Params"></a>
 
 ### Params
 Params holds parameters for the mint module.
@@ -1078,7 +1078,7 @@ Params holds parameters for the mint module.
 | `epoch_identifier` | [string](#string) |  | mint epoch identifier |
 | `reduction_period_in_epochs` | [int64](#int64) |  | number of epochs take to reduce rewards |
 | `reduction_factor` | [string](#string) |  | reduction multiplier to execute on each period |
-| `distribution_proportions` | [DistributionProportions](#quicksilver.mint.v1beta1.DistributionProportions) |  | distribution_proportions defines the proportion of the minted denom |
+| `distribution_proportions` | [DistributionProportions](#blackfury.mint.v1beta1.DistributionProportions) |  | distribution_proportions defines the proportion of the minted denom |
 | `minting_rewards_distribution_start_epoch` | [int64](#int64) |  | start epoch to distribute minting rewards |
 
 
@@ -1095,14 +1095,14 @@ Params holds parameters for the mint module.
 
 
 
-<a name="quicksilver/mint/v1beta1/genesis.proto"></a>
+<a name="blackfury/mint/v1beta1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/mint/v1beta1/genesis.proto
+## blackfury/mint/v1beta1/genesis.proto
 
 
 
-<a name="quicksilver.mint.v1beta1.GenesisState"></a>
+<a name="blackfury.mint.v1beta1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the mint module's genesis state.
@@ -1110,8 +1110,8 @@ GenesisState defines the mint module's genesis state.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `minter` | [Minter](#quicksilver.mint.v1beta1.Minter) |  | minter is a space for holding current rewards information. |
-| `params` | [Params](#quicksilver.mint.v1beta1.Params) |  | params defines all the paramaters of the module. |
+| `minter` | [Minter](#blackfury.mint.v1beta1.Minter) |  | minter is a space for holding current rewards information. |
+| `params` | [Params](#blackfury.mint.v1beta1.Params) |  | params defines all the paramaters of the module. |
 | `reduction_started_epoch` | [int64](#int64) |  | current reduction period start epoch |
 
 
@@ -1128,14 +1128,14 @@ GenesisState defines the mint module's genesis state.
 
 
 
-<a name="quicksilver/mint/v1beta1/query.proto"></a>
+<a name="blackfury/mint/v1beta1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/mint/v1beta1/query.proto
+## blackfury/mint/v1beta1/query.proto
 
 
 
-<a name="quicksilver.mint.v1beta1.QueryEpochProvisionsRequest"></a>
+<a name="blackfury.mint.v1beta1.QueryEpochProvisionsRequest"></a>
 
 ### QueryEpochProvisionsRequest
 QueryEpochProvisionsRequest is the request type for the
@@ -1146,7 +1146,7 @@ Query/EpochProvisions RPC method.
 
 
 
-<a name="quicksilver.mint.v1beta1.QueryEpochProvisionsResponse"></a>
+<a name="blackfury.mint.v1beta1.QueryEpochProvisionsResponse"></a>
 
 ### QueryEpochProvisionsResponse
 QueryEpochProvisionsResponse is the response type for the
@@ -1162,7 +1162,7 @@ Query/EpochProvisions RPC method.
 
 
 
-<a name="quicksilver.mint.v1beta1.QueryParamsRequest"></a>
+<a name="blackfury.mint.v1beta1.QueryParamsRequest"></a>
 
 ### QueryParamsRequest
 QueryParamsRequest is the request type for the Query/Params RPC method.
@@ -1172,7 +1172,7 @@ QueryParamsRequest is the request type for the Query/Params RPC method.
 
 
 
-<a name="quicksilver.mint.v1beta1.QueryParamsResponse"></a>
+<a name="blackfury.mint.v1beta1.QueryParamsResponse"></a>
 
 ### QueryParamsResponse
 QueryParamsResponse is the response type for the Query/Params RPC method.
@@ -1180,7 +1180,7 @@ QueryParamsResponse is the response type for the Query/Params RPC method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `params` | [Params](#quicksilver.mint.v1beta1.Params) |  | params defines the parameters of the module. |
+| `params` | [Params](#blackfury.mint.v1beta1.Params) |  | params defines the parameters of the module. |
 
 
 
@@ -1193,31 +1193,31 @@ QueryParamsResponse is the response type for the Query/Params RPC method.
  <!-- end HasExtensions -->
 
 
-<a name="quicksilver.mint.v1beta1.Query"></a>
+<a name="blackfury.mint.v1beta1.Query"></a>
 
 ### Query
 Query provides defines the gRPC querier service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#quicksilver.mint.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#quicksilver.mint.v1beta1.QueryParamsResponse) | Params returns the total set of minting parameters. | GET|/quicksilver/mint/v1beta1/params|
-| `EpochProvisions` | [QueryEpochProvisionsRequest](#quicksilver.mint.v1beta1.QueryEpochProvisionsRequest) | [QueryEpochProvisionsResponse](#quicksilver.mint.v1beta1.QueryEpochProvisionsResponse) | EpochProvisions current minting epoch provisions value. | GET|/quicksilver/mint/v1beta1/epoch_provisions|
+| `Params` | [QueryParamsRequest](#blackfury.mint.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#blackfury.mint.v1beta1.QueryParamsResponse) | Params returns the total set of minting parameters. | GET|/blackfury/mint/v1beta1/params|
+| `EpochProvisions` | [QueryEpochProvisionsRequest](#blackfury.mint.v1beta1.QueryEpochProvisionsRequest) | [QueryEpochProvisionsResponse](#blackfury.mint.v1beta1.QueryEpochProvisionsResponse) | EpochProvisions current minting epoch provisions value. | GET|/blackfury/mint/v1beta1/epoch_provisions|
 
  <!-- end services -->
 
 
 
-<a name="quicksilver/participationrewards/v1/participationrewards.proto"></a>
+<a name="blackfury/participationrewards/v1/participationrewards.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/participationrewards/v1/participationrewards.proto
+## blackfury/participationrewards/v1/participationrewards.proto
 
 
 
-<a name="quicksilver.participationrewards.v1.DistributionProportions"></a>
+<a name="blackfury.participationrewards.v1.DistributionProportions"></a>
 
 ### DistributionProportions
-DistributionProportions defines the proportions of minted QCK that is to be
+DistributionProportions defines the proportions of minted FURY that is to be
 allocated as participation rewards.
 
 
@@ -1232,7 +1232,7 @@ allocated as participation rewards.
 
 
 
-<a name="quicksilver.participationrewards.v1.Params"></a>
+<a name="blackfury.participationrewards.v1.Params"></a>
 
 ### Params
 Params holds parameters for the participationrewards module.
@@ -1240,7 +1240,7 @@ Params holds parameters for the participationrewards module.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `distribution_proportions` | [DistributionProportions](#quicksilver.participationrewards.v1.DistributionProportions) |  | distribution_proportions defines the proportions of the minted participation rewards; |
+| `distribution_proportions` | [DistributionProportions](#blackfury.participationrewards.v1.DistributionProportions) |  | distribution_proportions defines the proportions of the minted participation rewards; |
 
 
 
@@ -1256,14 +1256,14 @@ Params holds parameters for the participationrewards module.
 
 
 
-<a name="quicksilver/participationrewards/v1/genesis.proto"></a>
+<a name="blackfury/participationrewards/v1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/participationrewards/v1/genesis.proto
+## blackfury/participationrewards/v1/genesis.proto
 
 
 
-<a name="quicksilver.participationrewards.v1.GenesisState"></a>
+<a name="blackfury.participationrewards.v1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the participationrewards module's genesis state.
@@ -1271,7 +1271,7 @@ GenesisState defines the participationrewards module's genesis state.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `params` | [Params](#quicksilver.participationrewards.v1.Params) |  |  |
+| `params` | [Params](#blackfury.participationrewards.v1.Params) |  |  |
 
 
 
@@ -1287,14 +1287,14 @@ GenesisState defines the participationrewards module's genesis state.
 
 
 
-<a name="quicksilver/participationrewards/v1/messages.proto"></a>
+<a name="blackfury/participationrewards/v1/messages.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/participationrewards/v1/messages.proto
+## blackfury/participationrewards/v1/messages.proto
 
 
 
-<a name="quicksilver.participationrewards.v1.MsgSubmitClaim"></a>
+<a name="blackfury.participationrewards.v1.MsgSubmitClaim"></a>
 
 ### MsgSubmitClaim
 MsgSubmitClaim represents a message type for submitting a participation
@@ -1312,7 +1312,7 @@ claim regarding the given zone (chain).
 
 
 
-<a name="quicksilver.participationrewards.v1.MsgSubmitClaimResponse"></a>
+<a name="blackfury.participationrewards.v1.MsgSubmitClaimResponse"></a>
 
 ### MsgSubmitClaimResponse
 MsgSubmitClaimResponse defines the MsgSubmitClaim response type.
@@ -1328,27 +1328,27 @@ MsgSubmitClaimResponse defines the MsgSubmitClaim response type.
  <!-- end HasExtensions -->
 
 
-<a name="quicksilver.participationrewards.v1.Msg"></a>
+<a name="blackfury.participationrewards.v1.Msg"></a>
 
 ### Msg
 Msg defines the participationrewards Msg service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `SubmitClaim` | [MsgSubmitClaim](#quicksilver.participationrewards.v1.MsgSubmitClaim) | [MsgSubmitClaimResponse](#quicksilver.participationrewards.v1.MsgSubmitClaimResponse) |  | POST|/quicksilver/tx/v1/participationrewards/claim|
+| `SubmitClaim` | [MsgSubmitClaim](#blackfury.participationrewards.v1.MsgSubmitClaim) | [MsgSubmitClaimResponse](#blackfury.participationrewards.v1.MsgSubmitClaimResponse) |  | POST|/blackfury/tx/v1/participationrewards/claim|
 
  <!-- end services -->
 
 
 
-<a name="quicksilver/participationrewards/v1/query.proto"></a>
+<a name="blackfury/participationrewards/v1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## quicksilver/participationrewards/v1/query.proto
+## blackfury/participationrewards/v1/query.proto
 
 
 
-<a name="quicksilver.participationrewards.v1.QueryParamsRequest"></a>
+<a name="blackfury.participationrewards.v1.QueryParamsRequest"></a>
 
 ### QueryParamsRequest
 QueryParamsRequest is the request type for the Query/Params RPC method.
@@ -1358,7 +1358,7 @@ QueryParamsRequest is the request type for the Query/Params RPC method.
 
 
 
-<a name="quicksilver.participationrewards.v1.QueryParamsResponse"></a>
+<a name="blackfury.participationrewards.v1.QueryParamsResponse"></a>
 
 ### QueryParamsResponse
 QueryParamsResponse is the response type for the Query/Params RPC method.
@@ -1366,7 +1366,7 @@ QueryParamsResponse is the response type for the Query/Params RPC method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `params` | [Params](#quicksilver.participationrewards.v1.Params) |  | params defines the parameters of the module. |
+| `params` | [Params](#blackfury.participationrewards.v1.Params) |  | params defines the parameters of the module. |
 
 
 
@@ -1379,14 +1379,14 @@ QueryParamsResponse is the response type for the Query/Params RPC method.
  <!-- end HasExtensions -->
 
 
-<a name="quicksilver.participationrewards.v1.Query"></a>
+<a name="blackfury.participationrewards.v1.Query"></a>
 
 ### Query
 Query provides defines the gRPC querier service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#quicksilver.participationrewards.v1.QueryParamsRequest) | [QueryParamsResponse](#quicksilver.participationrewards.v1.QueryParamsResponse) | Params returns the total set of participation rewards parameters. | GET|/quicksilver/participationrewards/v1beta1/params|
+| `Params` | [QueryParamsRequest](#blackfury.participationrewards.v1.QueryParamsRequest) | [QueryParamsResponse](#blackfury.participationrewards.v1.QueryParamsResponse) | Params returns the total set of participation rewards parameters. | GET|/blackfury/participationrewards/v1beta1/params|
 
  <!-- end services -->
 

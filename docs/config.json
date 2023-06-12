@@ -1,16 +1,16 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Quicksilver Chain - REST API",
+    "title": "Blackfury Chain - REST API",
     "description": "REST interface for query and transaction services",
     "version": "1.0.0"
   },
   "apis": [
     {
-      "url": "./tmp-swagger-gen/quicksilver/airdrop/v1/messages.swagger.json"
+      "url": "./tmp-swagger-gen/blackfury/airdrop/v1/messages.swagger.json"
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/airdrop/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/blackfury/airdrop/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "AirdropParams"
@@ -23,10 +23,10 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/claimsmanager/v1/messages.swagger.json"
+      "url": "./tmp-swagger-gen/blackfury/claimsmanager/v1/messages.swagger.json"
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/claimsmanager/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/blackfury/claimsmanager/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "ClaimsManagerParams"
@@ -39,7 +39,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/epochs/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/blackfury/epochs/v1/query.swagger.json",
       "tags": {
         "rename": {
           "Query": "QueryEpochs"
@@ -47,10 +47,10 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/interchainquery/v1/messages.swagger.json",
+      "url": "./tmp-swagger-gen/blackfury/interchainquery/v1/messages.swagger.json",
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/interchainquery/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/blackfury/interchainquery/v1/query.swagger.json",
       "tags": {
         "rename": {
           "QuerySrvr": "QueryInterchainQuery"
@@ -58,10 +58,10 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/interchainstaking/v1/messages.swagger.json"
+      "url": "./tmp-swagger-gen/blackfury/interchainstaking/v1/messages.swagger.json"
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/interchainstaking/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/blackfury/interchainstaking/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "InterchainStakingParams"
@@ -74,7 +74,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/mint/v1beta1/query.swagger.json",
+      "url": "./tmp-swagger-gen/blackfury/mint/v1beta1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "MintParams"
@@ -87,10 +87,10 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/participationrewards/v1/messages.swagger.json"
+      "url": "./tmp-swagger-gen/blackfury/participationrewards/v1/messages.swagger.json"
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/participationrewards/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/blackfury/participationrewards/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "ParticipationRewardsParams"
@@ -103,10 +103,10 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/tokenfactory/v1beta1/tx.swagger.json"
+      "url": "./tmp-swagger-gen/blackfury/tokenfactory/v1beta1/tx.swagger.json"
     },
     {
-      "url": "./tmp-swagger-gen/quicksilver/tokenfactory/v1beta1/query.swagger.json",
+      "url": "./tmp-swagger-gen/blackfury/tokenfactory/v1beta1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "TokenFactoryParams"

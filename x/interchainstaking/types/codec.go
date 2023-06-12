@@ -16,10 +16,10 @@ var (
 )
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgSignalIntent{}, "quicksilver/MsgSignalIntent", nil)
-	cdc.RegisterConcrete(&MsgRequestRedemption{}, "quicksilver/MsgRequestRedemption", nil)
-	cdc.RegisterConcrete(&RegisterZoneProposal{}, "quicksilver/RegisterZoneProposal", nil)
-	cdc.RegisterConcrete(&UpdateZoneProposal{}, "quicksilver/UpdateZoneProposal", nil)
+	cdc.RegisterConcrete(&MsgSignalIntent{}, "blackfury/MsgSignalIntent", nil)
+	cdc.RegisterConcrete(&MsgRequestRedemption{}, "blackfury/MsgRequestRedemption", nil)
+	cdc.RegisterConcrete(&RegisterZoneProposal{}, "blackfury/RegisterZoneProposal", nil)
+	cdc.RegisterConcrete(&UpdateZoneProposal{}, "blackfury/UpdateZoneProposal", nil)
 	lsmstakingtypes.RegisterLegacyAminoCodec(cdc)
 }
 

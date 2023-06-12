@@ -1,8 +1,8 @@
 package keeper_test
 
 import (
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/claimsmanager/types"
 )
 
 var testClaims = []types.Claim{
@@ -32,7 +32,7 @@ var testClaims = []types.Claim{
 	},
 	// zero value claim
 	{
-		UserAddress: "quick16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
+		UserAddress: "black16pxh2v4hr28h2gkntgfk8qgh47pfmjfhzgeure",
 		// ChainID:       suite.chainB.ChainID,
 		Module:        types.ClaimTypeLiquidToken,
 		SourceChainId: "osmosis-1",
@@ -93,7 +93,7 @@ func (s *KeeperTestSuite) TestKeeper_NewClaim() {
 		},
 	}
 
-	k := s.GetQuicksilverApp(s.chainA).ClaimsManagerKeeper
+	k := s.GetBlackfuryApp(s.chainA).ClaimsManagerKeeper
 	for _, tt := range tests {
 		s.Run(tt.name, func() {
 			got := k.NewClaim(tt.args.address, tt.args.chainID, tt.args.module, tt.args.srcChainID, tt.args.amount)
@@ -103,7 +103,7 @@ func (s *KeeperTestSuite) TestKeeper_NewClaim() {
 }
 
 func (s *KeeperTestSuite) TestKeeper_ClaimStore() {
-	k := s.GetQuicksilverApp(s.chainA).ClaimsManagerKeeper
+	k := s.GetBlackfuryApp(s.chainA).ClaimsManagerKeeper
 
 	testClaims[0].ChainId = s.chainB.ChainID
 	testClaims[1].ChainId = s.chainB.ChainID
@@ -197,7 +197,7 @@ func (s *KeeperTestSuite) TestKeeper_ClaimStore() {
 }
 
 // func (suite *KeeperTestSuite) TestKeeper_IterateLastEpochUserClaims() {
-// 	k := suite.GetQuicksilverApp(suite.chainA).ClaimsManagerKeeper
+// 	k := suite.GetBlackfuryApp(suite.chainA).ClaimsManagerKeeper
 
 // 	setClaims[0].ChainID = suite.chainB.ChainID
 // 	setClaims[1].ChainID = suite.chainB.ChainID

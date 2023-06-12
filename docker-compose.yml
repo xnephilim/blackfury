@@ -1,34 +1,34 @@
 version: '3.8'
 services:
-  quicksilver:
-    image: quicksilverzone/quicksilver:latest
-    hostname: quicksilver
+  blackfury:
+    image: blackfuryzone/blackfury:latest
+    hostname: blackfury
     volumes:
-      - ./data/qstest-1:/quicksilver/.quicksilverd
+      - ./data/qstest-1:/blackfury/.blackfuryd
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - 26657:26657
       - 1317:1317
-  quicksilver2:
-    image: quicksilverzone/quicksilver:latest
-    hostname: quicksilver2
+  blackfury2:
+    image: blackfuryzone/blackfury:latest
+    hostname: blackfury2
     volumes:
-      - ./data/qstest-1a:/quicksilver/.quicksilverd
+      - ./data/qstest-1a:/blackfury/.blackfuryd
     build:
       context: .
       dockerfile: Dockerfile
-  quicksilver3:
-    image: quicksilverzone/quicksilver:latest
-    hostname: quicksilver3
+  blackfury3:
+    image: blackfuryzone/blackfury:latest
+    hostname: blackfury3
     volumes:
-      - ./data/qstest-1b:/quicksilver/.quicksilverd
+      - ./data/qstest-1b:/blackfury/.blackfuryd
     build:
       context: .
       dockerfile: Dockerfile
   testzone1-1:
-    image: quicksilverzone/testzone:latest
+    image: blackfuryzone/testzone:latest
     hostname: testzone1-1
     volumes:
       - ./data/lstest-1:/icad/.ica
@@ -39,7 +39,7 @@ services:
     - 27657:26657
     - 23137:1317
   testzone1-2:
-    image: quicksilverzone/testzone:latest
+    image: blackfuryzone/testzone:latest
     hostname: testzone1-2
     volumes:
       - ./data/lstest-1a:/icad/.ica
@@ -47,7 +47,7 @@ services:
       - icad
       - start
   testzone1-3:
-    image: quicksilverzone/testzone:latest
+    image: blackfuryzone/testzone:latest
     hostname: testzone1-3
     volumes:
       - ./data/lstest-1b:/icad/.ica
@@ -55,7 +55,7 @@ services:
       - icad
       - start
   testzone1-4:
-    image: quicksilverzone/testzone:latest
+    image: blackfuryzone/testzone:latest
     hostname: testzone1-4
     volumes:
       - ./data/lstest-1c:/icad/.ica
@@ -63,7 +63,7 @@ services:
       - icad
       - start
   testzone2-1:
-    image: quicksilverzone/qsosmosis:v12.1.0
+    image: blackfuryzone/qsosmosis:v12.1.0
     hostname: testzone2-1
     build:
       context: .
@@ -74,7 +74,7 @@ services:
       - osmosisd
       - start
   testzone2-2:
-    image: quicksilverzone/qsosmosis:v12.1.0
+    image: blackfuryzone/qsosmosis:v12.1.0
     hostname: testzone2-2
     volumes:
       - ./data/lstest-2a:/osmosis/.osmosisd
@@ -82,7 +82,7 @@ services:
       - osmosisd
       - start
   testzone2-3:
-    image: quicksilverzone/qsosmosis:v12.1.0
+    image: blackfuryzone/qsosmosis:v12.1.0
     hostname: testzone2-3
     volumes:
       - ./data/lstest-2b:/osmosis/.osmosisd
@@ -90,7 +90,7 @@ services:
       - osmosisd
       - start
   testzone2-4:
-    image: quicksilverzone/qsosmosis:v12.1.0
+    image: blackfuryzone/qsosmosis:v12.1.0
     hostname: testzone2-4
     volumes:
       - ./data/lstest-2c:/osmosis/.osmosisd
@@ -98,7 +98,7 @@ services:
       - osmosisd
       - start
   hermes:
-    image: quicksilverzone/hermes:v1.5.0
+    image: blackfuryzone/hermes:v1.5.0
     hostname: hermes
     volumes:
       - ./data/hermes:/hermes/.hermes
@@ -110,7 +110,7 @@ services:
       context: .
       dockerfile: Dockerfile.hermes
   icq:
-    image: quicksilverzone/interchain-queries:v0.9.1
+    image: blackfuryzone/interchain-queries:v0.9.1
     volumes:
       - ./data/icq:/icq/.icq
     command:
@@ -118,7 +118,7 @@ services:
       - run
     restart: always
   icq2:
-    image: quicksilverzone/interchain-queries:v0.9.1
+    image: blackfuryzone/interchain-queries:v0.9.1
     volumes:
       - ./data/icq2:/icq/.icq
     command:
@@ -126,7 +126,7 @@ services:
       - run
     restart: always
   relayer:
-    image: quicksilverzone/relayer:v2.3.0
+    image: blackfuryzone/relayer:v2.3.0
     build:
       context: .
       dockerfile: Dockerfile.relayer

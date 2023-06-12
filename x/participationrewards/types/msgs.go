@@ -7,9 +7,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/migrations/legacytx"
 
-	cmtypes "github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
+	cmtypes "github.com/ingenuity-build/blackfury/x/claimsmanager/types"
 
-	"github.com/ingenuity-build/quicksilver/internal/multierror"
+	"github.com/ingenuity-build/blackfury/internal/multierror"
 )
 
 // participationrewars message types.

@@ -11,10 +11,10 @@ import (
 	ibctesting "github.com/cosmos/ibc-go/v5/testing"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/x/airdrop/types"
-	icstypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
-	minttypes "github.com/ingenuity-build/quicksilver/x/mint/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/x/airdrop/types"
+	icstypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
+	minttypes "github.com/ingenuity-build/blackfury/x/mint/types"
 )
 
 func init() {
@@ -26,7 +26,7 @@ func TestKeeperTestSuite(t *testing.T) {
 	suite.Run(t, new(KeeperTestSuite))
 }
 
-func newQuicksilverPath(chainA, chainB *ibctesting.TestChain) *ibctesting.Path {
+func newBlackfuryPath(chainA, chainB *ibctesting.TestChain) *ibctesting.Path {
 	path := ibctesting.NewPath(chainA, chainB)
 	path.EndpointA.ChannelConfig.PortID = ibctesting.TransferPort
 	path.EndpointB.ChannelConfig.PortID = ibctesting.TransferPort
@@ -46,13 +46,13 @@ type KeeperTestSuite struct {
 	path *ibctesting.Path
 }
 
-func (s *KeeperTestSuite) GetQuicksilverApp(chain *ibctesting.TestChain) *app.Quicksilver {
-	quicksilver, ok := chain.App.(*app.Quicksilver)
+func (s *KeeperTestSuite) GetBlackfuryApp(chain *ibctesting.TestChain) *app.Blackfury {
+	blackfury, ok := chain.App.(*app.Blackfury)
 	if !ok {
-		panic("not quicksilver app")
+		panic("not blackfury app")
 	}
 
-	return quicksilver
+	return blackfury
 }
 
 // SetupTest creates a coordinator with 2 test chains.
@@ -61,7 +61,7 @@ func (s *KeeperTestSuite) SetupTest() {
 	s.chainA = s.coordinator.GetChain(ibctesting.GetChainID(1)) // convenience and readability
 	s.chainB = s.coordinator.GetChain(ibctesting.GetChainID(2)) // convenience and readability
 
-	s.path = newQuicksilverPath(s.chainA, s.chainB)
+	s.path = newBlackfuryPath(s.chainA, s.chainB)
 	s.coordinator.SetupConnections(s.path)
 
 	s.coordinator.CurrentTime = time.Now().UTC()
@@ -84,7 +84,7 @@ func (s *KeeperTestSuite) initTestZone() {
 		Is_118:        true,
 	}
 
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
 }
 
 func (s *KeeperTestSuite) getZoneDrop() types.ZoneDrop {
@@ -132,31 +132,31 @@ func (s *KeeperTestSuite) compressClaimRecords(crs []types.ClaimRecord) []byte {
 
 func (s *KeeperTestSuite) initTestZoneDrop() {
 	zd := s.getZoneDrop()
-	s.GetQuicksilverApp(s.chainA).AirdropKeeper.SetZoneDrop(s.chainA.GetContext(), zd)
+	s.GetBlackfuryApp(s.chainA).AirdropKeeper.SetZoneDrop(s.chainA.GetContext(), zd)
 	s.fundZoneDrop(zd.ChainId, zd.Allocation)
 }
 
 func (s *KeeperTestSuite) fundZoneDrop(chainID string, amount uint64) {
-	quicksilver := s.GetQuicksilverApp(s.chainA)
+	blackfury := s.GetBlackfuryApp(s.chainA)
 	ctx := s.chainA.GetContext()
 	coins := sdk.NewCoins(
 		sdk.NewCoin(
-			quicksilver.StakingKeeper.BondDenom(ctx),
+			blackfury.StakingKeeper.BondDenom(ctx),
 			sdk.NewIntFromUint64(amount),
 		),
 	)
 	// fund zonedrop account
-	zdacc := quicksilver.AirdropKeeper.GetZoneDropAccountAddress(chainID)
+	zdacc := blackfury.AirdropKeeper.GetZoneDropAccountAddress(chainID)
 
-	err := quicksilver.MintKeeper.MintCoins(ctx, coins)
+	err := blackfury.MintKeeper.MintCoins(ctx, coins)
 	s.Require().NoError(err)
 
-	err = quicksilver.BankKeeper.SendCoinsFromModuleToAccount(ctx, minttypes.ModuleName, zdacc, coins)
+	err = blackfury.BankKeeper.SendCoinsFromModuleToAccount(ctx, minttypes.ModuleName, zdacc, coins)
 	s.Require().NoError(err)
 }
 
 func (s *KeeperTestSuite) setClaimRecord(cr types.ClaimRecord) {
-	err := s.GetQuicksilverApp(s.chainA).AirdropKeeper.SetClaimRecord(s.chainA.GetContext(), cr)
+	err := s.GetBlackfuryApp(s.chainA).AirdropKeeper.SetClaimRecord(s.chainA.GetContext(), cr)
 	if err != nil {
 		s.T().Logf("setClaimRecord error: %v", err)
 	}

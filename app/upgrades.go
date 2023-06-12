@@ -7,10 +7,10 @@ import (
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 	packetforwardtypes "github.com/strangelove-ventures/packet-forward-middleware/v5/router/types"
 
-	"github.com/ingenuity-build/quicksilver/app/upgrades"
+	"github.com/ingenuity-build/blackfury/app/upgrades"
 )
 
-func (app *Quicksilver) setUpgradeHandlers() {
+func (app *Blackfury) setUpgradeHandlers() {
 	for _, upgrade := range upgrades.Upgrades() {
 		app.UpgradeKeeper.SetUpgradeHandler(
 			upgrade.UpgradeName,
@@ -23,7 +23,7 @@ func (app *Quicksilver) setUpgradeHandlers() {
 	}
 }
 
-func (app *Quicksilver) setUpgradeStoreLoaders() {
+func (app *Blackfury) setUpgradeStoreLoaders() {
 	// When a planned update height is reached, the old binary will panic
 	// writing on disk the height and name of the update that triggered it
 	// This will read that value, and execute the preparations for the upgrade.

@@ -15,16 +15,16 @@ import (
 	"go.uber.org/zap/zaptest"
 )
 
-// TestQuicksilverJunoIBCTransfer spins up a Quicksilver and Juno network, initializes an IBC connection between them,
-// and sends an ICS20 token transfer from Quicksilver->Juno and then back from Juno->Quicksilver.
-func TestQuicksilverJunoIBCTransfer(t *testing.T) {
+// TestBlackfuryJunoIBCTransfer spins up a Blackfury and Juno network, initializes an IBC connection between them,
+// and sends an ICS20 token transfer from Blackfury->Juno and then back from Juno->Blackfury.
+func TestBlackfuryJunoIBCTransfer(t *testing.T) {
 	if testing.Short() {
 		t.Skip()
 	}
 
 	t.Parallel()
 
-	// Create chain factory with Quicksilver and Juno
+	// Create chain factory with Blackfury and Juno
 	numVals := 3
 	numFullNodes := 3
 
@@ -33,7 +33,7 @@ func TestQuicksilverJunoIBCTransfer(t *testing.T) {
 
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
 		{
-			Name:          "quicksilver",
+			Name:          "blackfury",
 			ChainConfig:   config,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,
@@ -53,7 +53,7 @@ func TestQuicksilverJunoIBCTransfer(t *testing.T) {
 	chains, err := cf.Chains(t.Name())
 	require.NoError(t, err)
 
-	quicksilver, juno := chains[0].(*cosmos.CosmosChain), chains[1].(*cosmos.CosmosChain)
+	blackfury, juno := chains[0].(*cosmos.CosmosChain), chains[1].(*cosmos.CosmosChain)
 
 	// Create relayer factory to utilize the go-relayer
 	client, network := interchaintest.DockerSetup(t)
@@ -62,14 +62,14 @@ func TestQuicksilverJunoIBCTransfer(t *testing.T) {
 
 	// Create a new Interchain object which describes the chains, relayers, and IBC connections we want to use
 	ic := interchaintest.NewInterchain().
-		AddChain(quicksilver).
+		AddChain(blackfury).
 		AddChain(juno).
 		AddRelayer(r, "rly").
 		AddLink(interchaintest.InterchainLink{
-			Chain1:  quicksilver,
+			Chain1:  blackfury,
 			Chain2:  juno,
 			Relayer: r,
-			Path:    pathQuicksilverJuno,
+			Path:    pathBlackfuryJuno,
 		})
 
 	rep := testreporter.NewNopReporter()
@@ -93,7 +93,7 @@ func TestQuicksilverJunoIBCTransfer(t *testing.T) {
 	})
 
 	// Start the relayer
-	require.NoError(t, r.StartRelayer(ctx, eRep, pathQuicksilverJuno))
+	require.NoError(t, r.StartRelayer(ctx, eRep, pathBlackfuryJuno))
 	t.Cleanup(
 		func() {
 			err := r.StopRelayer(ctx, eRep)
@@ -104,69 +104,69 @@ func TestQuicksilverJunoIBCTransfer(t *testing.T) {
 	)
 
 	// Create some user accounts on both chains
-	users := interchaintest.GetAndFundTestUsers(t, ctx, t.Name(), genesisWalletAmount, quicksilver, juno)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, t.Name(), genesisWalletAmount, blackfury, juno)
 
 	// Wait a few blocks for relayer to start and for user accounts to be created
-	err = testutil.WaitForBlocks(ctx, 5, quicksilver, juno)
+	err = testutil.WaitForBlocks(ctx, 5, blackfury, juno)
 	require.NoError(t, err)
 
 	// Get our Bech32 encoded user addresses
-	quickUser, junoUser := users[0], users[1]
+	blackUser, junoUser := users[0], users[1]
 
-	quickUserAddr := quickUser.FormattedAddress()
+	blackUserAddr := blackUser.FormattedAddress()
 	junoUserAddr := junoUser.FormattedAddress()
 
 	// Get original account balances
-	quicksilverOrigBal, err := quicksilver.GetBalance(ctx, quickUserAddr, quicksilver.Config().Denom)
+	blackfuryOrigBal, err := blackfury.GetBalance(ctx, blackUserAddr, blackfury.Config().Denom)
 	require.NoError(t, err)
-	require.Equal(t, genesisWalletAmount, quicksilverOrigBal)
+	require.Equal(t, genesisWalletAmount, blackfuryOrigBal)
 
 	junoOrigBal, err := juno.GetBalance(ctx, junoUserAddr, juno.Config().Denom)
 	require.NoError(t, err)
 	require.Equal(t, genesisWalletAmount, junoOrigBal)
 
-	// Compose an IBC transfer and send from Quicksilver -> Juno
+	// Compose an IBC transfer and send from Blackfury -> Juno
 	const transferAmount = int64(1_000)
 	transfer := ibc.WalletAmount{
 		Address: junoUserAddr,
-		Denom:   quicksilver.Config().Denom,
+		Denom:   blackfury.Config().Denom,
 		Amount:  transferAmount,
 	}
 
-	quickChannels, err := r.GetChannels(ctx, eRep, quicksilver.Config().ChainID)
+	blackChannels, err := r.GetChannels(ctx, eRep, blackfury.Config().ChainID)
 	require.NoError(t, err)
 
-	transferTx, err := quicksilver.SendIBCTransfer(ctx, quickChannels[0].ChannelID, quickUserAddr, transfer, ibc.TransferOptions{})
+	transferTx, err := blackfury.SendIBCTransfer(ctx, blackChannels[0].ChannelID, blackUserAddr, transfer, ibc.TransferOptions{})
 	require.NoError(t, err)
 
-	quicksilverHeight, err := quicksilver.Height(ctx)
+	blackfuryHeight, err := blackfury.Height(ctx)
 	require.NoError(t, err)
 
 	// Poll for the ack to know the transfer was successful
-	_, err = testutil.PollForAck(ctx, quicksilver, quicksilverHeight, quicksilverHeight+10, transferTx.Packet)
+	_, err = testutil.PollForAck(ctx, blackfury, blackfuryHeight, blackfuryHeight+10, transferTx.Packet)
 	require.NoError(t, err)
 
-	// Get the IBC denom for uqck on Juno
-	quicksilverTokenDenom := transfertypes.GetPrefixedDenom(quickChannels[0].Counterparty.PortID, quickChannels[0].Counterparty.ChannelID, quicksilver.Config().Denom)
-	quicksilverIBCDenom := transfertypes.ParseDenomTrace(quicksilverTokenDenom).IBCDenom()
+	// Get the IBC denom for ufury on Juno
+	blackfuryTokenDenom := transfertypes.GetPrefixedDenom(blackChannels[0].Counterparty.PortID, blackChannels[0].Counterparty.ChannelID, blackfury.Config().Denom)
+	blackfuryIBCDenom := transfertypes.ParseDenomTrace(blackfuryTokenDenom).IBCDenom()
 
 	// Assert that the funds are no longer present in user acc on Juno and are in the user acc on Juno
-	quicksilverUpdateBal, err := quicksilver.GetBalance(ctx, quickUserAddr, quicksilver.Config().Denom)
+	blackfuryUpdateBal, err := blackfury.GetBalance(ctx, blackUserAddr, blackfury.Config().Denom)
 	require.NoError(t, err)
-	require.Equal(t, quicksilverOrigBal-transferAmount, quicksilverUpdateBal)
+	require.Equal(t, blackfuryOrigBal-transferAmount, blackfuryUpdateBal)
 
-	junoUpdateBal, err := juno.GetBalance(ctx, junoUserAddr, quicksilverIBCDenom)
+	junoUpdateBal, err := juno.GetBalance(ctx, junoUserAddr, blackfuryIBCDenom)
 	require.NoError(t, err)
 	require.Equal(t, transferAmount, junoUpdateBal)
 
-	// Compose an IBC transfer and send from Quicksilver -> Juno
+	// Compose an IBC transfer and send from Blackfury -> Juno
 	transfer = ibc.WalletAmount{
-		Address: quickUserAddr,
-		Denom:   quicksilverIBCDenom,
+		Address: blackUserAddr,
+		Denom:   blackfuryIBCDenom,
 		Amount:  transferAmount,
 	}
 
-	transferTx, err = juno.SendIBCTransfer(ctx, quickChannels[0].Counterparty.ChannelID, junoUserAddr, transfer, ibc.TransferOptions{})
+	transferTx, err = juno.SendIBCTransfer(ctx, blackChannels[0].Counterparty.ChannelID, junoUserAddr, transfer, ibc.TransferOptions{})
 	require.NoError(t, err)
 
 	junoHeight, err := juno.Height(ctx)
@@ -177,11 +177,11 @@ func TestQuicksilverJunoIBCTransfer(t *testing.T) {
 	require.NoError(t, err)
 
 	// Assert that the funds are now back on Juno and not on Juno
-	quicksilverUpdateBal, err = quicksilver.GetBalance(ctx, quickUserAddr, quicksilver.Config().Denom)
+	blackfuryUpdateBal, err = blackfury.GetBalance(ctx, blackUserAddr, blackfury.Config().Denom)
 	require.NoError(t, err)
-	require.Equal(t, quicksilverOrigBal, quicksilverUpdateBal)
+	require.Equal(t, blackfuryOrigBal, blackfuryUpdateBal)
 
-	junoUpdateBal, err = juno.GetBalance(ctx, junoUserAddr, quicksilverIBCDenom)
+	junoUpdateBal, err = juno.GetBalance(ctx, junoUserAddr, blackfuryIBCDenom)
 	require.NoError(t, err)
 	require.Equal(t, int64(0), junoUpdateBal)
 }

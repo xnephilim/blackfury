@@ -1,6 +1,6 @@
 ---
 name: New Release
-about: Prepare for a new Quicksilver release.
+about: Prepare for a new Blackfury release.
 ---
 
 ## 1. Summary

@@ -4,8 +4,8 @@
       "_comment": "fill out if we need to ignore"
     }
   ],
-  "baseUrl": "https://docs.quicksilver.zone/",
-  "projectBaseUrl": "https://docs.quicksilver.zone/",
+  "baseUrl": "https://docs.blackfury.zone/",
+  "projectBaseUrl": "https://docs.blackfury.zone/",
   "timeout": "20s",
   "retryOn429": true,
   "retryCount": 5,

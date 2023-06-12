@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ingenuity-build/quicksilver/x/mint/types"
+	"github.com/ingenuity-build/blackfury/x/mint/types"
 )
 
 func TestGenesisValidate(t *testing.T) {

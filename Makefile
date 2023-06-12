@@ -3,7 +3,7 @@
 DOCKER_BUILDKIT=1
 COSMOS_BUILD_OPTIONS ?= ""
 PACKAGES_NOSIMULATION=$(shell go list ./... | grep -v '/simulation')
-PACKAGES_SIM=github.com/ingenuity-build/quicksilver/test/simulation
+PACKAGES_SIM=github.com/ingenuity-build/blackfury/test/simulation
 PACKAGES_E2E=$(shell go list ./... | grep '/e2e')
 VERSION=$(shell git describe --tags | head -n1)
 DOCKER_VERSION ?= $(VERSION)
@@ -11,10 +11,10 @@ TMVERSION := $(shell go list -m github.com/tendermint/tendermint | sed 's:.* ::'
 COMMIT := $(shell git log -1 --format='%H')
 LEDGER_ENABLED ?= true
 BINDIR ?= $(GOPATH)/bin
-QS_BINARY = quicksilverd
-QS_DIR = quicksilver
+QS_BINARY = blackfuryd
+QS_DIR = blackfury
 BUILDDIR ?= $(CURDIR)/build
-HTTPS_GIT := https://github.com/ingenuity-build/quicksilver.git
+HTTPS_GIT := https://github.com/ingenuity-build/blackfury.git
 
 DOCKER := $(shell which docker)
 DOCKERCOMPOSE := $(shell which docker-compose)
@@ -64,7 +64,7 @@ endif
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=quicksilver \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=blackfury \
           -X github.com/cosmos/cosmos-sdk/version.AppName=$(QS_BINARY) \
           -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
           -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
@@ -131,7 +131,7 @@ BUILD_TARGETS := build install
 
 check_version:
 ifneq ($(GO_MINOR_VERSION),20)
-	@echo "ERROR: Go version 1.20 is required for building Quicksilver. There are consensus breaking changes between binaries compiled with and without Go 1.20."
+	@echo "ERROR: Go version 1.20 is required for building Blackfury. There are consensus breaking changes between binaries compiled with and without Go 1.20."
 	exit 1
 endif
 
@@ -141,26 +141,26 @@ build-linux:
 	GOOS=linux GOARCH=amd64 LEDGER_ENABLED=false $(MAKE) build
 
 $(BUILD_TARGETS): check_version go.sum $(BUILDDIR)/
-	go $@ -mod=readonly $(BUILD_FLAGS) $(BUILD_ARGS) ./cmd/quicksilverd
+	go $@ -mod=readonly $(BUILD_FLAGS) $(BUILD_ARGS) ./cmd/blackfuryd
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)/
 
 build-docker:
-	DOCKER_BUILDKIT=1 $(DOCKER) build . -f Dockerfile -t quicksilverzone/quicksilver:$(DOCKER_VERSION) -t quicksilverzone/quicksilver:latest
+	DOCKER_BUILDKIT=1 $(DOCKER) build . -f Dockerfile -t blackfuryzone/blackfury:$(DOCKER_VERSION) -t blackfuryzone/blackfury:latest
 
 build-docker-local: build
-	DOCKER_BUILDKIT=1 $(DOCKER) build -f Dockerfile.local . -t quicksilverzone/quicksilver:$(DOCKER_VERSION)
+	DOCKER_BUILDKIT=1 $(DOCKER) build -f Dockerfile.local . -t blackfuryzone/blackfury:$(DOCKER_VERSION)
 
 build-docker-release: build-docker
-	$(DOCKER)  run -v /tmp:/tmp quicksilverzone/quicksilver:$(DOCKER_VERSION) cp /usr/local/bin/quicksilverd /tmp/quicksilverd
-	mv /tmp/quicksilverd build/quicksilverd-$(DOCKER_VERSION)-amd64
+	$(DOCKER)  run -v /tmp:/tmp blackfuryzone/blackfury:$(DOCKER_VERSION) cp /usr/local/bin/blackfuryd /tmp/blackfuryd
+	mv /tmp/blackfuryd build/blackfuryd-$(DOCKER_VERSION)-amd64
 
 push-docker: build-docker
-	$(DOCKERCOMPOSE) push quicksilver
+	$(DOCKERCOMPOSE) push blackfury
 
 reload-docker:
-	$(DOCKERCOMPOSE) up -d --force-recreate quicksilver
+	$(DOCKERCOMPOSE) up -d --force-recreate blackfury
 
 test-docker:
 	./scripts/simple-test.sh
@@ -264,7 +264,7 @@ update-swagger-docs: statik
 .PHONY: update-swagger-docs
 
 godocs:
-	@echo "--> Wait a few seconds and visit http://localhost:6060/pkg/github.com/ingenuity-build/quicksilver/types"
+	@echo "--> Wait a few seconds and visit http://localhost:6060/pkg/github.com/ingenuity-build/blackfury/types"
 	godoc -http=:6060
 
 # Start docs site at localhost:8080
@@ -353,36 +353,36 @@ vet:
 
 # Executes basic chain tests via interchaintest
 ictest-basic: 
-	@cd test/interchaintest && go test -v -run TestBasicQuicksilverStart .
+	@cd test/interchaintest && go test -v -run TestBasicBlackfuryStart .
 
 # Executes a basic chain upgrade test via interchaintest
 ictest-upgrade: 
-	@cd test/interchaintest && go test -v -run TestBasicQuicksilverUpgrade .
+	@cd test/interchaintest && go test -v -run TestBasicBlackfuryUpgrade .
 
-# Executes a basic chain upgrade locally via interchaintest after compiling a local image as quicksilver:local
+# Executes a basic chain upgrade locally via interchaintest after compiling a local image as blackfury:local
 ictest-upgrade-local: local-image ictest-upgrade
 
 # Executes IBC Transfer tests via interchaintest
 ictest-ibc: 
-	@cd test/interchaintest && go test -v -run TestQuicksilverJunoIBCTransfer .
+	@cd test/interchaintest && go test -v -run TestBlackfuryJunoIBCTransfer .
 
 # Executes TestInterchainStaking tests via interchaintest
 ictest-interchainstaking: ictest-deps
 	@cd test/interchaintest && go test -v -run TestInterchainStaking .
 
-# Executes all tests via interchaintest after compiling a local image as quicksilver:local
+# Executes all tests via interchaintest after compiling a local image as blackfury:local
 ictest-all: ictest-build ictest-basic ictest-upgrade ictest-ibc ictest-interchainstaking
 
 ictest-build: get-heighliner local-image
 
 ictest-deps:
 	# install other docker images
-	@$(DOCKER) image pull quicksilverzone/xcclookup:v0.4.3
-	@$(DOCKER) image pull quicksilverzone/interchain-queries:e2e
+	@$(DOCKER) image pull blackfuryzone/xcclookup:v0.4.3
+	@$(DOCKER) image pull blackfuryzone/interchain-queries:e2e
 
 ictest-build-push: ictest-setup
-	@$(DOCKER) tag quicksilver:local  quicksilverzone/quicksilver-e2e:latest
-	@$(DOCKER) push quicksilverzone/quicksilver-e2e:latest
+	@$(DOCKER) tag blackfury:local  blackfuryzone/blackfury-e2e:latest
+	@$(DOCKER) push blackfuryzone/blackfury-e2e:latest
 
 .PHONY: ictest-basic ictest-upgrade ictest-ibc ictest-all ictest-deps ictest-build ictest-build-push
 
@@ -396,7 +396,7 @@ get-heighliner:
 	@cd heighliner && go build
 
 local-image:
-	@heighliner/heighliner build -c quicksilver --local --build-env BUILD_TAGS=muslc
+	@heighliner/heighliner build -c blackfury --local --build-env BUILD_TAGS=muslc
 
 .PHONY: get-heighliner local-image
 
@@ -489,7 +489,7 @@ lint-fix:
 format:
 	@find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -name '*.pb.go' -not -name '*.gw.go' | xargs go run mvdan.cc/gofumpt -w .
 	@find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -name '*.pb.go' -not -name '*.gw.go' | xargs go run github.com/client9/misspell/cmd/misspell -w
-	@find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -name '*.pb.go' -not -name '*.gw.go' | xargs go run golang.org/x/tools/cmd/goimports -w -local github.com/ingenuity-build/quicksilver
+	@find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -name '*.pb.go' -not -name '*.gw.go' | xargs go run golang.org/x/tools/cmd/goimports -w -local github.com/ingenuity-build/blackfury
 .PHONY: format
 
 mdlint:
@@ -510,7 +510,7 @@ proto-all: proto-gen
 proto-gen:
 	@echo "🤖 Generating code from protobuf..."
 	@$(DOCKER) run --rm --volume "$(PWD)":/workspace --workdir /workspace \
-		quicksilver-proto sh ./proto/generate.sh
+		blackfury-proto sh ./proto/generate.sh
 	@echo "✅ Completed code generation!"
 
 proto-lint:
@@ -533,7 +533,7 @@ proto-breaking-check:
 
 proto-setup:
 	@echo "🤖 Setting up protobuf environment..."
-	@$(DOCKER) build --rm --tag quicksilver-proto:latest --file proto/Dockerfile .
+	@$(DOCKER) build --rm --tag blackfury-proto:latest --file proto/Dockerfile .
 	@echo "✅ Setup protobuf environment!"
 
 

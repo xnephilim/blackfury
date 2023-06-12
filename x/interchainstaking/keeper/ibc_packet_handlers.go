@@ -25,10 +25,10 @@ import (
 	"github.com/golang/protobuf/proto" //nolint:staticcheck
 	lsmstakingtypes "github.com/iqlusioninc/liquidity-staking-module/x/staking/types"
 
-	"github.com/ingenuity-build/quicksilver/utils"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	queryTypes "github.com/ingenuity-build/quicksilver/x/interchainquery/types"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/utils"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	queryTypes "github.com/ingenuity-build/blackfury/x/interchainquery/types"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 type TypedMsg struct {

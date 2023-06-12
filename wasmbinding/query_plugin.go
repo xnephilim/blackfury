@@ -11,7 +11,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/ingenuity-build/quicksilver/wasmbinding/bindings"
+	"github.com/ingenuity-build/blackfury/wasmbinding/bindings"
 )
 
 // StargateQuerier dispatches whitelisted stargate queries.
@@ -47,9 +47,9 @@ func StargateQuerier(queryRouter baseapp.GRPCQueryRouter, cdc codec.Codec) func(
 // CustomQuerier dispatches custom CosmWasm bindings queries.
 func CustomQuerier(qp *QueryPlugin) func(ctx sdk.Context, request json.RawMessage) ([]byte, error) {
 	return func(ctx sdk.Context, request json.RawMessage) ([]byte, error) {
-		var contractQuery bindings.QuickSilverQuery
+		var contractQuery bindings.BlackFuryQuery
 		if err := json.Unmarshal(request, &contractQuery); err != nil {
-			return nil, sdkioerrors.Wrap(err, "quicksilver query")
+			return nil, sdkioerrors.Wrap(err, "blackfury query")
 		}
 
 		switch {
@@ -87,7 +87,7 @@ func CustomQuerier(qp *QueryPlugin) func(ctx sdk.Context, request json.RawMessag
 			return bz, nil
 
 		default:
-			return nil, wasmvmtypes.UnsupportedRequest{Kind: "unknown quicksilver query variant"}
+			return nil, wasmvmtypes.UnsupportedRequest{Kind: "unknown blackfury query variant"}
 		}
 	}
 }

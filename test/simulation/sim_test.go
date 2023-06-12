@@ -16,8 +16,8 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/test/simulation"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/test/simulation"
 )
 
 func init() {
@@ -46,7 +46,7 @@ func BenchmarkSimulation(b *testing.B) {
 		require.NoError(b, err)
 	})
 
-	quicksilver := app.NewQuicksilver(
+	blackfury := app.NewBlackfury(
 		log.NewTMLogger(log.NewSyncWriter(os.Stdout)),
 		db,
 		nil,
@@ -65,18 +65,18 @@ func BenchmarkSimulation(b *testing.B) {
 	_, simParams, simErr := sdksimulation.SimulateFromSeed(
 		b,
 		os.Stdout,
-		quicksilver.GetBaseApp(),
-		simulation.AppStateFn(quicksilver.AppCodec(), quicksilver.SimulationManager()),
+		blackfury.GetBaseApp(),
+		simulation.AppStateFn(blackfury.AppCodec(), blackfury.SimulationManager()),
 		simulationtypes.RandomAccounts,
-		simulation.Operations(quicksilver, quicksilver.AppCodec(), config),
-		quicksilver.ModuleAccountAddrs(),
+		simulation.Operations(blackfury, blackfury.AppCodec(), config),
+		blackfury.ModuleAccountAddrs(),
 		config,
-		quicksilver.AppCodec(),
+		blackfury.AppCodec(),
 	)
 	require.NoError(b, simErr)
 
 	// export state and simParams before the simulation error is checked
-	err = simulation.CheckExportSimulation(quicksilver, config, simParams)
+	err = simulation.CheckExportSimulation(blackfury, config, simParams)
 	require.NoError(b, err)
 
 	if config.Commit {
@@ -106,7 +106,7 @@ func TestAppStateDeterminism(t *testing.T) {
 		for j := 0; j < numTimesToRunPerSeed; j++ {
 			db := dbm.NewMemDB()
 
-			quicksilver := app.NewQuicksilver(
+			blackfury := app.NewBlackfury(
 				log.NewTMLogger(log.NewSyncWriter(os.Stdout)),
 				db,
 				nil,
@@ -130,13 +130,13 @@ func TestAppStateDeterminism(t *testing.T) {
 			_, _, err := sdksimulation.SimulateFromSeed(
 				t,
 				os.Stdout,
-				quicksilver.GetBaseApp(),
-				simulation.AppStateFn(quicksilver.AppCodec(), quicksilver.SimulationManager()),
+				blackfury.GetBaseApp(),
+				simulation.AppStateFn(blackfury.AppCodec(), blackfury.SimulationManager()),
 				simulationtypes.RandomAccounts,
-				simulation.Operations(quicksilver, quicksilver.AppCodec(), config),
-				quicksilver.ModuleAccountAddrs(),
+				simulation.Operations(blackfury, blackfury.AppCodec(), config),
+				blackfury.ModuleAccountAddrs(),
 				config,
-				quicksilver.AppCodec(),
+				blackfury.AppCodec(),
 			)
 			require.NoError(t, err)
 
@@ -144,7 +144,7 @@ func TestAppStateDeterminism(t *testing.T) {
 				simulation.PrintStats(db)
 			}
 
-			appHash := quicksilver.LastCommitID().Hash
+			appHash := blackfury.LastCommitID().Hash
 			appHashList[j] = appHash
 
 			if j != 0 {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ingenuity-build/quicksilver/x/epochs"
-	"github.com/ingenuity-build/quicksilver/x/epochs/types"
+	"github.com/ingenuity-build/blackfury/x/epochs"
+	"github.com/ingenuity-build/blackfury/x/epochs/types"
 )
 
 func (s *KeeperTestSuite) TestEpochInfoChangesBeginBlockerAndInitGenesis() {

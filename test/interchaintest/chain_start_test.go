@@ -11,15 +11,15 @@ import (
 	"go.uber.org/zap/zaptest"
 )
 
-// TestBasicQuicksilverStart is a basic test to assert that spinning up a Quicksilver network with one validator works properly.
-func TestBasicQuicksilverStart(t *testing.T) {
+// TestBasicBlackfuryStart is a basic test to assert that spinning up a Blackfury network with one validator works properly.
+func TestBasicBlackfuryStart(t *testing.T) {
 	if testing.Short() {
 		t.Skip()
 	}
 
 	t.Parallel()
 
-	// Create chain factory with Quicksilver
+	// Create chain factory with Blackfury
 	numVals := 3
 	numFullNodes := 3
 
@@ -28,7 +28,7 @@ func TestBasicQuicksilverStart(t *testing.T) {
 
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
 		{
-			Name:          "quicksilver",
+			Name:          "blackfury",
 			ChainConfig:   config,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,
@@ -39,10 +39,10 @@ func TestBasicQuicksilverStart(t *testing.T) {
 	chains, err := cf.Chains(t.Name())
 	require.NoError(t, err)
 
-	quicksilver := chains[0].(*cosmos.CosmosChain)
+	blackfury := chains[0].(*cosmos.CosmosChain)
 
 	// Create a new Interchain object which describes the chains, relayers, and IBC connections we want to use
-	ic := interchaintest.NewInterchain().AddChain(quicksilver)
+	ic := interchaintest.NewInterchain().AddChain(blackfury)
 
 	rep := testreporter.NewNopReporter()
 	eRep := rep.RelayerExecReporter(t)
@@ -62,8 +62,8 @@ func TestBasicQuicksilverStart(t *testing.T) {
 	require.NoError(t, err)
 
 	// verify sidecars are running
-	//require.Equal(t, 1, len(quicksilver.Sidecars))
-	//for _, sidecar := range quicksilver.Sidecars {
+	//require.Equal(t, 1, len(blackfury.Sidecars))
+	//for _, sidecar := range blackfury.Sidecars {
 	//	require.NoError(t, sidecar.Running(ctx))
 	//}
 

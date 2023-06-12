@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 func TestRegisterZoneProposal_ValidateBasic(t *testing.T) {
@@ -244,7 +244,7 @@ func BenchmarkUpdateZoneProposalString(b *testing.B) {
 	uzp := &types.UpdateZoneProposal{
 		Title:       "Testing right here",
 		Description: "Testing description",
-		ChainId:     "quicksilver",
+		ChainId:     "blackfury",
 		Changes: []*types.UpdateZoneValue{
 			{Key: "K1", Value: "V1"},
 			{Key: strings.Repeat("Ks", 100), Value: strings.Repeat("Vs", 128)},

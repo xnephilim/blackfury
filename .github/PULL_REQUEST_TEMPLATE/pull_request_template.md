@@ -1,6 +1,6 @@
 ---
 name: Pull Request
-about: Default template for additions or fixes to Quicksilver.
+about: Default template for additions or fixes to Blackfury.
 ---
 
 ## 1. Summary

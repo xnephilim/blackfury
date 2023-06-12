@@ -13,9 +13,9 @@ import (
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	epochtypes "github.com/ingenuity-build/quicksilver/x/epochs/types"
-	minttypes "github.com/ingenuity-build/quicksilver/x/mint/types"
-	tokenfactorytypes "github.com/ingenuity-build/quicksilver/x/tokenfactory/types"
+	epochtypes "github.com/ingenuity-build/blackfury/x/epochs/types"
+	minttypes "github.com/ingenuity-build/blackfury/x/mint/types"
+	tokenfactorytypes "github.com/ingenuity-build/blackfury/x/tokenfactory/types"
 )
 
 // stargateWhitelist keeps whitelist and its deterministic
@@ -57,19 +57,19 @@ func init() {
 	setWhitelistedQuery("/cosmos.staking.v1beta1.Query/Params", &stakingtypes.QueryParamsResponse{})
 	setWhitelistedQuery("/cosmos.staking.v1beta1.Query/Validator", &stakingtypes.QueryValidatorResponse{})
 
-	// quicksilver queries
+	// blackfury queries
 
 	// epochs
-	setWhitelistedQuery("/quicksilver.epochs.v1.Query/EpochInfos", &epochtypes.QueryEpochsInfoResponse{})
-	setWhitelistedQuery("/quicksilver.epochs.v1.Query/CurrentEpoch", &epochtypes.QueryCurrentEpochResponse{})
+	setWhitelistedQuery("/blackfury.epochs.v1.Query/EpochInfos", &epochtypes.QueryEpochsInfoResponse{})
+	setWhitelistedQuery("/blackfury.epochs.v1.Query/CurrentEpoch", &epochtypes.QueryCurrentEpochResponse{})
 
 	// mint
-	setWhitelistedQuery("/quicksilver.mint.v1beta1.Query/EpochProvisions", &minttypes.QueryEpochProvisionsResponse{})
-	setWhitelistedQuery("/quicksilver.mint.v1beta1.Query/Params", &minttypes.QueryParamsResponse{})
+	setWhitelistedQuery("/blackfury.mint.v1beta1.Query/EpochProvisions", &minttypes.QueryEpochProvisionsResponse{})
+	setWhitelistedQuery("/blackfury.mint.v1beta1.Query/Params", &minttypes.QueryParamsResponse{})
 
-	// tokenfactory //todo: put the proto file here and make it quicksilver.tokenfactory yadda yadda
-	setWhitelistedQuery("/quicksilver.tokenfactory.v1beta1.Query/params", &tokenfactorytypes.QueryParamsResponse{})
-	setWhitelistedQuery("/quicksilver.tokenfactory.v1beta1.Query/DenomAuthorityMetadata", &tokenfactorytypes.QueryDenomAuthorityMetadataResponse{})
+	// tokenfactory //todo: put the proto file here and make it blackfury.tokenfactory yadda yadda
+	setWhitelistedQuery("/blackfury.tokenfactory.v1beta1.Query/params", &tokenfactorytypes.QueryParamsResponse{})
+	setWhitelistedQuery("/blackfury.tokenfactory.v1beta1.Query/DenomAuthorityMetadata", &tokenfactorytypes.QueryDenomAuthorityMetadataResponse{})
 	// Does not include denoms_from_creator, TBD if this is the index we want contracts to use instead of admin
 }
 

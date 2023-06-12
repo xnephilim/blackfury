@@ -6,14 +6,14 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/ingenuity-build/quicksilver/app/keepers"
+	"github.com/ingenuity-build/blackfury/app/keepers"
 )
 
 // upgrade name consts: vMMmmppUpgradeName (M=Major, m=minor, p=patch).
 const (
-	ProductionChainID     = "quicksilver-2"
+	ProductionChainID     = "blackfury-2"
 	RhyeChainID           = "rhye-1"
-	DevnetChainID         = "quicktest-1"
+	DevnetChainID         = "blacktest-1"
 	TestChainID           = "testchain1"
 	OsmosisTestnetChainID = "osmo-test-5"
 

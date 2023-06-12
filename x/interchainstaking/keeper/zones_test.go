@@ -14,15 +14,15 @@ import (
 	dbm "github.com/tendermint/tm-db"
 	"golang.org/x/exp/maps"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
-func newQuicksilver(t *testing.T) *app.Quicksilver {
+func newBlackfury(t *testing.T) *app.Blackfury {
 	t.Helper()
 
-	return app.NewQuicksilver(
+	return app.NewBlackfury(
 		log.NewNopLogger(),
 		dbm.NewMemDB(),
 		io.Discard,
@@ -39,11 +39,11 @@ func newQuicksilver(t *testing.T) *app.Quicksilver {
 }
 
 func TestKeeperWithZonesRoundTrip(t *testing.T) {
-	quicksilver := newQuicksilver(t)
+	blackfury := newBlackfury(t)
 
-	chainID := "quicksilver-1"
-	kpr := quicksilver.InterchainstakingKeeper
-	ctx := quicksilver.NewContext(true, tmproto.Header{Height: quicksilver.LastBlockHeight()})
+	chainID := "blackfury-1"
+	kpr := blackfury.InterchainstakingKeeper
+	ctx := blackfury.NewContext(true, tmproto.Header{Height: blackfury.LastBlockHeight()})
 
 	// 1. Check for a zone without having stored anything.
 	zone, ok := kpr.GetZone(ctx, chainID)
@@ -54,8 +54,8 @@ func TestKeeperWithZonesRoundTrip(t *testing.T) {
 	zone = types.Zone{
 		ConnectionId: "conn-test",
 		ChainId:      chainID,
-		LocalDenom:   "uqck",
-		BaseDenom:    "qck",
+		LocalDenom:   "ufury",
+		BaseDenom:    "fury",
 	}
 	kpr.SetZone(ctx, &zone)
 	gotZone, ok := kpr.GetZone(ctx, chainID)
@@ -71,7 +71,7 @@ func TestKeeperWithZonesRoundTrip(t *testing.T) {
 
 	// 4. Store many zones in the keeper, then retrieve them by chainID.
 	nzones := 10
-	chainIDPrefix := "quicksilver-"
+	chainIDPrefix := "blackfury-"
 	indexToZone := make(map[int64]types.Zone, nzones)
 	for i := 0; i < nzones; i++ {
 		chainID := fmt.Sprintf("%s%d", chainIDPrefix, i)
@@ -79,13 +79,13 @@ func TestKeeperWithZonesRoundTrip(t *testing.T) {
 		zone := types.Zone{
 			ConnectionId: "conn-test",
 			ChainId:      chainID,
-			LocalDenom:   "qck",
-			BaseDenom:    "qck",
+			LocalDenom:   "fury",
+			BaseDenom:    "fury",
 			DelegationAddress: &types.ICAAccount{
 				Address: delegationAddr,
 				Balance: sdk.NewCoins(
-					sdk.NewCoin("qck", sdk.NewInt(100)),
-					sdk.NewCoin("uqck", sdk.NewInt(700000)),
+					sdk.NewCoin("fury", sdk.NewInt(100)),
+					sdk.NewCoin("ufury", sdk.NewInt(700000)),
 				),
 			},
 			Is_118: true,
@@ -132,8 +132,8 @@ func TestKeeperWithZonesRoundTrip(t *testing.T) {
 	perfAcctZone.PerformanceAddress = &types.ICAAccount{
 		Address: "cosmosvaloper1sjllsnramtg3ewxqwwrwjxfgc4n4ef9u2lcnj0",
 		Balance: sdk.NewCoins(
-			sdk.NewCoin("qck", sdk.NewInt(800)),
-			sdk.NewCoin("uqck", sdk.NewInt(900000)),
+			sdk.NewCoin("fury", sdk.NewInt(800)),
+			sdk.NewCoin("ufury", sdk.NewInt(900000)),
 		),
 	}
 	kpr.SetAddressZoneMapping(ctx, "cosmosvaloper1sjllsnramtg3ewxqwwrwjxfgc4n4ef9u2lcnj0", perfAcctZone.ChainId)

@@ -18,10 +18,10 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/ingenuity-build/quicksilver/app"
+	"github.com/ingenuity-build/blackfury/app"
 )
 
-func TestQuicksilverExport(t *testing.T) {
+func TestBlackfuryExport(t *testing.T) {
 	privVal := mock.NewPV()
 	pubKey, err := privVal.GetPubKey()
 	require.NoError(t, err)
@@ -42,7 +42,7 @@ func TestQuicksilverExport(t *testing.T) {
 		Coins:   sdk.NewCoins(sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(100000000000000))),
 	}
 	db := dbm.NewMemDB()
-	quicksilver := app.NewQuicksilver(
+	blackfury := app.NewBlackfury(
 		log.NewTMLogger(log.NewSyncWriter(os.Stdout)),
 		db,
 		nil,
@@ -58,23 +58,23 @@ func TestQuicksilverExport(t *testing.T) {
 	)
 
 	genesisState := app.NewDefaultGenesisState()
-	genesisState = app.GenesisStateWithValSet(t, quicksilver, genesisState, valSet, []authtypes.GenesisAccount{acc}, balance)
+	genesisState = app.GenesisStateWithValSet(t, blackfury, genesisState, valSet, []authtypes.GenesisAccount{acc}, balance)
 
 	stateBytes, err := json.MarshalIndent(genesisState, "", "  ")
 	require.NoError(t, err)
 
 	// Initialize the chain
-	quicksilver.InitChain(
+	blackfury.InitChain(
 		abci.RequestInitChain{
-			ChainId:       "quicksilver-1",
+			ChainId:       "blackfury-1",
 			Validators:    []abci.ValidatorUpdate{},
 			AppStateBytes: stateBytes,
 		},
 	)
-	quicksilver.Commit()
+	blackfury.Commit()
 
 	// Making a new app object with the db, so that initchain hasn't been called
-	app2 := app.NewQuicksilver(log.NewTMLogger(log.NewSyncWriter(os.Stdout)),
+	app2 := app.NewBlackfury(log.NewTMLogger(log.NewSyncWriter(os.Stdout)),
 		db,
 		nil,
 		true,

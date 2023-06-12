@@ -6,11 +6,11 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/internal/multierror"
-	"github.com/ingenuity-build/quicksilver/utils"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	icstypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
-	"github.com/ingenuity-build/quicksilver/x/participationrewards/types"
+	"github.com/ingenuity-build/blackfury/internal/multierror"
+	"github.com/ingenuity-build/blackfury/utils"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	icstypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/x/participationrewards/types"
 )
 
 type TokenValues map[string]sdk.Dec

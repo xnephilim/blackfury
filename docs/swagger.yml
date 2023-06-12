@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
-  title: Quicksilver Chain - REST API
+  title: Blackfury Chain - REST API
   description: REST interface for query and transaction services
   version: 1.0.0
 paths:
-  /quicksilver/tx/v1/airdrop/claim:
+  /blackfury/tx/v1/airdrop/claim:
     post:
       operationId: Claim
       responses:
@@ -98,7 +98,7 @@ paths:
                     claim.
       tags:
         - Msg
-  /quicksilver/tx/v1/airdrop/incentive_pool_spend:
+  /blackfury/tx/v1/airdrop/incentive_pool_spend:
     post:
       operationId: IncentivePoolSpend
       responses:
@@ -164,7 +164,7 @@ paths:
               account to another.
       tags:
         - Msg
-  /quicksilver/airdrop/v1/accountbalance/{chain_id}:
+  /blackfury/airdrop/v1/accountbalance/{chain_id}:
     get:
       summary: AccountBalance returns the module account balance of the specified zone.
       operationId: AccountBalance
@@ -224,7 +224,7 @@ paths:
           type: string
       tags:
         - QueryAirdrop
-  /quicksilver/airdrop/v1/claimrecord/{chain_id}/{address}:
+  /blackfury/airdrop/v1/claimrecord/{chain_id}/{address}:
     get:
       summary: >-
         ClaimRecord returns the claim record that corresponds to the given zone
@@ -309,7 +309,7 @@ paths:
           type: string
       tags:
         - QueryAirdrop
-  /quicksilver/airdrop/v1/claimrecords/{chain_id}:
+  /blackfury/airdrop/v1/claimrecords/{chain_id}:
     get:
       summary: ClaimRecords returns all the claim records of the given zone.
       operationId: ClaimRecords
@@ -472,7 +472,7 @@ paths:
           type: boolean
       tags:
         - QueryAirdrop
-  /quicksilver/airdrop/v1/params:
+  /blackfury/airdrop/v1/params:
     get:
       summary: Params returns the total set of airdrop parameters.
       operationId: AirdropParams
@@ -512,7 +512,7 @@ paths:
                       format: byte
       tags:
         - QueryAirdrop
-  /quicksilver/airdrop/v1/zonedrop/{chain_id}:
+  /blackfury/airdrop/v1/zonedrop/{chain_id}:
     get:
       summary: ZoneDrop returns the details of the specified zone airdrop.
       operationId: ZoneDrop
@@ -577,7 +577,7 @@ paths:
           type: string
       tags:
         - QueryAirdrop
-  /quicksilver/airdrop/v1/zonedrops/{status}:
+  /blackfury/airdrop/v1/zonedrops/{status}:
     get:
       summary: ZoneDrops returns all zone airdrops of the specified status.
       operationId: ZoneDrops
@@ -737,7 +737,7 @@ paths:
           type: boolean
       tags:
         - QueryAirdrop
-  /quicksilver/claimsmanager/v1/claims/{chain_id}:
+  /blackfury/claimsmanager/v1/claims/{chain_id}:
     get:
       summary: Claims returns all zone claims from the current epoch.
       operationId: Claims
@@ -896,7 +896,7 @@ paths:
           type: boolean
       tags:
         - QueryClaimsManager
-  /quicksilver/claimsmanager/v1/previous_epoch_claims/{chain_id}:
+  /blackfury/claimsmanager/v1/previous_epoch_claims/{chain_id}:
     get:
       summary: LastEpochClaims returns all zone claims from the last epoch.
       operationId: LastEpochClaims
@@ -1055,7 +1055,7 @@ paths:
           type: boolean
       tags:
         - QueryClaimsManager
-  /quicksilver/claimsmanager/v1/user/{address}/claims:
+  /blackfury/claimsmanager/v1/user/{address}/claims:
     get:
       summary: >-
         UserClaims returns all zone claims for a given address from the current
@@ -1216,7 +1216,7 @@ paths:
           type: boolean
       tags:
         - QueryClaimsManager
-  /quicksilver/claimsmanager/v1/user/{address}/previous_epoch_claims:
+  /blackfury/claimsmanager/v1/user/{address}/previous_epoch_claims:
     get:
       summary: >-
         UserLastEpochClaims returns all zone claims for a given address from the
@@ -1377,7 +1377,7 @@ paths:
           type: boolean
       tags:
         - QueryClaimsManager
-  /quicksilver/epochs/v1/current_epoch:
+  /blackfury/epochs/v1/current_epoch:
     get:
       summary: CurrentEpoch provide current epoch of specified identifier
       operationId: CurrentEpoch
@@ -1419,7 +1419,7 @@ paths:
           type: string
       tags:
         - QueryEpochs
-  /quicksilver/epochs/v1/epochs:
+  /blackfury/epochs/v1/epochs:
     get:
       summary: EpochInfos provide running epochInfos
       operationId: EpochInfos
@@ -1816,7 +1816,7 @@ paths:
               request.
       tags:
         - Msg
-  /quicksilver/interchainquery/v1/queries/{chain_id}:
+  /blackfury/interchainquery/v1/queries/{chain_id}:
     get:
       summary: Params returns the total set of minting parameters.
       operationId: Queries
@@ -2141,7 +2141,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainQuery
-  /quicksilver/tx/v1/interchainstaking/close_channel:
+  /blackfury/tx/v1/interchainstaking/close_channel:
     post:
       summary: >-
         SignalIntent defines a method for signalling voting intent for one or
@@ -2198,7 +2198,7 @@ paths:
                 type: string
       tags:
         - Msg
-  /quicksilver/tx/v1/interchainstaking/intent:
+  /blackfury/tx/v1/interchainstaking/intent:
     post:
       summary: >-
         SignalIntent defines a method for signalling voting intent for one or
@@ -2254,7 +2254,7 @@ paths:
               one or more validators.
       tags:
         - Msg
-  /quicksilver/tx/v1/interchainstaking/redeem:
+  /blackfury/tx/v1/interchainstaking/redeem:
     post:
       summary: |-
         RequestRedemption defines a method for requesting burning of qAssets for
@@ -2323,7 +2323,7 @@ paths:
               for native assets.
       tags:
         - Msg
-  /quicksilver/tx/v1/interchainstaking/reopen_channel:
+  /blackfury/tx/v1/interchainstaking/reopen_channel:
     post:
       operationId: GovReopenChannel
       responses:
@@ -2375,7 +2375,7 @@ paths:
                 type: string
       tags:
         - Msg
-  /quicksilver/interchainstaking/v1/mapped_addresses/{address}:
+  /blackfury/interchainstaking/v1/mapped_addresses/{address}:
     get:
       summary: >-
         MappedAccounts provides data on the mapped accounts for a given user
@@ -2505,7 +2505,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zone/{chain_id}:
+  /blackfury/interchainstaking/v1/zone/{chain_id}:
     get:
       summary: Zone provides meta data on a specific zone.
       operationId: Zone
@@ -2786,7 +2786,7 @@ paths:
           type: string
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones:
+  /blackfury/interchainstaking/v1/zones:
     get:
       summary: Zones provides meta data on connected zones.
       operationId: Zones
@@ -3151,7 +3151,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones/{chain_id}/delegations:
+  /blackfury/interchainstaking/v1/zones/{chain_id}/delegations:
     get:
       summary: Delegations provides data on the delegations for the given zone.
       operationId: Delegations
@@ -3307,7 +3307,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones/{chain_id}/delegator_intent/{delegator_address}:
+  /blackfury/interchainstaking/v1/zones/{chain_id}/delegator_intent/{delegator_address}:
     get:
       summary: >-
         DelegatorIntent provides data on the intent of the delegator for the
@@ -3368,7 +3368,7 @@ paths:
           type: string
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones/{chain_id}/deposit_address:
+  /blackfury/interchainstaking/v1/zones/{chain_id}/deposit_address:
     get:
       summary: >-
         DepositAccount provides data on the deposit address for a connected
@@ -3414,7 +3414,7 @@ paths:
           type: string
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones/{chain_id}/receipts:
+  /blackfury/interchainstaking/v1/zones/{chain_id}/receipts:
     get:
       summary: Delegations provides data on the delegations for the given zone.
       operationId: Receipts
@@ -3572,7 +3572,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones/{chain_id}/redelegation_records:
+  /blackfury/interchainstaking/v1/zones/{chain_id}/redelegation_records:
     get:
       summary: RedelegationRecords provides data on the active unbondings.
       operationId: RedelegationRecords
@@ -3715,7 +3715,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones/{chain_id}/unbonding_records:
+  /blackfury/interchainstaking/v1/zones/{chain_id}/unbonding_records:
     get:
       summary: UnbondingRecords provides data on the active unbondings.
       operationId: UnbondingRecords
@@ -3854,7 +3854,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones/{chain_id}/validators:
+  /blackfury/interchainstaking/v1/zones/{chain_id}/validators:
     get:
       operationId: ZoneValidators
       responses:
@@ -4004,7 +4004,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones/{chain_id}/withdrawal_records:
+  /blackfury/interchainstaking/v1/zones/{chain_id}/withdrawal_records:
     get:
       summary: WithdrawalRecords provides data on the active withdrawals.
       operationId: WithdrawalRecords
@@ -4195,7 +4195,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainStaking
-  /quicksilver/interchainstaking/v1/zones/{chain_id}/withdrawal_records/{delegator_address}:
+  /blackfury/interchainstaking/v1/zones/{chain_id}/withdrawal_records/{delegator_address}:
     get:
       summary: WithdrawalRecords provides data on the active withdrawals.
       operationId: ZoneWithdrawalRecords
@@ -4386,7 +4386,7 @@ paths:
           type: boolean
       tags:
         - QueryInterchainStaking
-  /quicksilver/mint/v1beta1/epoch_provisions:
+  /blackfury/mint/v1beta1/epoch_provisions:
     get:
       summary: EpochProvisions current minting epoch provisions value.
       operationId: EpochProvisions
@@ -4429,7 +4429,7 @@ paths:
                       format: byte
       tags:
         - QueryMint
-  /quicksilver/mint/v1beta1/params:
+  /blackfury/mint/v1beta1/params:
     get:
       summary: Params returns the total set of minting parameters.
       operationId: MintParams
@@ -4525,7 +4525,7 @@ paths:
                       format: byte
       tags:
         - QueryMint
-  /quicksilver/tx/v1/participationrewards/claim:
+  /blackfury/tx/v1/participationrewards/claim:
     post:
       operationId: SubmitClaim
       responses:
@@ -4630,7 +4630,7 @@ paths:
               claim regarding the given zone (chain).
       tags:
         - Msg
-  /quicksilver/participationrewards/v1/params:
+  /blackfury/participationrewards/v1/params:
     get:
       summary: Params returns the total set of participation rewards parameters.
       operationId: ParticipationRewardsParams
@@ -4660,7 +4660,7 @@ paths:
                         type: string
                     description: >-
                       DistributionProportions defines the proportions of minted
-                      QCK that is to be
+                      FURY that is to be
 
                       allocated as participation rewards.
                   claims_enabled:
@@ -4692,7 +4692,7 @@ paths:
                       format: byte
       tags:
         - QueryParticipationRewards
-  /quicksilver/participationrewards/v1/protocoldata/{type}/{key}:
+  /blackfury/participationrewards/v1/protocoldata/{type}/{key}:
     get:
       summary: ProtocolData returns the requested protocol data.
       operationId: ProtocolData
@@ -4744,7 +4744,7 @@ paths:
           type: string
       tags:
         - QueryParticipationRewards
-  /quicksilver/tokenfactory/v1beta1/denoms/{denom}/authority_metadata:
+  /blackfury/tokenfactory/v1beta1/denoms/{denom}/authority_metadata:
     get:
       summary: |-
         DenomAuthorityMetadata defines a gRPC query method for fetching
@@ -4761,7 +4761,7 @@ paths:
                 properties:
                   admin:
                     type: string
-                    title: Can be empty for no admin, or a valid quicksilver address
+                    title: Can be empty for no admin, or a valid blackfury address
                 description: >-
                   DenomAuthorityMetadata specifies metadata for addresses that
                   have specific
@@ -4804,7 +4804,7 @@ paths:
           type: string
       tags:
         - QueryTokenFactory
-  /quicksilver/tokenfactory/v1beta1/denoms_from_creator/{creator}:
+  /blackfury/tokenfactory/v1beta1/denoms_from_creator/{creator}:
     get:
       summary: |-
         DenomsFromCreator defines a gRPC query method for fetching all
@@ -4854,7 +4854,7 @@ paths:
           type: string
       tags:
         - QueryTokenFactory
-  /quicksilver/tokenfactory/v1beta1/params:
+  /blackfury/tokenfactory/v1beta1/params:
     get:
       summary: >-
         Params defines a gRPC query method that returns the tokenfactory

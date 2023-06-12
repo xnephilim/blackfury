@@ -48,24 +48,24 @@ import (
 	packetforward "github.com/strangelove-ventures/packet-forward-middleware/v5/router"
 	packetforwardtypes "github.com/strangelove-ventures/packet-forward-middleware/v5/router/types"
 
-	"github.com/ingenuity-build/quicksilver/x/airdrop"
-	airdroptypes "github.com/ingenuity-build/quicksilver/x/airdrop/types"
-	"github.com/ingenuity-build/quicksilver/x/claimsmanager"
-	claimsmanagertypes "github.com/ingenuity-build/quicksilver/x/claimsmanager/types"
-	"github.com/ingenuity-build/quicksilver/x/epochs"
-	epochstypes "github.com/ingenuity-build/quicksilver/x/epochs/types"
-	"github.com/ingenuity-build/quicksilver/x/interchainquery"
-	interchainquerytypes "github.com/ingenuity-build/quicksilver/x/interchainquery/types"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking"
-	interchainstakingclient "github.com/ingenuity-build/quicksilver/x/interchainstaking/client"
-	interchainstakingtypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
-	"github.com/ingenuity-build/quicksilver/x/mint"
-	minttypes "github.com/ingenuity-build/quicksilver/x/mint/types"
-	"github.com/ingenuity-build/quicksilver/x/participationrewards"
-	participationrewardsclient "github.com/ingenuity-build/quicksilver/x/participationrewards/client"
-	participationrewardstypes "github.com/ingenuity-build/quicksilver/x/participationrewards/types"
-	"github.com/ingenuity-build/quicksilver/x/tokenfactory"
-	tokenfactorytypes "github.com/ingenuity-build/quicksilver/x/tokenfactory/types"
+	"github.com/ingenuity-build/blackfury/x/airdrop"
+	airdroptypes "github.com/ingenuity-build/blackfury/x/airdrop/types"
+	"github.com/ingenuity-build/blackfury/x/claimsmanager"
+	claimsmanagertypes "github.com/ingenuity-build/blackfury/x/claimsmanager/types"
+	"github.com/ingenuity-build/blackfury/x/epochs"
+	epochstypes "github.com/ingenuity-build/blackfury/x/epochs/types"
+	"github.com/ingenuity-build/blackfury/x/interchainquery"
+	interchainquerytypes "github.com/ingenuity-build/blackfury/x/interchainquery/types"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking"
+	interchainstakingclient "github.com/ingenuity-build/blackfury/x/interchainstaking/client"
+	interchainstakingtypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/x/mint"
+	minttypes "github.com/ingenuity-build/blackfury/x/mint/types"
+	"github.com/ingenuity-build/blackfury/x/participationrewards"
+	participationrewardsclient "github.com/ingenuity-build/blackfury/x/participationrewards/client"
+	participationrewardstypes "github.com/ingenuity-build/blackfury/x/participationrewards/types"
+	"github.com/ingenuity-build/blackfury/x/tokenfactory"
+	tokenfactorytypes "github.com/ingenuity-build/blackfury/x/tokenfactory/types"
 )
 
 var (
@@ -132,7 +132,7 @@ var (
 )
 
 func appModules(
-	app *Quicksilver,
+	app *Blackfury,
 	encodingConfig EncodingConfig,
 	skipGenesisInvariants bool,
 ) []module.AppModule {
@@ -165,7 +165,7 @@ func appModules(
 		app.TransferModule,
 		app.PacketForwardModule,
 		app.ICAModule,
-		// Quicksilver app modules
+		// Blackfury app modules
 		mint.NewAppModule(appCodec, app.MintKeeper, app.AccountKeeper, app.BankKeeper),
 		claimsmanager.NewAppModule(appCodec, app.ClaimsManagerKeeper),
 		epochs.NewAppModule(appCodec, app.EpochsKeeper),
@@ -181,7 +181,7 @@ func appModules(
 // simulationModules returns modules for simulation manager
 // define the order of the modules for deterministic simulations.
 func simulationModules(
-	app *Quicksilver,
+	app *Blackfury,
 	encodingConfig EncodingConfig,
 ) []module.AppModuleSimulation {
 	appCodec := encodingConfig.Marshaler
@@ -204,7 +204,7 @@ func simulationModules(
 		ibc.NewAppModule(app.IBCKeeper),
 		app.TransferModule,
 		app.ICAModule,
-		// Quicksilver app modules
+		// Blackfury app modules
 		mint.NewAppModule(appCodec, app.MintKeeper, app.AccountKeeper, app.BankKeeper),
 		claimsmanager.NewAppModule(appCodec, app.ClaimsManagerKeeper),
 		epochs.NewAppModule(appCodec, app.EpochsKeeper),
@@ -337,7 +337,7 @@ func orderInitBlockers() []string {
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		icatypes.ModuleName,
-		// Quicksilver modules
+		// Blackfury modules
 		epochstypes.ModuleName,
 		claimsmanagertypes.ModuleName,
 		interchainstakingtypes.ModuleName,

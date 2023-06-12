@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/x/tokenfactory/types"
+	"github.com/ingenuity-build/blackfury/x/tokenfactory/types"
 )
 
 func (s *KeeperTestSuite) TestMsgCreateDenom() {
@@ -56,7 +56,7 @@ func (s *KeeperTestSuite) TestMsgCreateDenom() {
 	s.Require().NotEmpty(res.GetNewTokenDenom())
 
 	// Make sure that an address with a "/" in it can't create denoms
-	_, err = s.msgServer.CreateDenom(sdk.WrapSDKContext(s.Ctx), types.NewMsgCreateDenom("quick.eth/creator", "bitcoin"))
+	_, err = s.msgServer.CreateDenom(sdk.WrapSDKContext(s.Ctx), types.NewMsgCreateDenom("black.eth/creator", "bitcoin"))
 	s.Require().Error(err)
 }
 

@@ -4,9 +4,9 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	icstypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	icstypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 var (
@@ -18,7 +18,7 @@ func (suite *KeeperTestSuite) TestKeeper_IntentStore() {
 	suite.SetupTest()
 	suite.setupTestZones()
 
-	icsKeeper := suite.GetQuicksilverApp(suite.chainA).InterchainstakingKeeper
+	icsKeeper := suite.GetBlackfuryApp(suite.chainA).InterchainstakingKeeper
 	ctx := suite.chainA.GetContext()
 
 	// get test zone
@@ -148,18 +148,18 @@ func (suite *KeeperTestSuite) TestKeeper_IntentStore() {
 func (suite *KeeperTestSuite) TestAggregateIntent() {
 	tc := []struct {
 		name     string
-		intents  func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) []icstypes.DelegatorIntent
+		intents  func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) []icstypes.DelegatorIntent
 		balances func() map[string]int64
-		expected func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) icstypes.ValidatorIntents
+		expected func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) icstypes.ValidatorIntents
 	}{
 		{
 			name: "empty intents; returns equal weighting",
-			intents: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) []icstypes.DelegatorIntent {
+			intents: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) []icstypes.DelegatorIntent {
 				out := make([]icstypes.DelegatorIntent, 0)
 				return out
 			},
 			balances: func() map[string]int64 { return map[string]int64{} },
-			expected: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) icstypes.ValidatorIntents {
+			expected: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) icstypes.ValidatorIntents {
 				// four delegators each at 25%
 				out := icstypes.ValidatorIntents{}
 				for _, val := range qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId) {
@@ -170,13 +170,13 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 		},
 		{
 			name: "single intent; zero balance, returns default equal weighting",
-			intents: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) []icstypes.DelegatorIntent {
+			intents: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) []icstypes.DelegatorIntent {
 				out := make([]icstypes.DelegatorIntent, 0)
 				out = append(out, icstypes.DelegatorIntent{Delegator: user1.String(), Intents: icstypes.ValidatorIntents{&icstypes.ValidatorIntent{ValoperAddress: qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId)[0], Weight: sdk.OneDec()}}})
 				return out
 			},
 			balances: func() map[string]int64 { return map[string]int64{} },
-			expected: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) icstypes.ValidatorIntents {
+			expected: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) icstypes.ValidatorIntents {
 				// four delegators each at 25%
 				out := icstypes.ValidatorIntents{}
 				for _, val := range qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId) {
@@ -188,7 +188,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 		{
 			// name: "single intent; with balance, returns single weighting",
 			name: "single intent; with balance, returns default equal weighting",
-			intents: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) []icstypes.DelegatorIntent {
+			intents: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) []icstypes.DelegatorIntent {
 				out := make([]icstypes.DelegatorIntent, 0)
 				out = append(out, icstypes.DelegatorIntent{Delegator: user1.String(), Intents: icstypes.ValidatorIntents{&icstypes.ValidatorIntent{ValoperAddress: qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId)[0], Weight: sdk.OneDec()}}})
 				return out
@@ -204,7 +204,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 
 			// 	return out.Sort()
 			// },
-			expected: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) icstypes.ValidatorIntents {
+			expected: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) icstypes.ValidatorIntents {
 				// four delegators each at 25%
 				out := icstypes.ValidatorIntents{}
 				for _, val := range qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId) {
@@ -217,7 +217,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 		{
 			// name: "two intents; with equal balances, same val, single weighting",
 			name: "two intents; with equal balances, same val, returns default equal weighting",
-			intents: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) []icstypes.DelegatorIntent {
+			intents: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) []icstypes.DelegatorIntent {
 				out := make([]icstypes.DelegatorIntent, 0)
 				out = append(out,
 					icstypes.DelegatorIntent{Delegator: user1.String(), Intents: icstypes.ValidatorIntents{&icstypes.ValidatorIntent{ValoperAddress: qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId)[0], Weight: sdk.OneDec()}}},
@@ -237,7 +237,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 
 			// 	return out.Sort()
 			// },
-			expected: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) icstypes.ValidatorIntents {
+			expected: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) icstypes.ValidatorIntents {
 				// four delegators each at 25%
 				out := icstypes.ValidatorIntents{}
 				for _, val := range qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId) {
@@ -249,7 +249,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 		{
 			// name: "two intents; with equal balances, diff val, equal weighting",
 			name: "two intents; with equal balances, diff val, returns default equal weighting",
-			intents: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) []icstypes.DelegatorIntent {
+			intents: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) []icstypes.DelegatorIntent {
 				out := make([]icstypes.DelegatorIntent, 0)
 				out = append(out,
 					icstypes.DelegatorIntent{Delegator: user1.String(), Intents: icstypes.ValidatorIntents{&icstypes.ValidatorIntent{ValoperAddress: qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId)[0], Weight: sdk.OneDec()}}},
@@ -270,7 +270,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 
 			// 	return out.Sort()
 			// },
-			expected: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) icstypes.ValidatorIntents {
+			expected: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) icstypes.ValidatorIntents {
 				// four delegators each at 25%
 				out := icstypes.ValidatorIntents{}
 				for _, val := range qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId) {
@@ -281,7 +281,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 		},
 		{
 			name: "two intents; with zer0 balances, diff val, returns default equal weights ",
-			intents: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) []icstypes.DelegatorIntent {
+			intents: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) []icstypes.DelegatorIntent {
 				out := make([]icstypes.DelegatorIntent, 0)
 				out = append(out,
 					icstypes.DelegatorIntent{Delegator: user1.String(), Intents: icstypes.ValidatorIntents{&icstypes.ValidatorIntent{ValoperAddress: qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId)[0], Weight: sdk.ZeroDec()}}},
@@ -302,7 +302,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 
 			// 	return out.Sort()
 			// },
-			expected: func(ctx sdk.Context, qs *app.Quicksilver, zone icstypes.Zone) icstypes.ValidatorIntents {
+			expected: func(ctx sdk.Context, qs *app.Blackfury, zone icstypes.Zone) icstypes.ValidatorIntents {
 				// four delegators each at 25%
 				out := icstypes.ValidatorIntents{}
 				for _, val := range qs.InterchainstakingKeeper.GetValidatorAddresses(ctx, zone.ChainId) {
@@ -318,9 +318,9 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 			suite.SetupTest()
 			suite.setupTestZones()
 
-			quicksilver := suite.GetQuicksilverApp(suite.chainA)
+			blackfury := suite.GetBlackfuryApp(suite.chainA)
 			ctx := suite.chainA.GetContext()
-			icsKeeper := quicksilver.InterchainstakingKeeper
+			icsKeeper := blackfury.InterchainstakingKeeper
 			zone, found := icsKeeper.GetZone(ctx, suite.chainB.ChainID)
 			suite.Require().True(found)
 
@@ -329,7 +329,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 				suite.giveFunds(ctx, zone.LocalDenom, balance, addrString)
 			}
 
-			for _, intent := range tt.intents(ctx, quicksilver, zone) {
+			for _, intent := range tt.intents(ctx, blackfury, zone) {
 				icsKeeper.SetDelegatorIntent(ctx, &zone, intent, false)
 			}
 
@@ -341,7 +341,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 
 			actual, err := icsKeeper.GetAggregateIntentOrDefault(ctx, &zone)
 			suite.Require().NoError(err)
-			suite.Require().Equal(tt.expected(ctx, quicksilver, zone), actual)
+			suite.Require().Equal(tt.expected(ctx, blackfury, zone), actual)
 		})
 	}
 }
@@ -427,18 +427,18 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 // 			suite.SetupTest()
 // 			suite.setupTestZones()
 
-// 			quicksilver := suite.GetQuicksilverApp(suite.chainA)
+// 			blackfury := suite.GetBlackfuryApp(suite.chainA)
 // 			ctx := suite.chainA.GetContext()
-// 			icsKeeper := quicksilver.InterchainstakingKeeper
+// 			icsKeeper := blackfury.InterchainstakingKeeper
 // 			zone, found := icsKeeper.GetZone(ctx, suite.chainB.ChainID)
 // 			suite.Require().True(found)
 
 // 			// give each user some funds
 // 			for addrString, balance := range tt.balances(zone.LocalDenom) {
-// 				quicksilver.MintKeeper.MintCoins(ctx, balance)
+// 				blackfury.MintKeeper.MintCoins(ctx, balance)
 // 				addr, err := utils.AccAddressFromBech32(addrString, "")
 // 				suite.Require().NoError(err)
-// 				quicksilver.BankKeeper.SendCoinsFromModuleToAccount(ctx, minttypes.ModuleName, addr, balance)
+// 				blackfury.BankKeeper.SendCoinsFromModuleToAccount(ctx, minttypes.ModuleName, addr, balance)
 // 			}
 
 // 			for _, intent := range tt.intents(zone) {
@@ -446,7 +446,7 @@ func (suite *KeeperTestSuite) TestAggregateIntent() {
 // 			}
 
 // 			for _, claim := range tt.claims(zone) {
-// 				quicksilver.ClaimsManagerKeeper.SetLastEpochClaim(ctx, &claim)
+// 				blackfury.ClaimsManagerKeeper.SetLastEpochClaim(ctx, &claim)
 // 			}
 
 // 			icsKeeper.AggregateDelegatorIntents(ctx, zone)

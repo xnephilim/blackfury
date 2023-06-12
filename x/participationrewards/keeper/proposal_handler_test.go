@@ -3,12 +3,12 @@ package keeper_test
 import (
 	"fmt"
 
-	"github.com/ingenuity-build/quicksilver/x/participationrewards/keeper"
-	"github.com/ingenuity-build/quicksilver/x/participationrewards/types"
+	"github.com/ingenuity-build/blackfury/x/participationrewards/keeper"
+	"github.com/ingenuity-build/blackfury/x/participationrewards/types"
 )
 
 func (suite *KeeperTestSuite) TestHandleAddProtocolDataProposal() {
-	appA := suite.GetQuicksilverApp(suite.chainA)
+	appA := suite.GetBlackfuryApp(suite.chainA)
 
 	prop := types.AddProtocolDataProposal{}
 	tests := []struct {

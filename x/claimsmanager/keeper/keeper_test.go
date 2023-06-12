@@ -7,9 +7,9 @@ import (
 	ibctesting "github.com/cosmos/ibc-go/v5/testing"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	icstypes "github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	icstypes "github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 var testAddress = addressutils.GenerateAccAddressForTest().String()
@@ -23,7 +23,7 @@ func TestKeeperTestSuite(t *testing.T) {
 	suite.Run(t, new(KeeperTestSuite))
 }
 
-func newQuicksilverPath(chainA, chainB *ibctesting.TestChain) *ibctesting.Path {
+func newBlackfuryPath(chainA, chainB *ibctesting.TestChain) *ibctesting.Path {
 	path := ibctesting.NewPath(chainA, chainB)
 	path.EndpointA.ChannelConfig.PortID = ibctesting.TransferPort
 	path.EndpointB.ChannelConfig.PortID = ibctesting.TransferPort
@@ -43,13 +43,13 @@ type KeeperTestSuite struct {
 	path *ibctesting.Path
 }
 
-func (s *KeeperTestSuite) GetQuicksilverApp(chain *ibctesting.TestChain) *app.Quicksilver {
-	quicksilver, ok := chain.App.(*app.Quicksilver)
+func (s *KeeperTestSuite) GetBlackfuryApp(chain *ibctesting.TestChain) *app.Blackfury {
+	blackfury, ok := chain.App.(*app.Blackfury)
 	if !ok {
-		panic("not quicksilver app")
+		panic("not blackfury app")
 	}
 
-	return quicksilver
+	return blackfury
 }
 
 // SetupTest creates a coordinator with 2 test chains.
@@ -58,7 +58,7 @@ func (s *KeeperTestSuite) SetupTest() {
 	s.chainA = s.coordinator.GetChain(ibctesting.GetChainID(1)) // convenience and readability
 	s.chainB = s.coordinator.GetChain(ibctesting.GetChainID(2)) // convenience and readability
 
-	s.path = newQuicksilverPath(s.chainA, s.chainB)
+	s.path = newBlackfuryPath(s.chainA, s.chainB)
 	s.coordinator.SetupConnections(s.path)
 
 	s.coordinator.CurrentTime = time.Now().UTC()
@@ -81,7 +81,7 @@ func (s *KeeperTestSuite) initTestZone() {
 		Decimals:         6,
 		Is_118:           true,
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
 
 	// cosmos zone
 	zone = icstypes.Zone{
@@ -96,7 +96,7 @@ func (s *KeeperTestSuite) initTestZone() {
 		Decimals:         6,
 		Is_118:           true,
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
 
 	// osmosis zone
 	zone = icstypes.Zone{
@@ -111,5 +111,5 @@ func (s *KeeperTestSuite) initTestZone() {
 		Decimals:         6,
 		Is_118:           true,
 	}
-	s.GetQuicksilverApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
+	s.GetBlackfuryApp(s.chainA).InterchainstakingKeeper.SetZone(s.chainA.GetContext(), &zone)
 }

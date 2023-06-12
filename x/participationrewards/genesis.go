@@ -1,8 +1,8 @@
 package participationrewards
 
 import (
-	"github.com/ingenuity-build/quicksilver/x/participationrewards/keeper"
-	"github.com/ingenuity-build/quicksilver/x/participationrewards/types"
+	"github.com/ingenuity-build/blackfury/x/participationrewards/keeper"
+	"github.com/ingenuity-build/blackfury/x/participationrewards/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

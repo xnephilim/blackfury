@@ -7,8 +7,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 func TestIntentsFromString(t *testing.T) {
@@ -53,7 +53,7 @@ func TestIntentsFromString(t *testing.T) {
 	require.Contains(t, err.Error(), "invalid intents string")
 
 	fromAddr := sdk.AccAddress([]byte{0x84, 0xbf, 0xf8, 0x4c, 0x7d, 0xda, 0xd1, 0x1c, 0xb8, 0xc0, 0x73, 0x86, 0xe9, 0x19, 0x28, 0xc5, 0x67, 0x5c, 0xa4, 0xbc})
-	sigIntent := types.NewMsgSignalIntent("quicksilver", intents, fromAddr)
+	sigIntent := types.NewMsgSignalIntent("blackfury", intents, fromAddr)
 	err = sigIntent.ValidateBasic()
 	if err != nil {
 		t.Fatal(err.Error())

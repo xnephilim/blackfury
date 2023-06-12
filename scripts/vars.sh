@@ -20,11 +20,11 @@ else
     TIME="$(date --date '-2 minutes' +%Y-%m-%dT%H:%M:00Z -u)"
 fi
 
-QS_IMAGE=quicksilverzone/quicksilver
+QS_IMAGE=blackfuryzone/blackfury
 QS_VERSION=latest
-TZ_IMAGE=quicksilverzone/testzone
+TZ_IMAGE=blackfuryzone/testzone
 TZ_VERSION=latest
-RLY_IMAGE=quicksilverzone/relayer
+RLY_IMAGE=blackfuryzone/relayer
 RLY_VERSION=v2.1.1
 
 CHAIN_DIR=data
@@ -32,9 +32,9 @@ CHAINID_0=qstest-1
 CHAINID_1=lstest-1
 CHAINID_2=lstest-2
 
-QS1_RUN="docker-compose $DC --ansi never run --rm -T quicksilver quicksilverd"
-QS2_RUN="docker-compose $DC --ansi never run --rm -T quicksilver2 quicksilverd"
-QS3_RUN="docker-compose $DC --ansi never run --rm -T quicksilver3 quicksilverd"
+QS1_RUN="docker-compose $DC --ansi never run --rm -T blackfury blackfuryd"
+QS2_RUN="docker-compose $DC --ansi never run --rm -T blackfury2 blackfuryd"
+QS3_RUN="docker-compose $DC --ansi never run --rm -T blackfury3 blackfuryd"
 GAIA1_RUN="docker-compose $DC --ansi never run --rm -T gaia gaiad"
 GAIA2_RUN="docker-compose $DC --ansi never run --rm -T gaia2 gaiad"
 GAIA3_RUN="docker-compose $DC --ansi never run --rm -T gaia3 gaiad"
@@ -49,9 +49,9 @@ TZ2_4_RUN="docker-compose $DC --ansi never run --rm -T testzone2-4 osmosisd"
 RLY_RUN="docker-compose $DC --ansi never run --rm -T relayer rly"
 HERMES_RUN="docker-compose $DC --ansi never run --rm -T hermes hermes"
 
-QS1_EXEC="docker-compose $DC --ansi never exec -T quicksilver quicksilverd"
-QS2_EXEC="docker-compose $DC --ansi never exec -T quicksilver2 quicksilverd"
-QS3_EXEC="docker-compose $DC --ansi never exec -T quicksilver3 quicksilverd"
+QS1_EXEC="docker-compose $DC --ansi never exec -T blackfury blackfuryd"
+QS2_EXEC="docker-compose $DC --ansi never exec -T blackfury2 blackfuryd"
+QS3_EXEC="docker-compose $DC --ansi never exec -T blackfury3 blackfuryd"
 GAIA1_EXEC="docker-compose $DC --ansi never exec -T gaia gaiad"
 GAIA2_EXEC="docker-compose $DC --ansi never exec -T gaia2 gaiad"
 GAIA3_EXEC="docker-compose $DC --ansi never exec -T gaia3 gaiad"
@@ -84,7 +84,7 @@ DEMO_MNEMONIC_2="veteran try aware erosion drink dance decade comic dawn museum 
 DEMO_MNEMONIC_3="snow cancel exhibit neutral cushion what bench bomb season hard mesh method virus enforce hip put voice toilet love head risk ankle toy fiscal"
 DEMO_MNEMONIC_4="sustain stumble true ozone note engine unit dignity tip sheriff barrel connect fire ridge wealth echo behind will pledge coin joke mouse ripple battle"
 DEMO_MNEMONIC_5="remain season shoot frog include erase august click rookie shine person oxygen pyramid table disagree language blossom island begin theory strike planet acid mad"
-DEMO_MNEMONIC_6="dog remind design enrich kingdom village lottery sleep access impulse actual verb finger wreck main disorder erosion involve marriage cup quick meadow scale antenna"
+DEMO_MNEMONIC_6="dog remind design enrich kingdom village lottery sleep access impulse actual verb finger wreck main disorder erosion involve marriage cup black meadow scale antenna"
 DEMO_MNEMONIC_7="develop eagle toast brass table month biology fabric oven actor upper empty pigeon drum leave artist net defense excuse humor verb gown delay garden"
 DEMO_MNEMONIC_8="rule casual squirrel drift mirror coast beach limb dutch tool wet small shed critic true exotic flat corn more beyond present rent mercy tomorrow"
 DEMO_MNEMONIC_9="family govern swallow dignity garlic broken core expect reopen increase north recycle hair resemble dance fluid wreck paper ability various forget relax cradle rebuild"

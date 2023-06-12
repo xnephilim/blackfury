@@ -5,13 +5,13 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/airdrop/keeper"
-	"github.com/ingenuity-build/quicksilver/x/airdrop/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/airdrop/keeper"
+	"github.com/ingenuity-build/blackfury/x/airdrop/types"
 )
 
 func (s *KeeperTestSuite) TestHandleRegisterZoneDropProposal() {
-	appA := s.GetQuicksilverApp(s.chainA)
+	appA := s.GetBlackfuryApp(s.chainA)
 
 	validZoneDrop := types.ZoneDrop{
 		ChainId:    s.chainB.ChainID,

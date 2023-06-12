@@ -15,49 +15,49 @@ import (
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/wasmbinding/bindings"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/wasmbinding/bindings"
 )
 
 // we must pay this many uosmo for every pool we create.
 var poolFee int64 = 1000000000 //nolint:unused
 
 var defaultFunds = sdk.NewCoins( //nolint:unused
-	sdk.NewInt64Coin("qck", 333000000),
+	sdk.NewInt64Coin("fury", 333000000),
 	sdk.NewInt64Coin("umai", 555000000+2*poolFee),
 	sdk.NewInt64Coin("uck", 999000000),
 )
 
-func SetupCustomApp(t *testing.T, addr sdk.AccAddress) (*app.Quicksilver, sdk.Context) {
+func SetupCustomApp(t *testing.T, addr sdk.AccAddress) (*app.Blackfury, sdk.Context) {
 	t.Helper()
 
-	quicksilverApp, ctx := CreateTestInput(t)
-	wasmKeeper := quicksilverApp.WasmKeeper
+	blackfuryApp, ctx := CreateTestInput(t)
+	wasmKeeper := blackfuryApp.WasmKeeper
 
-	storeReflectCode(t, ctx, quicksilverApp, addr)
+	storeReflectCode(t, ctx, blackfuryApp, addr)
 
 	cInfo := wasmKeeper.GetCodeInfo(ctx, 1)
 	require.NotNil(t, cInfo)
 
-	return quicksilverApp, ctx
+	return blackfuryApp, ctx
 }
 
 func TestQueryFullDenom(t *testing.T) {
 	actor := RandomAccountAddress()
-	quicksilverApp, ctx := SetupCustomApp(t, actor)
+	blackfuryApp, ctx := SetupCustomApp(t, actor)
 
-	reflect := instantiateReflectContract(t, ctx, quicksilverApp, actor)
+	reflect := instantiateReflectContract(t, ctx, blackfuryApp, actor)
 	require.NotEmpty(t, reflect)
 
 	// query full denom
-	query := bindings.QuickSilverQuery{
+	query := bindings.BlackFuryQuery{
 		FullDenom: &bindings.FullDenom{
 			CreatorAddr: reflect.String(),
 			Subdenom:    "ustart",
 		},
 	}
 	resp := bindings.FullDenomResponse{}
-	queryCustom(t, ctx, quicksilverApp, reflect, query, &resp)
+	queryCustom(t, ctx, blackfuryApp, reflect, query, &resp)
 
 	expected := fmt.Sprintf("factory/%s/ustart", reflect.String())
 	require.EqualValues(t, expected, resp.Denom)
@@ -75,7 +75,7 @@ type ChainResponse struct {
 	Data []byte `json:"data"`
 }
 
-func queryCustom(t *testing.T, ctx sdk.Context, quicksilver *app.Quicksilver, contract sdk.AccAddress, request bindings.QuickSilverQuery, response interface{}) {
+func queryCustom(t *testing.T, ctx sdk.Context, blackfury *app.Blackfury, contract sdk.AccAddress, request bindings.BlackFuryQuery, response interface{}) {
 	t.Helper()
 
 	msgBz, err := json.Marshal(request)
@@ -89,7 +89,7 @@ func queryCustom(t *testing.T, ctx sdk.Context, quicksilver *app.Quicksilver, co
 	queryBz, err := json.Marshal(query)
 	require.NoError(t, err)
 
-	resBz, err := quicksilver.WasmKeeper.QuerySmart(ctx, contract, queryBz)
+	resBz, err := blackfury.WasmKeeper.QuerySmart(ctx, contract, queryBz)
 	require.NoError(t, err)
 	var resp ChainResponse
 	err = json.Unmarshal(resBz, &resp)
@@ -98,10 +98,10 @@ func queryCustom(t *testing.T, ctx sdk.Context, quicksilver *app.Quicksilver, co
 	require.NoError(t, err)
 }
 
-func storeReflectCode(t *testing.T, ctx sdk.Context, quicksilverApp *app.Quicksilver, addr sdk.AccAddress) {
+func storeReflectCode(t *testing.T, ctx sdk.Context, blackfuryApp *app.Blackfury, addr sdk.AccAddress) {
 	t.Helper()
 
-	govKeeper := quicksilverApp.GovKeeper
+	govKeeper := blackfuryApp.GovKeeper
 	wasmCode, err := os.ReadFile("../testdata/osmo_reflect.wasm")
 	govAddress := govKeeper.GetGovernanceAccount(ctx).GetAddress().String()
 
@@ -126,11 +126,11 @@ func storeReflectCode(t *testing.T, ctx sdk.Context, quicksilverApp *app.Quicksi
 	require.NoError(t, err)
 }
 
-func instantiateReflectContract(t *testing.T, ctx sdk.Context, quicksilverApp *app.Quicksilver, funder sdk.AccAddress) sdk.AccAddress {
+func instantiateReflectContract(t *testing.T, ctx sdk.Context, blackfuryApp *app.Blackfury, funder sdk.AccAddress) sdk.AccAddress {
 	t.Helper()
 
 	initMsgBz := []byte("{}")
-	contractKeeper := keeper.NewDefaultPermissionKeeper(quicksilverApp.WasmKeeper)
+	contractKeeper := keeper.NewDefaultPermissionKeeper(blackfuryApp.WasmKeeper)
 	codeID := uint64(1)
 	addr, _, err := contractKeeper.Instantiate(ctx, codeID, funder, funder, initMsgBz, "demo contract", nil)
 	require.NoError(t, err)
@@ -138,11 +138,11 @@ func instantiateReflectContract(t *testing.T, ctx sdk.Context, quicksilverApp *a
 	return addr
 }
 
-func fundAccount(t *testing.T, ctx sdk.Context, quicksilver *app.Quicksilver, addr sdk.AccAddress, coins sdk.Coins) { //nolint:unused
+func fundAccount(t *testing.T, ctx sdk.Context, blackfury *app.Blackfury, addr sdk.AccAddress, coins sdk.Coins) { //nolint:unused
 	t.Helper()
 
 	err := FundAccount(
-		quicksilver.BankKeeper,
+		blackfury.BankKeeper,
 		ctx,
 		addr,
 		coins,

@@ -1,7 +1,7 @@
 package keeper_test
 
 func (s *KeeperTestSuite) TestGetSetDelete() {
-	k := s.GetQuicksilverApp(s.chainA).ClaimsManagerKeeper
+	k := s.GetBlackfuryApp(s.chainA).ClaimsManagerKeeper
 	ctx := s.chainA.GetContext()
 
 	_, found := k.GetSelfConsensusState(ctx, "test")

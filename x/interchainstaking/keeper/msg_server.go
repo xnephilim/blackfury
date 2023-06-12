@@ -12,8 +12,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 type msgServer struct {
@@ -157,7 +157,7 @@ func (k msgServer) GovReopenChannel(goCtx context.Context, msg *types.MsgGovReop
 	// remove leading prefix icacontroller- if passed in msg
 	portID := strings.ReplaceAll(msg.PortId, "icacontroller-", "")
 
-	// validate the zone exists, and the format is valid (e.g. quickgaia-1.delegate)
+	// validate the zone exists, and the format is valid (e.g. blackgaia-1.delegate)
 	parts := strings.Split(portID, ".")
 
 	// portId and connectionId format validated in validateBasic, so not duplicated here.

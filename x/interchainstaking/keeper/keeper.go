@@ -27,14 +27,14 @@ import (
 	ibctmtypes "github.com/cosmos/ibc-go/v5/modules/light-clients/07-tendermint/types"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
-	icqtypes "github.com/ingenuity-build/quicksilver/x/interchainquery/types"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
+	icqtypes "github.com/ingenuity-build/blackfury/x/interchainquery/types"
 
-	config "github.com/ingenuity-build/quicksilver/cmd/config"
-	"github.com/ingenuity-build/quicksilver/utils"
-	claimsmanagerkeeper "github.com/ingenuity-build/quicksilver/x/claimsmanager/keeper"
-	interchainquerykeeper "github.com/ingenuity-build/quicksilver/x/interchainquery/keeper"
-	"github.com/ingenuity-build/quicksilver/x/interchainstaking/types"
+	config "github.com/ingenuity-build/blackfury/cmd/config"
+	"github.com/ingenuity-build/blackfury/utils"
+	claimsmanagerkeeper "github.com/ingenuity-build/blackfury/x/claimsmanager/keeper"
+	interchainquerykeeper "github.com/ingenuity-build/blackfury/x/interchainquery/keeper"
+	"github.com/ingenuity-build/blackfury/x/interchainstaking/types"
 )
 
 // Keeper of this module maintains collections of registered zones.

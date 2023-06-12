@@ -17,9 +17,9 @@ import (
 	"github.com/spf13/cobra"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/ingenuity-build/quicksilver/x/airdrop/client/cli"
-	"github.com/ingenuity-build/quicksilver/x/airdrop/keeper"
-	"github.com/ingenuity-build/quicksilver/x/airdrop/types"
+	"github.com/ingenuity-build/blackfury/x/airdrop/client/cli"
+	"github.com/ingenuity-build/blackfury/x/airdrop/keeper"
+	"github.com/ingenuity-build/blackfury/x/airdrop/types"
 )
 
 var (

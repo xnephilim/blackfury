@@ -53,7 +53,7 @@ source ${SCRIPT_DIR}/wallets.sh
 
 #############################################################################################################################
 
-docker-compose up --force-recreate -d quicksilver quicksilver2 quicksilver3 testzone1-1 testzone1-2 testzone1-3 testzone1-4 testzone2-1 testzone2-2 testzone2-3 testzone2-4
+docker-compose up --force-recreate -d blackfury blackfury2 blackfury3 testzone1-1 testzone1-2 testzone1-3 testzone1-4 testzone2-1 testzone2-2 testzone2-3 testzone2-4
 echo "Chains created"
 sleep 10
 echo "Restoring keys"
@@ -75,20 +75,20 @@ ICQ_ADDRESS_1=$($ICQ_RUN keys add test --chain qstest-1 | jq .address -r)
 ICQ_ADDRESS_2=$($ICQ_RUN keys add test --chain lstest-1 | jq .address -r)
 ICQ_ADDRESS_3=$($ICQ_RUN keys add test --chain lstest-2 | jq .address -r)
 
-$QS1_EXEC tx bank send val1 $ICQ_ADDRESS_1 1000uqck --chain-id $CHAINID_0 -y --keyring-backend=test
+$QS1_EXEC tx bank send val1 $ICQ_ADDRESS_1 1000ufury --chain-id $CHAINID_0 -y --keyring-backend=test
 $TZ1_1_EXEC tx bank send val2 $ICQ_ADDRESS_2 1000uatom --chain-id $CHAINID_1 -y --keyring-backend=test
 $TZ2_1_EXEC tx bank send val8 $ICQ_ADDRESS_3 1000uosmo --chain-id $CHAINID_2 -y --keyring-backend=test
 
 docker-compose up --force-recreate -d icq
 
-#echo "Register $CHAINID_1 on quicksilver..."
+#echo "Register $CHAINID_1 on blackfury..."
 cat $SCRIPT_DIR/registerzonelsm.json | jq . -c | $QS1_EXEC tx gov submit-proposal /dev/fd/0 --from demowallet1 --chain-id $CHAINID_0 --gas 2000000 -y --keyring-backend=test
 sleep 5
 $QS1_EXEC tx gov vote 1 yes --from val1 --chain-id $CHAINID_0 -y --keyring-backend=test
 $QS2_EXEC tx gov vote 1 yes --from val6 --chain-id $CHAINID_0 -y --keyring-backend=test
 $QS3_EXEC tx gov vote 1 yes --from val7 --chain-id $CHAINID_0 -y --keyring-backend=test
 
-#echo "Register $CHAINID_2 on quicksilver..."
+#echo "Register $CHAINID_2 on blackfury..."
 cat $SCRIPT_DIR/registerosmolsm.json | jq . -c | $QS1_EXEC tx gov submit-legacy-proposal register-zone  /dev/fd/0 --from demowallet1 --chain-id $CHAINID_0 --gas 2000000 -y --keyring-backend=test
 sleep 5
 $QS1_EXEC tx gov vote 2 yes --from val1 --chain-id $CHAINID_0 -y --keyring-backend=test

@@ -17,21 +17,21 @@ import (
 	"github.com/stretchr/testify/suite"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	"github.com/ingenuity-build/quicksilver/app"
-	"github.com/ingenuity-build/quicksilver/wasmbinding"
-	epochtypes "github.com/ingenuity-build/quicksilver/x/epochs/types"
+	"github.com/ingenuity-build/blackfury/app"
+	"github.com/ingenuity-build/blackfury/wasmbinding"
+	epochtypes "github.com/ingenuity-build/blackfury/x/epochs/types"
 )
 
 type StargateTestSuite struct {
 	suite.Suite
 
 	ctx sdk.Context
-	app *app.Quicksilver
+	app *app.Blackfury
 }
 
 func (s *StargateTestSuite) SetupTest() {
 	s.app = app.Setup(s.T(), false)
-	s.ctx = s.app.BaseApp.NewContext(false, tmproto.Header{Height: 1, ChainID: "quicksilver-1", Time: time.Now().UTC()})
+	s.ctx = s.app.BaseApp.NewContext(false, tmproto.Header{Height: 1, ChainID: "blackfury-1", Time: time.Now().UTC()})
 }
 
 func TestStargateTestSuite(t *testing.T) {
@@ -51,7 +51,7 @@ func (s *StargateTestSuite) TestStargateQuerier() {
 	}{
 		{
 			name: "happy path",
-			path: "/quicksilver.epochs.v1.Query/EpochInfos",
+			path: "/blackfury.epochs.v1.Query/EpochInfos",
 			requestData: func() []byte {
 				epochrequest := epochtypes.QueryEpochsInfoRequest{}
 				bz, err := proto.Marshal(&epochrequest)
@@ -73,7 +73,7 @@ func (s *StargateTestSuite) TestStargateQuerier() {
 		},
 		{
 			name: "unmatching path and data in request",
-			path: "/quicksilver.epochs.v1.Query/EpochInfos",
+			path: "/blackfury.epochs.v1.Query/EpochInfos",
 			requestData: func() []byte {
 				epochrequest := epochtypes.QueryCurrentEpochRequest{}
 				bz, err := proto.Marshal(&epochrequest)
@@ -87,10 +87,10 @@ func (s *StargateTestSuite) TestStargateQuerier() {
 			name: "error in unmarshalling response",
 			// set up whitelist with wrong data
 			testSetup: func() {
-				wasmbinding.SetWhitelistedQuery("/quicksilver.epochs.v1.Query/EpochInfos",
+				wasmbinding.SetWhitelistedQuery("/blackfury.epochs.v1.Query/EpochInfos",
 					&banktypes.QueryAllBalancesResponse{})
 			},
-			path: "/quicksilver.epochs.v1.Query/EpochInfos",
+			path: "/blackfury.epochs.v1.Query/EpochInfos",
 			requestData: func() []byte {
 				return []byte{}
 			},

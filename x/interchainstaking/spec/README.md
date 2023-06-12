@@ -2,7 +2,7 @@
 
 ## Abstract
 
-Module, `x/interchainstaking`, defines and implements the core Quicksilver
+Module, `x/interchainstaking`, defines and implements the core Blackfury
 protocol.
 
 ## Contents
@@ -32,7 +32,7 @@ is created when a `CreateRegisteredZone` proposal has been passed by
 governance.
 
 It keeps track of the chain ID, and related IBC connection, Interchain Accounts
-managed by Quicksilver of the host chain (for the purposes of Deposit,
+managed by Blackfury of the host chain (for the purposes of Deposit,
 Delegation, Withdrawal and Performance monitoring), the host chain's
 validatorset, `aggregate_intent` and the `redemption_rate` used when minting
 and burning qAssets for native assets.
@@ -42,7 +42,7 @@ and burning qAssets for native assets.
 The `redemption_rate` is the ratio between qAsset supply, tracked by the Bank
 module, and the total number of native assets staked against a given zone. This
 ratio is used to determine how many qAssets to mint when staking with
-Quicksilver, to ensure everyone joins the pool with the correct proportion.
+Blackfury, to ensure everyone joins the pool with the correct proportion.
 Additionally, the previous epoch's redemption_rate is tracked, and used to
 calculate the number of tokens to unbond when redeeming qAssets. The minimum of
 the the current and last rates are used to negate an attack whereby a user can
@@ -74,7 +74,7 @@ allocate assets during delegation, rebalance and undelegation processes.
 ### Zone
 
 A `Zone` represents a Cosmos based blockchain that integrates with the
-Quicksilver protocol via Interchain Accounts (ICS) and Interblockchain
+Blackfury protocol via Interchain Accounts (ICS) and Interblockchain
 Communication (IBC).
 
 ```go
@@ -136,7 +136,7 @@ type Zone struct {
   validator selection;
 - **HoldingsAllocation** - proportional zone rewards allocation for asset
   holdings;
-- **LastEpochHeight** - the height of this chain at the last Quicksilver epoch
+- **LastEpochHeight** - the height of this chain at the last Blackfury epoch
   boundary;
 - **Tvl** - the Total Value Locked for this zone (in terms of Atom value);
 - **UnbondingPeriod** - this zone's unbonding period;
@@ -250,7 +250,7 @@ type Validator struct {
 - **CommissionRate** - the validator commission rate;
 - **DelegatorShares** -
 - **VotingPower** - the validator voting power on the remote zone;
-- **Score** - the validator Quicksilver protocol overall score;
+- **Score** - the validator Blackfury protocol overall score;
 - **Status** -
 - **Jailed** - is this validator currently jailed;
 - **Tombstoned** - is this validator tombstoned;
@@ -340,7 +340,7 @@ service Msg {
   rpc RequestRedemption(MsgRequestRedemption)
       returns (MsgRequestRedemptionResponse) {
     option (google.api.http) = {
-      post : "/quicksilver/tx/v1/interchainstaking/redeem"
+      post : "/blackfury/tx/v1/interchainstaking/redeem"
       body : "*"
     };
   };
@@ -348,7 +348,7 @@ service Msg {
   // validators.
   rpc SignalIntent(MsgSignalIntent) returns (MsgSignalIntentResponse) {
     option (google.api.http) = {
-      post : "/quicksilver/tx/v1/interchainstaking/intent"
+      post : "/blackfury/tx/v1/interchainstaking/intent"
       body : "*"
     };
   };
@@ -403,21 +403,21 @@ type MsgSignalIntent struct {
 Signal validator delegation intent by providing a comma seperated string
 containing a decimal weight and the bech32 validator address.
 
-`quicksilverd signal-intent [chain_id] [delegation_intent]`
+`blackfuryd signal-intent [chain_id] [delegation_intent]`
 
 Example:
 
-`quicksilverd signal-intent cosmoshub-4 0.3cosmosvaloper1xxxxxxxxx,0.3cosmosvaloper1yyyyyyyyy,0.4cosmosvaloper1zzzzzzzzz`
+`blackfuryd signal-intent cosmoshub-4 0.3cosmosvaloper1xxxxxxxxx,0.3cosmosvaloper1yyyyyyyyy,0.4cosmosvaloper1zzzzzzzzz`
 
 ### redeem
 
 Redeem qAssets for native tokens.
 
-`quicksilverd redeem [coins] [destination_address]`
+`blackfuryd redeem [coins] [destination_address]`
 
 Example:
 
-`quicksilverd redeem 2500000uatom cosmos1pgfzn0zhxjjgte7hprwtnqyhrn534lqk437x2w`
+`blackfuryd redeem 2500000uatom cosmos1pgfzn0zhxjjgte7hprwtnqyhrn534lqk437x2w`
 
 ## Proposals
 
@@ -425,7 +425,7 @@ Example:
 
 Submit a zone registration proposal.
 
-`quicksilverd register-zone [proposal-file]`
+`blackfuryd register-zone [proposal-file]`
 
 The proposal must include an initial deposit and the details must be provided
 as a json file, e.g.
@@ -433,14 +433,14 @@ as a json file, e.g.
 ```json
 {
   "title": "Register cosmoshub-4",
-  "description": "Onboard the cosmoshub-4 zone to Quicksilver",
+  "description": "Onboard the cosmoshub-4 zone to Blackfury",
   "connection_id": "connection-3",
   "base_denom": "uatom",
   "local_denom": "uqatom",
   "account_prefix": "cosmos",
   "multi_send": true,
   "liquidity_module": false,
-  "deposit": "512000000uqck"
+  "deposit": "512000000ufury"
 }
 ```
 
@@ -448,7 +448,7 @@ as a json file, e.g.
 
 Submit a zone update proposal.
 
-`quicksilverd update-zone [proposal-file]`
+`blackfuryd update-zone [proposal-file]`
 
 The proposal must include a deposit and the details must be provided as a json
 file, e.g.
@@ -464,7 +464,7 @@ file, e.g.
       "value": "true"
     }
   ],
-  "deposit": "512000000uqck"
+  "deposit": "512000000ufury"
 }
 ```
 
@@ -501,61 +501,61 @@ N/A
 service Query {
   // Zones provides meta data on connected zones.
   rpc Zones(QueryZonesRequest) returns (QueryZoneResponse) {
-    option (google.api.http).get = "/quicksilver/interchainstaking/v1/zones";
+    option (google.api.http).get = "/blackfury/interchainstaking/v1/zones";
   }
   // DepositAccount provides data on the deposit address for a connected zone.
   rpc DepositAccount(QueryDepositAccountForChainRequest)
       returns (QueryDepositAccountForChainResponse) {
     option (google.api.http).get =
-        "/quicksilver/interchainstaking/v1/zones/{chain_id}/deposit_address";
+        "/blackfury/interchainstaking/v1/zones/{chain_id}/deposit_address";
   }
   // DelegatorIntent provides data on the intent of the delegator for the given
   // zone.
   rpc DelegatorIntent(QueryDelegatorIntentRequest)
       returns (QueryDelegatorIntentResponse) {
     option (google.api.http).get =
-        "/quicksilver/interchainstaking/v1/zones/{chain_id}/delegator_intent/"
+        "/blackfury/interchainstaking/v1/zones/{chain_id}/delegator_intent/"
         "{delegator_address}";
   }
 
   // Delegations provides data on the delegations for the given zone.
   rpc Delegations(QueryDelegationsRequest) returns (QueryDelegationsResponse) {
     option (google.api.http).get =
-        "/quicksilver/interchainstaking/v1/zones/{chain_id}/delegations";
+        "/blackfury/interchainstaking/v1/zones/{chain_id}/delegations";
   }
 
    // Delegations provides data on the delegations for the given zone.
    rpc Receipts(QueryReceiptsRequest) returns (QueryReceiptsResponse) {
     option (google.api.http).get =
-        "/quicksilver/interchainstaking/v1/zones/{chain_id}/receipts";
+        "/blackfury/interchainstaking/v1/zones/{chain_id}/receipts";
   }
 
   // WithdrawalRecords provides data on the active withdrawals.
   rpc ZoneWithdrawalRecords(QueryWithdrawalRecordsRequest)
       returns (QueryWithdrawalRecordsResponse) {
     option (google.api.http).get =
-        "/quicksilver/interchainstaking/v1/zones/{chain_id}/withdrawal_records/{delegator_address}";
+        "/blackfury/interchainstaking/v1/zones/{chain_id}/withdrawal_records/{delegator_address}";
   }
 
   // WithdrawalRecords provides data on the active withdrawals.
   rpc WithdrawalRecords(QueryWithdrawalRecordsRequest)
       returns (QueryWithdrawalRecordsResponse) {
     option (google.api.http).get =
-        "/quicksilver/interchainstaking/v1/withdrawal_records";
+        "/blackfury/interchainstaking/v1/withdrawal_records";
   }
 
   // UnbondingRecords provides data on the active unbondings.
   rpc UnbondingRecords(QueryUnbondingRecordsRequest)
       returns (QueryUnbondingRecordsResponse) {
     option (google.api.http).get =
-        "/quicksilver/interchainstaking/v1/unbonding_records";
+        "/blackfury/interchainstaking/v1/unbonding_records";
   }
 
   // RedelegationRecords provides data on the active unbondings.
   rpc RedelegationRecords(QueryRedelegationRecordsRequest)
       returns (QueryRedelegationRecordsResponse) {
     option (google.api.http).get =
-        "/quicksilver/interchainstaking/v1/redelegation_records";
+        "/blackfury/interchainstaking/v1/redelegation_records";
   }
 }
 ```
@@ -564,7 +564,7 @@ service Query {
 
 Query registered zones.
 
-`quicksilverd query interchainstaking zones`
+`blackfuryd query interchainstaking zones`
 
 Example response:
 
@@ -675,17 +675,17 @@ zones:
 
 Query delegation intent for a given chain.
 
-`quicksilverd query interchainstaking intent [chain_id] [delegator_addr]`
+`blackfuryd query interchainstaking intent [chain_id] [delegator_addr]`
 
 ### deposit-account
 
 Query deposit account address for a given chain.
 
-`quicksilverd query interchainstaking deposit-account [chain_id]`
+`blackfuryd query interchainstaking deposit-account [chain_id]`
 
 ## Keepers
 
-<https://pkg.go.dev/github.com/ingenuity-build/quicksilver/x/interchainstaking/keeper>
+<https://pkg.go.dev/github.com/ingenuity-build/blackfury/x/interchainstaking/keeper>
 
 ## Parameters
 
@@ -702,8 +702,8 @@ Description of parameters:
 
 - `deposit_interval` - monitoring and handling interval of registered zones' deposit accounts;
 - `validatorset_interval` - monitoring and updating interval of registered zones' validator sets;
-- `commission_rate` - default commission rate for Quicksilver validators;
-- `unbonding_enabled` - flag to indicate if unbondings are enabled for the Quicksilver protocol;
+- `commission_rate` - default commission rate for Blackfury validators;
+- `unbonding_enabled` - flag to indicate if unbondings are enabled for the Blackfury protocol;
 
 ## Begin Block
 

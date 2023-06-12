@@ -9,9 +9,9 @@ import (
 	sdkioerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ingenuity-build/quicksilver/osmosis-types/gamm"
-	"github.com/ingenuity-build/quicksilver/osmosis-types/gamm/pool-models/internal/cfmm_common"
-	"github.com/ingenuity-build/quicksilver/utils/addressutils"
+	"github.com/ingenuity-build/blackfury/osmosis-types/gamm"
+	"github.com/ingenuity-build/blackfury/osmosis-types/gamm/pool-models/internal/cfmm_common"
+	"github.com/ingenuity-build/blackfury/utils/addressutils"
 )
 
 var _ gamm.PoolI = &Pool{}
